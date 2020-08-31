@@ -1,0 +1,102 @@
+import React, { useState } from 'react';
+import { EditBox, TopContainer, TopText, EditContainer, BackImg} from './styles';
+import BackIcon from '../../assets/Icon/icon_Back.png';
+import StandartButton from '../StandartButton';
+import { getToken } from "../../services/auth";
+import api from '../../services/api';
+import DatePicker, { registerLocale } from "react-datepicker";
+import ptbr from "date-fns/locale/pt-br"; // the locale you want
+registerLocale("pt", ptbr); // register it with the name you want
+
+function EditComponent({isRender, editDate}) {
+    const [title, setTitle] = useState(editDate.titulo);
+    const [mediator, setMediator] = useState(editDate.nome_mediador);
+    const [place, setPlace] = useState(editDate.local);
+    const [description, setDescription] = useState(editDate.descricao);
+    const [date, setDate] = useState(editDate.data_evento);
+    const [numberP, setNumber] = useState(editDate.max_participantes);
+    function handleSubmit(e){
+        let token = getToken();
+            if(title && mediator && date && description && place && numberP)
+            {     
+                const formData = {
+                'id_evento': editDate.id_evento,
+                'titulo' : title,
+                'local' : place,
+                'descricao' : description,
+                'data_evento' : date,
+                'max_participantes' : numberP,
+                }
+                  api.patch("/evento", formData, {
+                    headers:{
+                        'x-access-token':token
+                      }
+                })
+                .then(res => {
+                    //se ok voltar para tela de calender
+                        alert("Evento editado com sucesso!")
+                        isRender();
+                })
+                .catch(error => {
+                    console.log(error);
+    
+                    alert("Houve um problema na hora de editar os eventos!");
+                    e.preventDefault();
+                })
+            }
+            else
+            {
+                alert("Falta preeencher os dados!");
+                e.preventDefault();
+            }
+        }
+    
+    function handleDate(timezone)
+    {
+        let newDate=new Date(timezone);
+        newDate = `${newDate.getDate()}/${newDate.getMonth() + 1}/${newDate.getFullYear()}`;
+        return newDate;
+    }
+
+    function handleTime(timezone)
+    {
+        let newDate=new Date(timezone);
+        newDate = `${newDate.getHours() > 9? newDate.getUTCHours():'0' + newDate.getUTCHours()}:${newDate.getUTCMinutes() > 9? newDate.getUTCMinutes(): '0' + newDate.getUTCMinutes()}`;
+        return newDate;
+    }
+
+  return (
+    <EditBox>
+        <TopContainer>
+            <BackImg src={BackIcon} alt="LogoBIcon" onClick={isRender}/>
+            <TopText>Editar um evento</TopText>
+        </TopContainer>
+
+        <EditContainer onSubmit={handleSubmit}>
+            <input type="text" placeholder="Digite um novo título para o evento..." value={title} onChange={e => setTitle(e.target.value)}/>
+            <input type="text" placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
+            <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min="5" max="50"/>
+            <input type="text" placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
+            <DatePicker
+            locale={"pt"}
+            selected={""}
+            onChange={date => setDate(date)}
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            timeCaption="Hora"
+            dateFormat="dd/MM/yyyy - h:mm aa"
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
+            placeholderText={`${handleDate(editDate.data_evento)} - ${handleTime(editDate.data_evento)}`}/>
+
+            <textarea className='description' type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
+            
+            <StandartButton type={"submit"} text={"Salvar"} fontsize={"30px"} customStyle={{width:'80%', height:'55px'}}/>
+        </EditContainer>
+    </EditBox>
+  );
+}
+
+export default EditComponent;
