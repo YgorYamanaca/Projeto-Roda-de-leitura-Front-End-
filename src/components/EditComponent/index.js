@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { EditBox, TopContainer, TopText, EditContainer, BackImg} from './styles';
 import BackIcon from '../../assets/Icon/icon_Back.png';
 import StandartButton from '../StandartButton';
@@ -15,6 +15,27 @@ function EditComponent({isRender, editDate}) {
     const [description, setDescription] = useState(editDate.descricao);
     const [date, setDate] = useState(editDate.data_evento);
     const [numberP, setNumber] = useState(editDate.max_participantes);
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+    function useOutsideAlerter(ref) {
+      useEffect(() => {
+          /**
+           * Alert if clicked on outside of element
+           */
+          function handleClickOutside(event) {
+              if (ref.current && !ref.current.contains(event.target)) {
+                isRender()
+              }
+          }
+  
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+              // Unbind the event listener on clean up
+              document.removeEventListener("mousedown", handleClickOutside);
+          };
+      }, [ref]);
+  }
     function handleSubmit(e){
         let token = getToken();
             if(title && mediator && date && description && place && numberP)
@@ -66,7 +87,7 @@ function EditComponent({isRender, editDate}) {
     }
 
   return (
-    <EditBox>
+    <EditBox ref={wrapperRef}>
         <TopContainer>
             <BackImg src={BackIcon} alt="LogoBIcon" onClick={isRender}/>
             <TopText>Editar um evento</TopText>

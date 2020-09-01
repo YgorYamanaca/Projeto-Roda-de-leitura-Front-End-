@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import { UnSubscribeBox, ButtonBox, TopText } from './styles';
 import StandartButton from '../StandartButton';
 import { getToken } from "../../services/auth";
@@ -7,6 +7,27 @@ import { useSelector } from 'react-redux';
 
 function SubscribeComponent({isRender, event, eventClone}) {
     const selector = useSelector(state => state.user);
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+    function useOutsideAlerter(ref) {
+      useEffect(() => {
+          /**
+           * Alert if clicked on outside of element
+           */
+          function handleClickOutside(event) {
+              if (ref.current && !ref.current.contains(event.target)) {
+                isRender()
+              }
+          }
+  
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+              // Unbind the event listener on clean up
+              document.removeEventListener("mousedown", handleClickOutside);
+          };
+      }, [ref]);
+  }
     function handleDeleteEvent()
     {
         let token = getToken();
@@ -20,12 +41,14 @@ function SubscribeComponent({isRender, event, eventClone}) {
               }
           })
         .then(response => {
-          alert(`Você se desinscreveu do evento ${event.titulo}!`);
+          alert(`Você não está mais inscrito no evento ${event.titulo}!`);
           eventClone[0].map((clone) => {
             if(clone.id_evento === event.id_evento)
             {     
-              clone.inscritos.splice(clone.inscritos.indexOf(selector.id_usuario), 1)
-            }});
+              return clone.inscritos.splice(clone.inscritos.indexOf(selector.id_usuario), 1)
+            }
+            return null;
+          });
             
           isRender();
           eventClone[1](eventClone[0]);
@@ -39,8 +62,8 @@ function SubscribeComponent({isRender, event, eventClone}) {
     }
 
   return (
-    <UnSubscribeBox>
-        <TopText>Deseja desinscrever desse evento?</TopText>
+    <UnSubscribeBox ref={wrapperRef}>
+        <TopText>Deseja cancelar a inscrição desse evento?</TopText>
         <ButtonBox>  
             <StandartButton  text={"Não"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={isRender}/>
             <StandartButton  text={"Sim"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={handleDeleteEvent}/>

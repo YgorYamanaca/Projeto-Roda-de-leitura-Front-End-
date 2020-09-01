@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from 'react'
-import { Container, WhiteContainer, EventdialogContainer, TitleContainer, IconBox,
-    EventInfoContainer, InfoContainer, DescriptionContainer, WhiteContainerz5} from './styles';
+import { Container, WhiteContainer, TitleContainer, IconBox,
+    EventInfoContainer, InfoContainer, DescriptionContainer,} from './styles';
 import trashIcon from '../../assets/Icon/icon_trash.png';
 import editIcon from '../../assets/Icon/icon_edit.png';
 import checkIcon from '../../assets/Icon/icon_checkbox.png';

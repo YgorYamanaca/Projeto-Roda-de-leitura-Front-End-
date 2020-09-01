@@ -1,10 +1,31 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import { DeleteBox, ButtonBox, TopText } from './styles';
 import StandartButton from '../StandartButton';
 import { getToken } from "../../services/auth";
 import api from '../../services/api';
 
 function DeleteComponent({isRender, eventID, eventClone}){
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+    function useOutsideAlerter(ref) {
+      useEffect(() => {
+          /**
+           * Alert if clicked on outside of element
+           */
+          function handleClickOutside(event) {
+              if (ref.current && !ref.current.contains(event.target)) {
+                isRender()
+              }
+          }
+  
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+              // Unbind the event listener on clean up
+              document.removeEventListener("mousedown", handleClickOutside);
+          };
+      }, [ref]);
+  }
     function handleDeleteEvent(e)
     {
         e.preventDefault();
@@ -29,7 +50,7 @@ function DeleteComponent({isRender, eventID, eventClone}){
     }
 
     return (
-    <DeleteBox>
+    <DeleteBox ref={wrapperRef}>
         <TopText>Deseja mesmo excluir este evento?</TopText>
         <ButtonBox>  
             <StandartButton  text={"Não"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={isRender}/>
