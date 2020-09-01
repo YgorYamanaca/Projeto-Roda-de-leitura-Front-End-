@@ -5,7 +5,7 @@ export const SubscribeBox = styled.span`
     flex-direction: column;
     position:absolute;
     align-items:center;
-    width: 90%;
+    width: 50%;
     height: auto;
     margin-top:10%;
     background-color:#ffff;

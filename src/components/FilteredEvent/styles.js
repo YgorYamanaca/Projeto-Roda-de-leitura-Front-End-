@@ -32,7 +32,12 @@ export const TopText = styled.div`
 export const BackImg = styled.img`
     width:75px;
     height:75px;
-    :hover{
+    &:active
+    {
+        transform: scale(0.90);
+    }
+    &:hover
+    {
         cursor:pointer;
     }
 `;

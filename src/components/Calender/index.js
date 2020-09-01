@@ -34,7 +34,6 @@ function Calender()
   const [eventsDate, setEvents] = useState([{}]);  
   const selector = useSelector(state => state.user);
 
-  
   useEffect(() => {
         let token = getToken();
         api.get("/evento",{
@@ -77,20 +76,18 @@ function Calender()
   return (
     <Container>
       {isAddEventsRender?
-      <>
-      <WhiteContainer/>
-      <AddEventContainer>
-        {isAddEventsRender? <CreateComponent isRender={handleAddEvent}/> : null}
-      </AddEventContainer>
-      </>
+      <WhiteContainer>
+        <AddEventContainer>
+          {isAddEventsRender? <CreateComponent isRender={handleAddEvent}/> : null}
+        </AddEventContainer>
+      </WhiteContainer>
       : null}
       {isEventsListRender && eventsDate.filter(teste).length > 0? 
-      <>
-        <WhiteContainer/>
-        <EventsContainer>
-          {isEventsListRender && eventsDate.filter(teste).length > 0? <FilteredEvent isRender={handleEventsList} filterDate={filter} eventList={eventsDate.filter(teste)} data={[eventsDate, setEvents]} /> : null}
-        </EventsContainer>
-      </>
+        <WhiteContainer>
+          <EventsContainer >
+            {isEventsListRender && eventsDate.filter(teste).length > 0? <FilteredEvent isRender={handleEventsList} filterDate={filter} eventList={eventsDate.filter(teste)} data={[eventsDate, setEvents]} /> : null}
+          </EventsContainer>
+        </WhiteContainer>
           : null}
 
         <CalenderContainer>

@@ -71,45 +71,32 @@ function EventContainer({event, eventClone}) {
         setEventT(event.tipo);
         setParticipant(event.inscritos !== undefined? event.inscritos : "");
     }, [event])
-    return (
-        <>
+    return ( 
+        <Container>
         {isEditPageRender?
-            <>
-                {actualPath.pathname === "/events"? <WhiteContainer/> : <WhiteContainerz5/>}
-                <EventdialogContainer>
-                    <EditComponent isRender={handleEditPage} editDate={event}></EditComponent>
-                </EventdialogContainer>
-            </>
+            <WhiteContainer path={actualPath.pathname}>
+                <EditComponent isRender={handleEditPage} editDate={event}></EditComponent>
+            </WhiteContainer>
             : null}
         
         {isDeletePageRender?
-            <>
-                {actualPath.pathname === "/events"? <WhiteContainer/> : <WhiteContainerz5/>}
-                <EventdialogContainer>
-                    <DeleteComponent isRender={handleDelete} eventID={event.id_evento} eventClone={eventClone}></DeleteComponent>
-                </EventdialogContainer>
-            </>
+            <WhiteContainer path={actualPath.pathname}>
+                <DeleteComponent isRender={handleDelete} eventID={event.id_evento} eventClone={eventClone}></DeleteComponent>
+            </WhiteContainer>
             : null}
 
         {isSubscribePageRender?
-            <>
-                {actualPath.pathname === "/events"? <WhiteContainer/> : <WhiteContainerz5/>}
-                <EventdialogContainer>
-                    <SubscribeComponent isRender={handleSubPage} event={event} eventClone={eventClone}></SubscribeComponent>
-                </EventdialogContainer>
-            </>
+            <WhiteContainer path={actualPath.pathname}>
+                <SubscribeComponent isRender={handleSubPage} event={event} eventClone={eventClone}></SubscribeComponent>
+            </WhiteContainer>
             : null}
         
         {isUnSubscribePageRender?
-            <>
-                {actualPath.pathname === "/events"? <WhiteContainer/> : <WhiteContainerz5/>}
-                <EventdialogContainer>
-                    <UnSubscribeComponent isRender={handleUnSubPage} event={event} eventClone={eventClone}></UnSubscribeComponent>
-                </EventdialogContainer>
-            </>
+            <WhiteContainer path={actualPath.pathname}>
+                <UnSubscribeComponent isRender={handleUnSubPage} event={event} eventClone={eventClone}></UnSubscribeComponent>
+            </WhiteContainer>
             : null}
 
-        <Container>
             
             <EventInfoContainer>
                 <TitleContainer>     
@@ -158,7 +145,6 @@ function EventContainer({event, eventClone}) {
                 </DescriptionContainer>
             </EventInfoContainer>
         </Container>
-        </>
     )
 }
 

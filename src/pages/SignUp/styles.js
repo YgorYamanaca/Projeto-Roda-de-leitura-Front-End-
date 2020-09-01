@@ -1,9 +1,17 @@
 import styled from 'styled-components';
 
+export const SingUpScreen =styled.div`
+    font-family: 'Catamaran', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100%;
+    width:100%;
+`;
+
 export const SingUpBox = styled.div`
     background-color:#ffff;
     max-width:400px;
-    height:100%;
     margin:5% auto;
     padding:0px 5px;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
@@ -13,6 +21,14 @@ export const SingUpBox = styled.div`
         flex-direction:row;
         width:11.5%;
         height:9%;
+        &:active
+        {
+            transform: scale(0.90);
+        }
+        &:hover
+        {
+            cursor:pointer;
+        }
     }
 
     img.pucLogo{
@@ -32,8 +48,9 @@ export const Form = styled.form`
     padding:0px 30px;
     input
     {
+        font-family: 'Catamaran', sans-serif;
         width:350px;
-        font-size:20px;
+        font-size:18px;
         border:1px solid #DDD;
         background-color:#fafafa;
         margin: 2% 0;
@@ -57,4 +74,13 @@ export const SubmitButton = styled.button.attrs({
     border:0;
     border-radius:4px;
     margin-top:50px;
+    :hover
+    {
+        cursor:pointer;
+    }
+    :active
+    {
+        transform: scale(0.97);
+        box-shadow: -2px 3px 15px -5px rgba(0,0,0,0.3);
+    }
 `

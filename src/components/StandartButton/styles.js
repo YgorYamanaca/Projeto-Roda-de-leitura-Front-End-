@@ -10,6 +10,9 @@ export const Container = styled.button.attrs(props => ({
     height: ${(props) => props.heightStyle};
     width: ${(props) => props.widthStyle};
     padding:10px 2.5px;
+    border-radius:10px;
+    border: 0px solid;
+    overflow:hidden;
     img
     {
         width:12%;
@@ -23,5 +26,14 @@ export const Container = styled.button.attrs(props => ({
         font-weight:600;
         height:auto;
         width:auto;
+    }
+    :hover
+    {
+        cursor:pointer;
+    }
+    :active
+    {
+        transform: scale(0.97);
+        box-shadow: -2px 3px 15px -5px rgba(0,0,0,0.3);
     }
 `;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { LoginBox, Form, SubmitButton, LinkText , OrText} from './styles'
+import { LoginScreen, LoginBox, Form, SubmitButton, LinkText , OrText} from './styles'
 import PucLogo from '../../assets/Logo/logo_PUC_azul.png';
 import { Link, useHistory} from "react-router-dom";
 import { login } from '../../services/auth';
@@ -44,7 +44,7 @@ export default function Login() {
     }
 
     return (
-        <div className="LoginScreen">
+        <LoginScreen>
             <LoginBox>
                 <img src={PucLogo} alt="PucLogo"/>
                 <Form onSubmit={handleSubmit}>
@@ -60,13 +60,10 @@ export default function Login() {
                         OU
                     <hr/>
                 </OrText>
-                
-                <Link to={"/signup"}>
-                    <LinkText>
-                        Cadastrar-se
-                    </LinkText>
-                </Link>
+                <LinkText>
+                    <Link to={"/signup"}> Cadastrar-se </Link>
+                </LinkText>
             </LoginBox>
-        </div>
+        </LoginScreen>
     )
 }

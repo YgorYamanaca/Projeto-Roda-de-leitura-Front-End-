@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { SingUpBox, Form, SubmitButton } from './styles'
+import { SingUpBox, Form, SubmitButton, SingUpScreen } from './styles'
 import PucLogo from '../../assets/Logo/logo_PUC_azul.png';
 import BackIcon from '../../assets/Icon/icon_Back.png';
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from 'react-datepicker';
 import api from '../../services/api';
@@ -22,7 +22,7 @@ export default function SingUp() {
         month: n => months[n],
         day: n => days[n]
     },formatLong: {}}
-
+    
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
@@ -72,12 +72,10 @@ export default function SingUp() {
     }
 
     return (
-        <div className="SingUpScreen">
+        <SingUpScreen>
             <SingUpBox>
                 <span className="topSide">
-                    <Link to={"/"}>
-                        <img className={"backIcon"} src={BackIcon} alt="LogoBIcon"/>
-                    </Link>
+                    <img className={"backIcon"} src={BackIcon} alt="LogoBIcon" onClick={() => history.push("/")}/>
                 </span>
 
                 <img className="pucLogo" src={PucLogo} alt="PucLogo"/>
@@ -105,6 +103,6 @@ export default function SingUp() {
                 </Form>
                 
             </SingUpBox>
-        </div>
+        </SingUpScreen>
     )
 }

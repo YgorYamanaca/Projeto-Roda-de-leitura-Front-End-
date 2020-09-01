@@ -11,34 +11,25 @@ export const Container = styled.div`
 `;
 
 export const WhiteContainer = styled.div`
+    display:flex;
+    justify-content:center;
     position:absolute;
-    z-index:2;
     right:0;
     bottom:0;
-    width: calc(100% - 70px);
-    height: calc(100% - 80px);
-    background-color: white;
-    opacity:0.8;
+    z-index:11;
+    width:${ props => props.path === '/calender'? '100%' : 'calc(100% - 70px)'};
+    height: ${ props => props.path === '/calender'? '100%' : 'calc(100% - 80px)'};
+    background-color: rgba(0,0,0,0.3);
 `;
 
-export const WhiteContainerz5 = styled.div`
-    position:absolute;
-    z-index:9;
-    right:0;
-    bottom:0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    opacity:0.8;
-`;
 
 export const EventdialogContainer = styled.div`
     justify-content:center;
     display: flex;
     position:absolute;
     z-index:10;
-    width: calc(100% - 70px);
-    height: calc(100% - 80px);
+    width: 100%;
+    height: 100%;
     overflow-y: auto; 
     &::-webkit-scrollbar-track
     {
@@ -102,9 +93,13 @@ export const IconBox = styled.div`
         height: 40px;
         widows: 40px;
         margin: 5px 10px;
-        :hover
+        &:active
         {
-            cursor: pointer;
+            transform: scale(0.90);
+        }
+        &:hover
+        {
+            cursor:pointer;
         }
     }
 `;

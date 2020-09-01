@@ -7,6 +7,9 @@ export default createGlobalStyle`
     box-sizing: border-box;
 }
 
+html{
+    height:100%;
+}
 
 body, html, #root{
     font-family: 'Catamaran', sans-serif;
@@ -14,7 +17,6 @@ body, html, #root{
     font-size: 15px;
     -webkit-font-smoothing: antialiased !important;
     text-rendering: optimizeLegibility !important;
-    width:100%;
     height:100%;
 }
 

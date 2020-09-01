@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react'
+import React, { useState, useEffect, memo, useRef } from 'react'
 import { TopBarStyle, PUCLogo, UserContainer, Option } from '../../components/TopBar/styles'
 import PucLogo from '../../assets/Logo/logo_PUC.png';
 import Avatar from '../../assets/Icon/icon_avatar.png';
@@ -12,21 +12,43 @@ function TopBar({TopBarID}) {
     const [isExpand, setExpand] = useState(false);
     const dispatch = useDispatch();
     const selector = useSelector(state => state.user);
-
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+    
     useEffect(() => {
         setExpand(false);
     }, [location.pathname])
-    console.log(selector.id_usuario);
+    
+    function useOutsideAlerter(ref) {
+        useEffect(() => {
+            /**
+             * Alert if clicked on outside of element
+             */
+            function handleClickOutside(event) {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setExpand(false);
+                }
+            }
+    
+            // Bind the event listener
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                // Unbind the event listener on clean up
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
+
     return (    
         <>
-            <TopBarStyle onClick={() => isExpand? setExpand(!isExpand) : null}>
-                <PUCLogo src={PucLogo} alt="PucLogo" onClick={() => {history.push('/calender')}}/>
+            <TopBarStyle>
+                <PUCLogo src={PucLogo} alt="PucLogo"  onClick={() => {history.push('/calender')}}/>
                 <UserContainer>
-                    <img src={Avatar} alt="LogoAvatar" onClick={() => {setExpand(!isExpand)}}/>
+                    <img src={Avatar} alt="LogoAvatar" onClick={() => setExpand(!isExpand)}/>
                 </UserContainer>
             </TopBarStyle> 
             {isExpand?
-                <Option>
+                <Option ref={wrapperRef}>
                     <div> 
                         <img src={Avatar} alt="LogoAvatar"/>
                         <span>{selector.nome}</span>

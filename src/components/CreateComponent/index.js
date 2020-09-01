@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import BackIcon from '../../assets/Icon/icon_Back.png';
 import "react-datepicker/dist/react-datepicker.css";
 import api from '../../services/api';
@@ -17,7 +17,27 @@ function CreateComponent({isRender}) {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [numberP, setNumber] = useState('');
-    
+    const wrapperRef = useRef(null);
+    useOutsideAlerter(wrapperRef);
+    function useOutsideAlerter(ref) {
+      useEffect(() => {
+          /**
+           * Alert if clicked on outside of element
+           */
+          function handleClickOutside(event) {
+              if (ref.current && !ref.current.contains(event.target)) {
+                isRender()
+              }
+          }
+  
+          // Bind the event listener
+          document.addEventListener("mousedown", handleClickOutside);
+          return () => {
+              // Unbind the event listener on clean up
+              document.removeEventListener("mousedown", handleClickOutside);
+          };
+      }, [ref]);
+  }
     function handleSubmit(e){
         if(title && mediator && date && description && place && numberP)
         {
@@ -56,7 +76,7 @@ function CreateComponent({isRender}) {
     }
 
     return (
-    <AddEventBox>
+    <AddEventBox  ref={wrapperRef}>
     <TopContainer>
         <BackImg src={BackIcon} alt="LogoBIcon" onClick={isRender}/>
         <TopText>Adicionar um novo evento</TopText>

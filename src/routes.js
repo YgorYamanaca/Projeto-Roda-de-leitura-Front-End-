@@ -10,6 +10,7 @@ import { isAuthenticated } from "./services/auth";
 import  {Provider}  from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
+import GlobalStyle from './styles/global';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -27,6 +28,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 export default function Routes(){
     return (
       <Provider store={store}>
+        <GlobalStyle/>
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
                 <Switch>

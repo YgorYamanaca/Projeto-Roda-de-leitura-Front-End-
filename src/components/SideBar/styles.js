@@ -48,8 +48,12 @@ export const IconBox = styled.div`
         margin: 2px;
         max-width:75%;
         max-height:75%;
-    }
-    :hover{
+        :hover{
         cursor: pointer;
+        }
+        :active
+        {
+            transform: scale(0.90);
+        }
     }
 `;

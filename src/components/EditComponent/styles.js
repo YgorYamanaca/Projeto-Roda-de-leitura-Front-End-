@@ -6,7 +6,6 @@ export const EditBox = styled.span`
     position:absolute;
     width: 55%;
     height: auto;
-    margin-top:25px;
     background-color:#ffff;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
     border:1px solid #DDD;
@@ -44,9 +43,9 @@ export const EditContainer = styled.form`
     width:100%;
     height: 100%;
     padding:2%;
-
     input
     {
+        font-family: 'Catamaran', sans-serif;
         width:90%;
         height: auto;
         font-size:2.0vw;
@@ -65,15 +64,17 @@ export const EditContainer = styled.form`
         display:block;
         width:90%;
         height: auto;
+        font-family: 'Catamaran', sans-serif;
     }
 
 
     textarea.description
     {
+        font-family: 'Catamaran', sans-serif;
         display:flex;
         width:90%;
-        height:250px;
-        font-size:2.0vw;
+        height:200px;
+        font-size:20px;
         border:1px solid #DDD;
         margin: 2% 0;
         box-sizing: border-box;

@@ -1,37 +1,45 @@
 import styled from 'styled-components';
-
+export const LoginScreen =styled.div`
+    font-family: 'Catamaran', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100%;
+    width:100%;
+`;
 export const LoginBox = styled.div`
+    display:flex;
+    flex-direction:column;
     background-color:#ffff;
     max-width:400px;
-    height:100%;
     margin:5% auto;
     padding:15px;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
-
     img
     {
         display:flex;
         flex-direction:row;
-        margin:10px auto;
-        width:100%;
-        padding:25px;
+        margin:5px auto;
+        width:90%;
+        padding:15px;
     }
 `;
 
 export const Form = styled.form`
-    margin-top:10%;
+    margin-top:10px;
     display:flex;
     flex-direction:column;
     align-items:center;
     input
     {
-        width:100%;
-        font-size:25px;
+        font-family: 'Catamaran', sans-serif;
+        width:95%;
+        font-size:18px;
         border:1px solid #DDD;
         background-color:#fafafa;
-        margin: 2% 0;
+        margin: 10px 0;
         box-sizing: border-box;
-        padding: 0.5px 10px;
+        padding: 1.5px 10px;
         ::placeholder
         {
             opacity:0.5;
@@ -42,26 +50,44 @@ export const Form = styled.form`
 export const SubmitButton = styled.button.attrs({
     type:"submit"
 })`
-    margin-top:15%;
-    width:100%;
+    margin-top:30px;
+    width:95%;
     height:40px;
     font-size:25px;
     color:#ffff;
     background-color:#024ea2;
     border:0;
     border-radius:4px;
+    :hover
+    {
+        cursor:pointer;
+    }
+    :active
+    {
+        transform: scale(0.97);
+        box-shadow: -2px 3px 15px -5px rgba(0,0,0,0.3);
+    }
 `
 
 export const LinkText = styled.div`
-    font-size:24px;
-    color:#024ea2;
-    margin:2px 32% 5px;
-    font-weight: 700;
+    display:flex;
+    justify-content:center;
+    a
+    {
+        font-size:24px;
+        color:#024ea2;
+        margin:2px 32% 5px;
+        font-weight: 500;
+        :hover
+        {
+            color:#3471b4;
+        }
+    }
 `
 
 export const OrText = styled.div`
     font-size:25px;
-    margin:10% 0 5% 0;
+    margin:20px 0 5px 0px;
     display:flex;
     color:#DDD;
     flex-direction:row;

@@ -2,17 +2,19 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
+    position:relative;
     height: 100%;
     width: 100%;
 `;
 
 export const WhiteContainer = styled.div`
+    display:flex;
+    justify-content:center;
     position:absolute;
     z-index:5;
-    width: calc(100% - 70px);
-    height: calc(100% - 80px);
-    background-color: white;
-    opacity:0.8;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
 `;
 
 export const AddEventContainer = styled.div`
@@ -20,9 +22,8 @@ export const AddEventContainer = styled.div`
     display: flex;
     position:absolute;
     z-index:6;
-    width: calc(100% - 70px);
-    height: calc(100% - 80px);
-    overflow-y: auto; 
+    width: 100%;
+    height: 100%;
     &::-webkit-scrollbar-track
     {
         
@@ -49,9 +50,8 @@ export const EventsContainer = styled.div`
     display: flex;
     position:absolute;
     z-index:6;
-    width: calc(100% - 70px);
-    height: calc(100% - 80px);
-    overflow-y: auto; 
+    width: 100%;
+    height: 100%;
     &::-webkit-scrollbar-track
     {
         
@@ -113,7 +113,9 @@ export const CalenderBox = styled.div`
    
     height: 90%;
     width: 98%;
-    border: 5px solid #024ea2;
+    border: 10px solid #024ea2;
+    border-radius:5px;
+    overflow:hidden;
     margin:70px 5px 0 5px;
     div.rbc-header
     {
@@ -129,11 +131,33 @@ export const CalenderBox = styled.div`
         color: #FFFFFF;
         font-weight: 500;
         margin:2.5px;
+        :hover
+        {
+            cursor:pointer;
+            background-color: #0366d4;
+            color: #FFFFFF;
+            :active
+            {
+                background-color: #0366d4;
+                color: #FFFFFF;
+            }
+        }
+        :active
+        {
+            background-color: #024ea2;
+            color: #FFFFFF;
+            transform: scale(0.97);
+            box-shadow: -2px 3px 15px -5px rgba(0,0,0,0.3);
+        }
+        :focus
+        {
+            background-color: #024ea2;
+            color: #FFFFFF;
+        }
     }
     div.rbc-calendar
     {
         background-color: #024ea2;
-        height: 100%;
     }
     button.rbc-active
     {
@@ -143,7 +167,10 @@ export const CalenderBox = styled.div`
     div.rbc-day-bg.rbc-off-range-bg{
         background-color:#CFCFD2;
     }
-
+    div.rbc-day-bg.rbc-today
+    {
+        background-color:#8be2af;
+    }
     span.rbc-toolbar-label
     {
         text-transform:capitalize;
@@ -157,62 +184,39 @@ export const CalenderBox = styled.div`
     div.rbc-day-bg
     {
         background-color:#FFFFFF;
-        :hover{
-            cursor:pointer;
-        }
-        
-    }
-    div.rbc-event-content
-    {
-        pointer-events: none;
     }
 
-    div.rbc-date-cell
+    div.rbc-date-cell  
     {
         a{
             font-size:30px; 
             font-weight: 700;
             color: #024ea2;
-            pointer-events: none;
-            
+            pointer-events:none;
         }
-        :hover
-        {
-            cursor:pointer;
-       }
     }
-
     div.rbc-date-cell.rbc-off-range
     {
         a
         {
             opacity: 0.5;
+            pointer-events:none;
         }
-    }
-    div.rbc-row
-    {
-        :hover{
-            cursor:pointer;
-        }    
     }
     div.rbc-row-segment
     {
         display:flex;
         justify-content:center;
-        :hover{
-            cursor:pointer;
-        }
-        pointer-events: none;
-        
+        cursor:pointer;
     }
     div.rbc-event.rbc-selected
     {
-        pointer-events: none;
     }
     div.rbc-event
     {
         background-color:orange;
         width:80%;
+        pointer-events:none;
     }
     div.rbc-month-row.rbc-month-row 
     {
