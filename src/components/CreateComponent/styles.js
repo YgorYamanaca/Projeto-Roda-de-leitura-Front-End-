@@ -47,17 +47,18 @@ export const AddContainer = styled.form`
     flex-direction:column;
     align-items:center;
     width:100%;
-    height: 100%;
+    height: 90%;
     padding:2%;
 
     input
     {
+        font-family: 'Catamaran', sans-serif;
         width:90%;
         height: auto;
-        font-size:1.9vw;
+        font-size:20px;
         border:1px solid #DDD;
         background-color:#fafafa;
-        margin: 2% 0;
+        margin: 10px 0;
         box-sizing: border-box;
         padding: 0.5px 10px;
         ::placeholder{
@@ -76,10 +77,11 @@ export const AddContainer = styled.form`
 
     textarea.description
     {
+        font-family: 'Catamaran', sans-serif;
         display:flex;
         width:90%;
         height:250px;
-        font-size:2.0vw;
+        font-size:20px;
         border:1px solid #DDD;
         margin: 2% 0;
         box-sizing: border-box;

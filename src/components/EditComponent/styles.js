@@ -9,6 +9,7 @@ export const EditBox = styled.span`
     background-color:#ffff;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
     border:1px solid #DDD;
+    margin-top:25px;
 `;
 
 export const TopContainer = styled.div`
@@ -41,17 +42,17 @@ export const EditContainer = styled.form`
     flex-direction:column;
     align-items:center;
     width:100%;
-    height: 100%;
+    height: 90%;
     padding:2%;
     input
     {
         font-family: 'Catamaran', sans-serif;
         width:90%;
         height: auto;
-        font-size:2.0vw;
+        font-size:20px;
         border:1px solid #DDD;
         background-color:#fafafa;
-        margin: 2% 0;
+        margin: 10px 0;
         box-sizing: border-box;
         padding: 0.5px 10px;
         ::placeholder{

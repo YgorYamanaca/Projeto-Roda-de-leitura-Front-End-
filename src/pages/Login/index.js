@@ -27,7 +27,10 @@ export default function Login() {
                 //Resposta 200 e recebeu token mandar para a página home
                 dispatch({
                     type:'ADD_USER',
-                    user:{email:response.data.email, id_usuario: response.data.id, nome: response.data.nome, tipo_usuario: response.data.tipo_usuario}
+                    email:response.data.email, 
+                    id_usuario: response.data.id, 
+                    nome: response.data.nome, 
+                    tipo_usuario: response.data.tipo_usuario
                 })
                 history.push("/calender");
             })

@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import BackIcon from '../../assets/Icon/icon_Back.png';
 import "react-datepicker/dist/react-datepicker.css";
-import api from '../../services/api';
 import StandartButton from '../StandartButton';
 import { AddEventBox, BackImg, TopContainer, TopText, AddContainer  } from './styles';
 import DatePicker, { registerLocale } from "react-datepicker";
 import ptbr from "date-fns/locale/pt-br"; // the locale you want
-import { getToken } from "../../services/auth";
-
+import {addEventRequest} from '../../store/modules/eventsData/actions'
+import { useDispatch } from 'react-redux';
 registerLocale("pt", ptbr); // register it with the name you want
 
 function CreateComponent({isRender}) {
@@ -17,6 +16,7 @@ function CreateComponent({isRender}) {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [numberP, setNumber] = useState('');
+    const dispatch = useDispatch();
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
@@ -50,28 +50,14 @@ function CreateComponent({isRender}) {
                 'max_participantes' : numberP,
                 'tipo' : 'Roda de leitura'
             }
-            let token = getToken();
-               api.post("/evento", formData,{
-                headers:{
-                    'x-access-token':token
-                  }
-               })
-             .then(res => {
-                //se ok voltar para tela de calender
-                     alert("Evento criado com sucesso!")
-                     isRender();
-             })
-             .catch(error => {
-                console.log(error);
-                alert("Houve um problema no cadastro, verifique as informações digitadas."); 
-                e.preventDefault();
-             })
+            isRender();
+            dispatch(addEventRequest(formData));
+            e.preventDefault();
         }
         else
         {
             alert("Falta preeencher os dados!");
-            
-        e.preventDefault();
+            e.preventDefault();
         }
     }
 
@@ -85,11 +71,10 @@ function CreateComponent({isRender}) {
     <AddContainer onSubmit={handleSubmit}>
         <input type="text" placeholder="Digite o título do evento..." value={title} onChange={e => setTitle(e.target.value)}/>
         <input type="text" placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
-        <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min="5" max="50"/>
+        <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min={5} max={200}/>
         <input type="text" placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
 
         <DatePicker
-            customInput={<input type="text" placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>}
             locale={"pt"}
             selected={date}
             onChange={date => setDate(date)}

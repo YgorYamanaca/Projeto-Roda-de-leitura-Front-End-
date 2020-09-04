@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { EditBox, TopContainer, TopText, EditContainer, BackImg} from './styles';
 import BackIcon from '../../assets/Icon/icon_Back.png';
 import StandartButton from '../StandartButton';
-import { getToken } from "../../services/auth";
-import api from '../../services/api';
+import { useDispatch } from 'react-redux';
+import { editEventRequest } from '../../store/modules/eventsData/actions';
 import DatePicker, { registerLocale } from "react-datepicker";
 import ptbr from "date-fns/locale/pt-br"; // the locale you want
 registerLocale("pt", ptbr); // register it with the name you want
@@ -15,6 +15,7 @@ function EditComponent({isRender, editDate}) {
     const [description, setDescription] = useState(editDate.descricao);
     const [date, setDate] = useState(editDate.data_evento);
     const [numberP, setNumber] = useState(editDate.max_participantes);
+    const dispatch = useDispatch()
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
@@ -37,7 +38,6 @@ function EditComponent({isRender, editDate}) {
       }, [ref]);
   }
     function handleSubmit(e){
-        let token = getToken();
             if(title && mediator && date && description && place && numberP)
             {     
                 const formData = {
@@ -48,26 +48,13 @@ function EditComponent({isRender, editDate}) {
                 'data_evento' : date,
                 'max_participantes' : numberP,
                 }
-                  api.patch("/evento", formData, {
-                    headers:{
-                        'x-access-token':token
-                      }
-                })
-                .then(res => {
-                    //se ok voltar para tela de calender
-                        alert("Evento editado com sucesso!")
-                        isRender();
-                })
-                .catch(error => {
-                    console.log(error);
-    
-                    alert("Houve um problema na hora de editar os eventos!");
-                    e.preventDefault();
-                })
+                isRender();
+                dispatch(editEventRequest(formData))
+                e.preventDefault();
             }
             else
             {
-                alert("Falta preeencher os dados!");
+                alert("Falta preencher os dados!");
                 e.preventDefault();
             }
         }
@@ -100,7 +87,7 @@ function EditComponent({isRender, editDate}) {
             <input type="text" placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
             <DatePicker
             locale={"pt"}
-            selected={""}
+            selected={new Date (date)}
             onChange={date => setDate(date)}
             showTimeSelect
             timeFormat="HH:mm"

@@ -7,10 +7,11 @@ import { useSelector } from 'react-redux';
 
 export default function AllEvents() {
     const [eventsDate, setEvents] = useState();
-    const selector = useSelector(state => state.user);
+    const user = useSelector(state => state.user);
+    
     useEffect(() => {
         let token = getToken();
-        if(selector.tipo_usuario === "4")
+        if(user.tipo_usuario === "4")
         {
             api.get("evento/",{
                headers:{
@@ -26,7 +27,7 @@ export default function AllEvents() {
             })
         }
         else{
-            api.get(`evento/usuario/${parseInt(selector.id_usuario)}`,{
+            api.get(`evento/usuario/${parseInt(user.id_usuario)}`,{
             headers:{
                 'x-access-token':token
             }
@@ -39,7 +40,7 @@ export default function AllEvents() {
                 alert("Não foi possível receber os eventos!")
             })}
 
-    }, [])
+    }, [user.tipo_usuario, user.id_usuario])
 
     return(
         <Container>

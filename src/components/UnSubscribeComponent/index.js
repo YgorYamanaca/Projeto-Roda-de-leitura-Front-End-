@@ -1,12 +1,12 @@
 import React, {useRef, useEffect} from 'react';
 import { UnSubscribeBox, ButtonBox, TopText } from './styles';
 import StandartButton from '../StandartButton';
-import { getToken } from "../../services/auth";
-import api from '../../services/api';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {cancelSubEventRequest} from '../../store/modules/eventsData/actions'
 
-function SubscribeComponent({isRender, event, eventClone}) {
-    const selector = useSelector(state => state.user);
+function UnSubscribeComponent({isRender, eventID}) {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.user);
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
@@ -28,37 +28,11 @@ function SubscribeComponent({isRender, event, eventClone}) {
           };
       }, [ref]);
   }
-    function handleDeleteEvent()
+    function handleDeleteEvent(e)
     {
-        let token = getToken();
-        api.delete(`/inscricao`,{
-          data:{
-            id_evento : parseInt(event.id_evento), 
-            id_usuario : parseInt(selector.id_usuario)
-          },
-          headers:{
-              'x-access-token':token
-              }
-          })
-        .then(response => {
-          alert(`Você não está mais inscrito no evento ${event.titulo}!`);
-          eventClone[0].map((clone) => {
-            if(clone.id_evento === event.id_evento)
-            {     
-              return clone.inscritos.splice(clone.inscritos.indexOf(selector.id_usuario), 1)
-            }
-            return null;
-          });
-            
-          isRender();
-          eventClone[1](eventClone[0]);
-        })
-        .catch(error => {
-            console.log(error);
-    
-            alert("Problema com o servidor, não foi possível receber o seus dados!");
-        })
-        
+        e.preventDefault();
+        isRender();
+        dispatch(cancelSubEventRequest(eventID, user.id_usuario))
     }
 
   return (
@@ -72,4 +46,4 @@ function SubscribeComponent({isRender, event, eventClone}) {
   );
 }
 
-export default SubscribeComponent;
+export default UnSubscribeComponent;

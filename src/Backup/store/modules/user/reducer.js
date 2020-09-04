@@ -4,12 +4,7 @@ export default function user(state = INITIAL_STATE, action){
     switch(action.type)
     {
         case 'ADD_USER':
-            return {
-                email:action.email,
-                id_usuario:action.id_usuario,
-                nome:action.nome,
-                tipo_usuario:action.tipo_usuario
-            };
+            return{...state, user: action.user};
 
         case 'CLEAR_USER':
             return INITIAL_STATE;

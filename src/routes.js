@@ -44,6 +44,6 @@ export default function Routes(){
                 </Switch>
             </BrowserRouter>
           </PersistGate>
-        </Provider>
+          </Provider>
     );
 }

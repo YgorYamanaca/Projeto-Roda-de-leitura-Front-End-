@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 export default function UserComponent() {
   const [userData, setUser] = useState({});
-  const selector = useSelector(state => state.user);
+  const user = useSelector(state => state.user);
 
     const admUser = (userData) => {
       let newDate = new Date(userData.data_nasc);
@@ -94,7 +94,7 @@ export default function UserComponent() {
 
   useEffect(() => {
     let token = getToken();
-    api.get(`/usuario/${selector.id_usuario}`,{
+    api.get(`/usuario/${user.id_usuario}`,{
       headers:{
           'x-access-token':token
           }
@@ -107,7 +107,7 @@ export default function UserComponent() {
 
         alert("Problema com o servidor, não foi possível receber o seus dados!");
     })
-  }, [])
+  }, [user.id_usuario])
 
   return (
       <Container>

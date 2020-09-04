@@ -26,7 +26,7 @@ function EventContainer({event, eventClone}) {
     const [numberParticipant, setParticipant] = useState("");
     const [numberMax, setNumberMax] = useState("");
     const [eventType, setEventT] = useState("");
-    const selector = useSelector(state => state.user);
+    const user = useSelector(state => state.user);
    function handleDate(timezone)
     {
         let newDate=new Date(timezone);
@@ -71,6 +71,7 @@ function EventContainer({event, eventClone}) {
         setEventT(event.tipo);
         setParticipant(event.inscritos !== undefined? event.inscritos : "");
     }, [event])
+
     return ( 
         <Container>
         {isEditPageRender?
@@ -81,19 +82,19 @@ function EventContainer({event, eventClone}) {
         
         {isDeletePageRender?
             <WhiteContainer path={actualPath.pathname}>
-                <DeleteComponent isRender={handleDelete} eventID={event.id_evento} eventClone={eventClone}></DeleteComponent>
+                <DeleteComponent isRender={handleDelete} eventID={event.id_evento}></DeleteComponent>
             </WhiteContainer>
             : null}
 
         {isSubscribePageRender?
             <WhiteContainer path={actualPath.pathname}>
-                <SubscribeComponent isRender={handleSubPage} event={event} eventClone={eventClone}></SubscribeComponent>
+                <SubscribeComponent isRender={handleSubPage} eventID={event.id_evento} eventClone={eventClone}></SubscribeComponent>
             </WhiteContainer>
             : null}
         
         {isUnSubscribePageRender?
             <WhiteContainer path={actualPath.pathname}>
-                <UnSubscribeComponent isRender={handleUnSubPage} event={event} eventClone={eventClone}></UnSubscribeComponent>
+                <UnSubscribeComponent isRender={handleUnSubPage} eventID={event.id_evento} eventClone={eventClone}></UnSubscribeComponent>
             </WhiteContainer>
             : null}
 
@@ -104,17 +105,17 @@ function EventContainer({event, eventClone}) {
                         <div className="titleSquare"></div>
                         {title} - {eventType}
                     </div>
-                    {selector.tipo_usuario === "4"?
+                    {user.tipo_usuario === "4"?
                     <IconBox>
                         <img src={editIcon} alt="logoEdit" onClick={handleEditPage}/>
                         <img src={trashIcon} alt="logoTrash" onClick={handleDelete}/>
                     </IconBox>:
                      null}
 
-                    {selector.tipo_usuario !== "4"?
+                    {user.tipo_usuario !== "4"?
                     <IconBox>
                         {numberParticipant[0] !== undefined? 
-                            numberParticipant.find(element => element.id_usuario === selector.id_usuario)? 
+                            numberParticipant.find(element => element.id_usuario === user.id_usuario)? 
                                 <img src={unCheckIcon} alt="logoCancelSubscribe" onClick={handleUnSubPage}/> : numberParticipant.length === numberMax? null : <img src={checkIcon} alt="logoSubscribe" onClick={handleSubPage}/>
                          : <img src={checkIcon} alt="logoSubscribe" onClick={handleSubPage}/>}
                     </IconBox>:

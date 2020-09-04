@@ -11,7 +11,7 @@ function TopBar({TopBarID}) {
     const location = useLocation();
     const [isExpand, setExpand] = useState(false);
     const dispatch = useDispatch();
-    const selector = useSelector(state => state.user);
+    const user = useSelector(state => state.user);
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
     
@@ -43,18 +43,18 @@ function TopBar({TopBarID}) {
         <>
             <TopBarStyle>
                 <PUCLogo src={PucLogo} alt="PucLogo"  onClick={() => {history.push('/calender')}}/>
-                <UserContainer>
-                    <img src={Avatar} alt="LogoAvatar" onClick={() => setExpand(!isExpand)}/>
+                <UserContainer isExpand={isExpand}>
+                    <img src={Avatar} alt="LogoAvatar" onClick={() => setExpand(true)}/>
                 </UserContainer>
             </TopBarStyle> 
             {isExpand?
                 <Option ref={wrapperRef}>
                     <div> 
                         <img src={Avatar} alt="LogoAvatar"/>
-                        <span>{selector.nome}</span>
+                        <span>{user.nome}</span>
                     </div>
                     <li onClick={() => {history.push('/user')}}>Meu Perfil</li>
-                    <li onClick={() => {history.push('/events')}}>{selector.tipo_usuario === "4"? "Eventos Cadastrados" :  "Meus Eventos"}</li>
+                    <li onClick={() => {history.push('/events')}}>{user.tipo_usuario === "4"? "Eventos Cadastrados" :  "Meus Eventos"}</li>
                     <li onClick={() => {logout(); dispatch({ type:'CLEAR_USER' }); history.push('/')}}>Sair</li>
                 </Option> : null}
             </>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, WhiteContainer, CalenderContainer, AddEventContainer, CalenderBox,  EventsContainer} from './styles';
+import { Container, WhiteContainer, CalenderContainer, CalenderHeader, AddEventContainer, CalenderBox,  EventsContainer} from './styles';
 import StandartButton from '../StandartButton';
 import Plus from '../../assets/Icon/icon_plus.png';
 import { getToken } from "../../services/auth";
@@ -10,7 +10,8 @@ import moment from 'moment';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import 'moment/locale/pt-br'
 import FilteredEvent from '../FilteredEvent'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addEventsData } from '../../store/modules/eventsData/actions'
 
 function Calender() 
 {
@@ -27,26 +28,25 @@ function Calender()
     time: 'Hora',
     event: 'Evento',
   };
+  const user = useSelector(state => state.user);
   const localizer = momentLocalizer(moment);
   const [filter, setFilter] = useState([]);
   const [isAddEventsRender, setEventsRender] = useState(false);
   const [isEventsListRender, setEventsListRender] = useState(false);
-  const [eventsDate, setEvents] = useState([{}]);  
-  const selector = useSelector(state => state.user);
-
+  const events = useSelector(state => state.eventsData);
+  const dispatch = useDispatch();
   useEffect(() => {
         let token = getToken();
         api.get("/evento",{
           headers:{'x-access-token':token} //Validar se é adm para ver se pode retornar todos os dados
         })
         .then(response => {
-          setEvents(response.data)
+          dispatch(addEventsData(response.data))
         })
         .catch(error => {
-            console.log(error);
             alert("Não foi possível receber os eventos!");
         })
-  },[])
+  },[dispatch])
 
   function handleAddEvent(){
     setEventsRender(!isAddEventsRender);
@@ -73,6 +73,7 @@ function Calender()
     setFilter(data.start);
     setEventsListRender(!isEventsListRender);
   }
+  
   return (
     <Container>
       {isAddEventsRender?
@@ -82,21 +83,23 @@ function Calender()
         </AddEventContainer>
       </WhiteContainer>
       : null}
-      {isEventsListRender && eventsDate.filter(teste).length > 0? 
+      {isEventsListRender && events.filter(teste).length > 0? 
         <WhiteContainer>
           <EventsContainer >
-            {isEventsListRender && eventsDate.filter(teste).length > 0? <FilteredEvent isRender={handleEventsList} filterDate={filter} eventList={eventsDate.filter(teste)} data={[eventsDate, setEvents]} /> : null}
+            {isEventsListRender && events.filter(teste).length > 0? <FilteredEvent isRender={handleEventsList} filterDate={filter} eventList={events.filter(teste)} data={events} /> : null}
           </EventsContainer>
         </WhiteContainer>
           : null}
 
         <CalenderContainer>
-          {selector.tipo_usuario === '4'? <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'225px', height:'55px'}} onClick={handleAddEvent}/> : null}
+          <CalenderHeader>
+            {user.tipo_usuario === '4'? <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
+          </CalenderHeader> 
           <CalenderBox>
             <Calendar
               selectable={'ignoreEvents'} 
               localizer={localizer}
-              events={eventsDate.length > 0? eventsDate : [{}]}
+              events={events && events.length > 0? events : [{}]}
               views={{
                 month: true,
               }}

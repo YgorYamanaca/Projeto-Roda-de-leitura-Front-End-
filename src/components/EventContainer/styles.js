@@ -8,6 +8,7 @@ export const Container = styled.div`
     margin:3.0% auto;
     padding:10px 35px 15px 35px;
     border:1px solid #DDD;
+    font-family: 'Catamaran', sans-serif;
 `;
 
 export const WhiteContainer = styled.div`

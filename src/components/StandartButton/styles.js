@@ -13,6 +13,8 @@ export const Container = styled.button.attrs(props => ({
     border-radius:10px;
     border: 0px solid;
     overflow:hidden;
+    padding:5px;
+    margin:5px;
     img
     {
         width:12%;
@@ -21,6 +23,7 @@ export const Container = styled.button.attrs(props => ({
     }
     div
     {
+        font-family: 'Catamaran', sans-serif;
         color: #fafafa;
         font-size:${(props) => props.fontsize};
         font-weight:600;

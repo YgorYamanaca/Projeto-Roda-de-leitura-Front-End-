@@ -35,6 +35,8 @@ export const UserContainer = styled.div`
         {
             cursor: pointer;
         }
+
+        pointer-events:${props => props.isExpand? "none" : ""}
     }
 `;
 

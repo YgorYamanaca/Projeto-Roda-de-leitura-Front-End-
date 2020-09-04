@@ -75,6 +75,7 @@ export const EventsContainer = styled.div`
 
 export const CalenderContainer = styled.div`
     display:flex;
+    flex-direction:column;
     justify-content:center;
     overflow: auto;
     height: 100%;
@@ -99,14 +100,6 @@ export const CalenderContainer = styled.div`
         box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         background-color: #024ea2;
     }
-
-    button.addButton
-    {    
-        position:absolute;
-        z-index:1;
-        margin: 0.2% 0.5%;
-        right: 0;
-    }
 `;
 
 export const CalenderBox = styled.div`
@@ -116,7 +109,8 @@ export const CalenderBox = styled.div`
     border: 10px solid #024ea2;
     border-radius:5px;
     overflow:hidden;
-    margin:70px 5px 0 5px;
+    margin:10px;
+    align-self: center;
     div.rbc-header
     {
         text-transform:capitalize;
@@ -184,15 +178,17 @@ export const CalenderBox = styled.div`
     div.rbc-day-bg
     {
         background-color:#FFFFFF;
+        cursor:pointer;
     }
-
     div.rbc-date-cell  
     {
+        cursor:pointer;
         a{
             font-size:30px; 
             font-weight: 700;
             color: #024ea2;
             pointer-events:none;
+            cursor:default;
         }
     }
     div.rbc-date-cell.rbc-off-range
@@ -208,9 +204,6 @@ export const CalenderBox = styled.div`
         display:flex;
         justify-content:center;
         cursor:pointer;
-    }
-    div.rbc-event.rbc-selected
-    {
     }
     div.rbc-event
     {
@@ -256,4 +249,13 @@ export const CalenderBox = styled.div`
         margin-right:0.6%;
     }
 
+`;
+
+export const CalenderHeader = styled.div`
+    display:flex;
+    button.addButton
+    {  
+        position:relative;
+        margin: 5px 10px 5px auto;
+    }
 `;
