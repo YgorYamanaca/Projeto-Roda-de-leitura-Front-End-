@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import UserComponent from './components/UserComponent';
 import AllEvents from './components/AllEvents'
 import Calender from './components/Calender';
+import Forum from './components/Forum'
 import { isAuthenticated } from "./services/auth";
 import  {Provider}  from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -39,6 +40,8 @@ export default function Routes(){
                         <PrivateRoute exact path="/user" component={UserComponent}/>
                         <PrivateRoute exact path="/calender" component={Calender}/>
                         <PrivateRoute exact path="/events" component={AllEvents}/>
+                        <PrivateRoute exact path="/forum" component={Forum}/>
+
                     </Home>
                     <Redirect from="*" to="/" />
                 </Switch>
