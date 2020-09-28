@@ -72,6 +72,7 @@ function Calender()
   function handleEventsList(data){
     setFilter(data.start);
     setEventsListRender(!isEventsListRender);
+    console.log(data.start)
   }
   
   return (

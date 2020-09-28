@@ -27,13 +27,13 @@ export const IconBox = styled.div`
     align-items:center;
     width: 100%;
     height:75px;
-    font-size:12px;
+    font-size:14px;
     /*Precisa de media query na fonte */
     overflow-wrap: break-word;
     font-weight:500;
     text-align: center;
     color: #fafafa;
-    margin-bottom:40px;
+    margin-bottom:30px;
     div
     {
         width:100%;
