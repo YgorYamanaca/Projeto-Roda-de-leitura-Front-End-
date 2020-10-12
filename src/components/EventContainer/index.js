@@ -13,6 +13,7 @@ import UnSubscribeComponent from '../UnSubscribeComponent/';
 import { useSelector } from 'react-redux';
 
 function EventContainer({event}) {
+    console.log("Teste", event)
     const toDay = new Date();
     const [isDeletePageRender, setDeletePage] = useState(false);
     const [isEditPageRender, setEditPage] = useState(false);
@@ -106,14 +107,14 @@ function EventContainer({event}) {
                         <div className="titleSquare"></div>
                         {title} - {eventType}
                     </div>
-                    {user.tipo_usuario === "4"?
+                    {user.tipo_usuario === 4?
                     <IconBox>
                         <img src={editIcon} alt="logoEdit" onClick={handleEditPage}/>
                         <img src={trashIcon} alt="logoTrash" onClick={handleDelete}/>
                     </IconBox>:
                      null}
 
-                    {user.tipo_usuario !== "4" & toDay < new Date(event.data_evento)?
+                    {user.tipo_usuario !== 4 & toDay < new Date(event.data_evento)?
                     <IconBox>
                         {numberParticipant[0] !== undefined? 
                             numberParticipant.find(element => element.id_usuario === user.id_usuario)? 

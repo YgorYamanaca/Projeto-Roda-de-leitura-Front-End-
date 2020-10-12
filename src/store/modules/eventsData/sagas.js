@@ -69,7 +69,6 @@ function* addEvent({eventData})
     }
     else
     {
-        console.log(response.data);
         alert("Houve um problema no cadastro, verifique as informações digitadas."); 
     }
 }
@@ -84,7 +83,6 @@ function* removeEvent({eventID})
     }
     else
     {
-        console.log(response.data);
         alert("Houve um problema ao tentar deletar o evento");
     }
 }
@@ -113,7 +111,6 @@ function* subscribeEvent({eventID, user})
     }
     else
     {
-        console.log(response.data);
         alert("Problema com o servidor, não foi possível se inscrever no evento!");
     }
 }
@@ -128,7 +125,6 @@ function* cancelSubEvent({eventID, userID})
     }
     else
     {
-        console.log(response.data);
         alert("Problema com o servidor, não foi possível receber o seus dados!");
     }
 }

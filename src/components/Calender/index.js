@@ -72,7 +72,6 @@ function Calender()
   function handleEventsList(data){
     setFilter(data.start);
     setEventsListRender(!isEventsListRender);
-    console.log(data.start)
   }
   
   return (
@@ -94,7 +93,7 @@ function Calender()
 
         <CalenderContainer>
           <CalenderHeader>
-            {user.tipo_usuario === '4'? <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
+            {user.tipo_usuario === 4? <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
           </CalenderHeader> 
           <CalenderBox>
             <Calendar

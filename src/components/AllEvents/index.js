@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container } from './styles';
 import { getToken } from "../../services/auth";
 import EventContainer from '../../components/EventContainer/';
@@ -10,10 +10,9 @@ export default function AllEvents() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user);
     const eventsDate = useSelector(state => state.eventsData);
-    console.log(eventsDate)
     useEffect(() => {
         let token = getToken();
-        if(user.tipo_usuario === "4")
+        if(user.tipo_usuario === 4)
         {
             api.get("evento/",{
                headers:{
@@ -35,7 +34,6 @@ export default function AllEvents() {
             }
             })
             .then(response => {
-                console.log(response);
                 dispatch(addEventsData(response.data))
             })
             .catch(error => {
