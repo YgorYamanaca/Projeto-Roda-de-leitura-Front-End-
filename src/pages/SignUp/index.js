@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from 'react-datepicker';
 import api from '../../services/api';
+import { isMobile } from "react-device-detect";
 
 export default function SingUp() {
     let history = useHistory();
@@ -73,13 +74,13 @@ export default function SingUp() {
 
     return (
         <SingUpScreen>
-            <SingUpBox>
+            <SingUpBox mobile={isMobile}>
                 <span className="topSide">
                     <img className={"backIcon"} src={BackIcon} alt="LogoBIcon" onClick={() => history.push("/")}/>
                 </span>
 
                 <img className="pucLogo" src={PucLogo} alt="PucLogo"/>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} mobile={isMobile}>
                     <input type="text" placeholder="Digite o seu Nome..." value={name} onChange={e => setName(e.target.value)}/>
                     <input type="email" placeholder="Digite o seu e-mail..." value={email} onChange={e => setEmail(e.target.value)}/>
                     <input type="password" placeholder="Digite a sua Senha..." value={password} onChange={e => setPassword(e.target.value)}/>
@@ -97,7 +98,7 @@ export default function SingUp() {
                         dropdownMode="select"
                     />
 
-                    <SubmitButton type="submit">
+                    <SubmitButton type="submit" mobile={isMobile}>
                         Cadastrar
                     </SubmitButton>
                 </Form>

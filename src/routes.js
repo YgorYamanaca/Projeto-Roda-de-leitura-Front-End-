@@ -41,7 +41,6 @@ export default function Routes(){
                         <PrivateRoute exact path="/calender" component={Calender}/>
                         <PrivateRoute exact path="/events" component={AllEvents}/>
                         <PrivateRoute exact path="/forum" component={Forum}/>
-
                     </Home>
                     <Redirect from="*" to="/" />
                 </Switch>

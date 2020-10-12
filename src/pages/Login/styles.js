@@ -11,7 +11,7 @@ export const LoginBox = styled.div`
     display:flex;
     flex-direction:column;
     background-color:#ffff;
-    max-width:400px;
+    width:${props => props.mobile? '300px' : '400px'};
     margin:5% auto;
     padding:15px;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
@@ -34,12 +34,13 @@ export const Form = styled.form`
     {
         font-family: 'Catamaran', sans-serif;
         width:95%;
-        font-size:18px;
+        font-size:${props => props.mobile? '14px' : '18px'};
         border:1px solid #DDD;
         background-color:#fafafa;
         margin: 10px 0;
         box-sizing: border-box;
         padding: 1.5px 10px;
+        text-overflow: ellipsis;
         ::placeholder
         {
             opacity:0.5;
@@ -52,8 +53,8 @@ export const SubmitButton = styled.button.attrs({
 })`
     margin-top:30px;
     width:95%;
-    height:40px;
-    font-size:25px;
+    height:${props => props.mobile? '35px' : '40px'};
+    font-size:${props => props.mobile? '18px' : '25px'};
     color:#ffff;
     background-color:#024ea2;
     border:0;
@@ -74,7 +75,7 @@ export const LinkText = styled.div`
     justify-content:center;
     a
     {
-        font-size:24px;
+        font-size:${props => props.mobile? '18px' : '24px'};
         color:#024ea2;
         margin:2px 32% 5px;
         font-weight: 500;
@@ -86,7 +87,7 @@ export const LinkText = styled.div`
 `
 
 export const OrText = styled.div`
-    font-size:25px;
+    font-size:${props => props.mobile? '19px' : '25px'};
     margin:20px 0 5px 0px;
     display:flex;
     color:#DDD;

@@ -5,6 +5,7 @@ import { Link, useHistory} from "react-router-dom";
 import { login } from '../../services/auth';
 import api from '../../services/api';
 import { useDispatch } from 'react-redux';
+import { isMobile } from "react-device-detect";
 
 export default function Login() {
     const history = useHistory();
@@ -45,25 +46,24 @@ export default function Login() {
             alert("Preencha e-mail ou senha para continuar!");
         }
     }
-
     return (
         <LoginScreen>
-            <LoginBox>
+            <LoginBox mobile={isMobile}>
                 <img src={PucLogo} alt="PucLogo"/>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} mobile={isMobile}>
                     <input type="email" placeholder="Digite o seu e-mail..." value={email} onChange={e => setEmail(e.target.value)}/>
                     <input type="password" placeholder="Digite a sua senha..." value={password} onChange={e => setPassword(e.target.value)}/>
-                    <SubmitButton>
+                    <SubmitButton mobile={isMobile}>
                         Entrar
                     </SubmitButton>
                 </Form>
 
-                <OrText>
+                <OrText mobile={isMobile}>
                     <hr/>
                         OU
                     <hr/>
                 </OrText>
-                <LinkText>
+                <LinkText mobile={isMobile}>
                     <Link to={"/signup"}> Cadastrar-se </Link>
                 </LinkText>
             </LoginBox>

@@ -41,6 +41,7 @@ function Calender()
           headers:{'x-access-token':token} //Validar se é adm para ver se pode retornar todos os dados
         })
         .then(response => {
+          console.log(response)
           dispatch(addEventsData(response.data))
         })
         .catch(error => {
