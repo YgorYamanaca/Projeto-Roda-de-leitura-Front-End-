@@ -3,12 +3,14 @@ import { Container } from './styles';
 import { getToken } from "../../services/auth";
 import EventContainer from '../../components/EventContainer/';
 import api from '../../services/api';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addEventsData } from '../../store/modules/eventsData/actions'
 
 export default function AllEvents() {
-    const [eventsDate, setEvents] = useState();
+    const dispatch = useDispatch()
     const user = useSelector(state => state.user);
-    
+    const eventsDate = useSelector(state => state.eventsData);
+    console.log(eventsDate)
     useEffect(() => {
         let token = getToken();
         if(user.tipo_usuario === "4")
@@ -19,7 +21,7 @@ export default function AllEvents() {
                }
             })
             .then(response => {
-                setEvents(response.data);
+                dispatch(addEventsData(response.data))
             })
             .catch(error => {
                 console.log(error);
@@ -33,19 +35,20 @@ export default function AllEvents() {
             }
             })
             .then(response => {
-                setEvents(response.data);
+                console.log(response);
+                dispatch(addEventsData(response.data))
             })
             .catch(error => {
                 console.log(error);
                 alert("Não foi possível receber os eventos!")
             })}
 
-    }, [user.tipo_usuario, user.id_usuario])
+    }, [user.tipo_usuario, user.id_usuario, dispatch])
 
     return(
         <Container>
             {eventsDate !== undefined? eventsDate.map((event, index) => {
-        return(<EventContainer key={index} event={event} eventClone={[eventsDate, setEvents]}/>)}) : null}
+        return(<EventContainer key={index} event={event}/>)}) : null}
         </Container>
     );
 }

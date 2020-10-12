@@ -12,7 +12,8 @@ import SubscribeComponent from '../SubscribeComponent/';
 import UnSubscribeComponent from '../UnSubscribeComponent/';
 import { useSelector } from 'react-redux';
 
-function EventContainer({event, eventClone}) {
+function EventContainer({event}) {
+    const toDay = new Date();
     const [isDeletePageRender, setDeletePage] = useState(false);
     const [isEditPageRender, setEditPage] = useState(false);
     const [isSubscribePageRender, setSubPage] = useState(false);
@@ -88,13 +89,13 @@ function EventContainer({event, eventClone}) {
 
         {isSubscribePageRender?
             <WhiteContainer path={actualPath.pathname}>
-                <SubscribeComponent isRender={handleSubPage} eventID={event.id_evento} eventClone={eventClone}></SubscribeComponent>
+                <SubscribeComponent isRender={handleSubPage} eventID={event.id_evento}></SubscribeComponent>
             </WhiteContainer>
             : null}
         
         {isUnSubscribePageRender?
             <WhiteContainer path={actualPath.pathname}>
-                <UnSubscribeComponent isRender={handleUnSubPage} eventID={event.id_evento} eventClone={eventClone}></UnSubscribeComponent>
+                <UnSubscribeComponent isRender={handleUnSubPage} eventID={event.id_evento}></UnSubscribeComponent>
             </WhiteContainer>
             : null}
 
@@ -112,7 +113,7 @@ function EventContainer({event, eventClone}) {
                     </IconBox>:
                      null}
 
-                    {user.tipo_usuario !== "4"?
+                    {user.tipo_usuario !== "4" & toDay < new Date(event.data_evento)?
                     <IconBox>
                         {numberParticipant[0] !== undefined? 
                             numberParticipant.find(element => element.id_usuario === user.id_usuario)? 
