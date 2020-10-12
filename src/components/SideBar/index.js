@@ -5,26 +5,27 @@ import IconForum from '../../assets/Icon/icon_Forum.png'
 import IconHelp from '../../assets/Icon/icon_info.png'
 import IconMore from '../../assets/Icon/icon_more.png'
 import { useHistory, useLocation } from 'react-router-dom'
+import { isMobile } from "react-device-detect";
 
 function SideBar({SideBarID}) {
     const history = useHistory();
     const location = useLocation();
 
     return (
-        <SideBarContainer>  
-            <IconBox className="Calender" onClick={() => {history.push('/calender')}} isSelected={location.pathname === "/calender"? true:false}>
+        <SideBarContainer mobile={isMobile}>  
+            <IconBox mobile={isMobile}  className="Calender" onClick={() => {history.push('/calender')}} isSelected={location.pathname === "/calender"? true:false}>
                 <img src={IconCalender} alt="LogoCalender"/>
-                <div>Calendário</div>
+                {!isMobile? <div>Calendário</div> : null}
             </IconBox>
 
-            <IconBox className="Forum"  onClick={() => {history.push('/forum')}} isSelected={location.pathname === "/forum"? true:false}>
+            <IconBox mobile={isMobile} className="Forum"  onClick={() => {history.push('/forum')}} isSelected={location.pathname === "/forum"? true:false}>
                 <img src={IconForum} alt="LogoForum"/>
-                <div>Fórum</div>
+                {!isMobile? <div>Fórum</div> : null}
             </IconBox>
 
-            <IconBox className="Help" onClick={() => {history.push('/help')}} isSelected={location.pathname === "/help"? true:false}>
+            <IconBox mobile={isMobile} className="Help" onClick={() => {history.push('/help')}} isSelected={location.pathname === "/help"? true:false}>
                 <img src={IconHelp} alt="LogoHelp"/>
-                <div>Ajuda</div>
+                {!isMobile? <div>Ajuda</div> : null}
             </IconBox>
         </SideBarContainer>        
     )

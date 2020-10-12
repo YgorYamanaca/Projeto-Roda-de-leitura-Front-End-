@@ -5,6 +5,7 @@ import Avatar from '../../assets/Icon/icon_avatar.png';
 import { useHistory, useLocation } from 'react-router-dom'
 import {logout} from '../../services/auth';
 import { useDispatch, useSelector } from 'react-redux';
+import { isMobile } from "react-device-detect";
 
 function TopBar({TopBarID}) {
     const history = useHistory();
@@ -41,14 +42,14 @@ function TopBar({TopBarID}) {
 
     return (    
         <>
-            <TopBarStyle>
-                <PUCLogo src={PucLogo} alt="PucLogo"  onClick={() => {history.push('/calender')}}/>
-                <UserContainer isExpand={isExpand}>
+            <TopBarStyle mobile={isMobile}>
+                <PUCLogo mobile={isMobile} src={PucLogo} alt="PucLogo"  onClick={() => {history.push('/calender')}}/>
+                <UserContainer mobile={isMobile} isExpand={isExpand}>
                     <img src={Avatar} alt="LogoAvatar" onClick={() => setExpand(true)}/>
                 </UserContainer>
             </TopBarStyle> 
             {isExpand?
-                <Option ref={wrapperRef}>
+                <Option ref={wrapperRef} mobile={isMobile}>
                     <div> 
                         <img src={Avatar} alt="LogoAvatar"/>
                         <span>{user.nome}</span>
