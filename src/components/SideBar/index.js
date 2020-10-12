@@ -17,13 +17,9 @@ function SideBar({SideBarID}) {
                 <div>Calendário</div>
             </IconBox>
 
-            <IconBox className="Forum"  onClick={() => {}} isSelected={location.pathname === "/forum"? true:false}>
+            <IconBox className="Forum"  onClick={() => {history.push('/forum')}} isSelected={location.pathname === "/forum"? true:false}>
                 <img src={IconForum} alt="LogoForum"/>
                 <div>Fórum</div>
-            </IconBox>
-
-            <IconBox className="More"  onClick={() => {}} isSelected={location.pathname === "/more"? true:false}>
-                <img src={IconMore} alt="LogoMore"/>
             </IconBox>
 
             <IconBox className="Help" onClick={() => {history.push('/help')}} isSelected={location.pathname === "/help"? true:false}>
