@@ -76,7 +76,6 @@ export const EventsContainer = styled.div`
 export const CalenderContainer = styled.div`
     display:flex;
     flex-direction:column;
-    justify-content:center;
     overflow: auto;
     height: 100%;
     width: 100%;
@@ -109,7 +108,7 @@ export const CalenderBox = styled.div`
     border: 10px solid #024ea2;
     border-radius:5px;
     overflow:hidden;
-    margin:10px;
+    margin:2.5px;
     align-self: center;
     div.rbc-header
     {
@@ -252,7 +251,6 @@ export const CalenderBox = styled.div`
 `;
 
 export const CalenderHeader = styled.div`
-    display:flex;
     button.addButton
     {  
         position:relative;
