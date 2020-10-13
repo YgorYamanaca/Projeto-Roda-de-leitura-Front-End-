@@ -62,7 +62,8 @@ function cancelSubDeleteEvent(eventID, userID)
 function* addEvent({eventData})
 {
     const response = yield call(postEvent, eventData)
-    if(response.status === 200)
+    console.log(response)
+    if(response.status === 200 || response.status ===201)
     { 
         yield put(addEventSuccess(response.data));
         alert("Evento criado com sucesso!")
@@ -76,7 +77,8 @@ function* addEvent({eventData})
 function* removeEvent({eventID})
 {
     const response = yield call(deleteEvent, eventID)
-    if(response.status === 200)
+    console.log(response)
+    if(response.status === 200|| response.status ===204)
     { 
         yield put(removeEventSuccess(eventID));
         alert("Evento deletado com sucesso!");
@@ -90,7 +92,7 @@ function* removeEvent({eventID})
 function* editEvent({eventData})
 {
     const response = yield call(patchEvent, eventData)
-    if(response.status === 200)
+    if(response.status === 200 || response.status ===201)
     {
         yield put(editEventSuccess(response.data));
         alert("Evento editado com sucesso!")
@@ -104,7 +106,7 @@ function* editEvent({eventData})
 function* subscribeEvent({eventID, user})
 { 
     const response = yield call(subscribePostEvent, eventID, user)
-    if(response.status === 200)
+    if(response.status === 200|| response.status ===201)
     { 
         yield put(subscribeEventSuccess(eventID, user));
         alert(`Você se inscreveu no evento!`);
@@ -118,7 +120,7 @@ function* subscribeEvent({eventID, user})
 function* cancelSubEvent({eventID, userID})
 {
     const response = yield call(cancelSubDeleteEvent, eventID, userID)
-    if(response.status === 200)
+    if(response.status === 200|| response.status ===201)
     { 
         yield put(cancelSubEventSuccess(eventID, userID));
         alert(`Você não está mais inscrito no evento!`);
