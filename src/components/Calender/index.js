@@ -12,6 +12,8 @@ import 'moment/locale/pt-br'
 import FilteredEvent from '../FilteredEvent'
 import { useSelector, useDispatch } from 'react-redux';
 import { addEventsData } from '../../store/modules/eventsData/actions'
+import { isMobile } from "react-device-detect";
+import AllEvents from '../AllEvents';
 
 function Calender() 
 {
@@ -94,8 +96,11 @@ function Calender()
 
         <CalenderContainer>
           <CalenderHeader>
-            {user.tipo_usuario === 4? <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
+            {user.tipo_usuario === 4? isMobile? <StandartButton className="addButton" type={"button"} icon={Plus} customStyle={{width:'30px', height:'30px'}} onClick={handleAddEvent}/> : <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
           </CalenderHeader> 
+          {isMobile?
+          <AllEvents/>
+          :
           <CalenderBox>
             <Calendar
               selectable={'ignoreEvents'} 
@@ -110,7 +115,7 @@ function Calender()
               endAccessor="data_evento"
               onSelectSlot={handleEventsList}
             />
-          </CalenderBox>
+          </CalenderBox>}
           
         </CalenderContainer> 
     </Container>

@@ -11,6 +11,7 @@ import DeleteComponent from '../DeleteComponent/';
 import SubscribeComponent from '../SubscribeComponent/';
 import UnSubscribeComponent from '../UnSubscribeComponent/';
 import { useSelector } from 'react-redux';
+import { isMobile } from "react-device-detect";
 
 function EventContainer({event}) {
     console.log("Teste", event)
@@ -75,7 +76,7 @@ function EventContainer({event}) {
     }, [event])
 
     return ( 
-        <Container>
+        <Container mobile={isMobile}>
         {isEditPageRender?
             <WhiteContainer path={actualPath.pathname}>
                 <EditComponent isRender={handleEditPage} editDate={event}></EditComponent>
@@ -102,35 +103,35 @@ function EventContainer({event}) {
 
             
             <EventInfoContainer>
-                <TitleContainer>     
+                <TitleContainer mobile={isMobile}>     
                     <div className="titleText">
                         <div className="titleSquare"></div>
                         {title} - {eventType}
                     </div>
                     {user.tipo_usuario === 4?
-                    <IconBox>
+                    <IconBox  mobile={isMobile}>
                         <img src={editIcon} alt="logoEdit" onClick={handleEditPage}/>
                         <img src={trashIcon} alt="logoTrash" onClick={handleDelete}/>
                     </IconBox>:
                      null}
 
                     {user.tipo_usuario !== 4 & toDay < new Date(event.data_evento)?
-                    <IconBox>
+                    <IconBox  mobile={isMobile}>
                         {numberParticipant[0] !== undefined? 
                             numberParticipant.find(element => element.id_usuario === user.id_usuario)? 
                                 <img src={unCheckIcon} alt="logoCancelSubscribe" onClick={handleUnSubPage}/> : numberParticipant.length === numberMax? null : <img src={checkIcon} alt="logoSubscribe" onClick={handleSubPage}/>
                          : <img src={checkIcon} alt="logoSubscribe" onClick={handleSubPage}/>}
                     </IconBox>:
                      null}
-
                 </TitleContainer>
-                <InfoContainer>
+
+                <InfoContainer mobile={isMobile}>
                     <label>Mediador:</label>
                     <div>{mediator}</div>
                     <label>Participantes:</label>
                     <div>{numberParticipant.length} / {numberMax}</div>
                 </InfoContainer>
-                <InfoContainer>
+                <InfoContainer mobile={isMobile}>
                     <label>Data:</label>
                     <div>{handleDate(date)}</div>
                     <label>Horário:</label>
@@ -138,10 +139,10 @@ function EventContainer({event}) {
                     <label>Local:</label>
                     <div>{place}</div>
                 </InfoContainer>
-                <InfoContainer>
+                <InfoContainer mobile={isMobile}>
                     <label>Descrição:</label>
                 </InfoContainer>
-                <DescriptionContainer>
+                <DescriptionContainer mobile={isMobile}>
                     <section>      
                         <div>{description}</div>
                     </section>
