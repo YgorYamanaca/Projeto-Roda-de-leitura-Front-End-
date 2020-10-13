@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom';
 import Routes from './routes';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Routes/>
-  </React.StrictMode>,
+    <Routes/>,
   document.getElementById('root')
 );
 

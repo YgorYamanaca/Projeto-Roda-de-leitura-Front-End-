@@ -3,6 +3,7 @@ import { SubscribeBox, ButtonBox, TopText } from './styles';
 import StandartButton from '../StandartButton';
 import {subscribeEventRequest} from '../../store/modules/eventsData/actions'
 import { useSelector, useDispatch } from 'react-redux';
+import { isMobile } from "react-device-detect";
 
 function SubscribeComponent({isRender, eventID}) {
   const dispatch = useDispatch()
@@ -29,7 +30,7 @@ function SubscribeComponent({isRender, eventID}) {
     }, [ref]);
   }
 
-  function handleDeleteEvent(e)
+  function handleNewSubsEvent(e)
   {
     e.preventDefault();
     dispatch(subscribeEventRequest(eventID, user))
@@ -37,11 +38,11 @@ function SubscribeComponent({isRender, eventID}) {
   }
 
   return (
-    <SubscribeBox ref={wrapperRef}>
-        <TopText>Deseja se inscrever neste evento?</TopText>
+    <SubscribeBox ref={wrapperRef} mobile={isMobile}>
+        <TopText mobile={isMobile}>Deseja se inscrever neste evento?</TopText>
         <ButtonBox>  
-            <StandartButton  text={"Não"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={isRender}/>
-            <StandartButton  text={"Sim"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={(e) => {handleDeleteEvent(e)}}/>
+            <StandartButton  text={"Não"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'35%', height:'35px'} : {width:'35%', height:'55px'}} onClick={isRender}/>
+            <StandartButton  text={"Sim"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'35%', height:'35px'} : {width:'35%', height:'55px'}} onClick={(e) => {handleNewSubsEvent(e)}}/>
         </ButtonBox>
     </SubscribeBox>
   );

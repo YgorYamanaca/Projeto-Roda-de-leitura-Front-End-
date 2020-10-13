@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     max-height:400px;
-    width: 97%;
+    width: 98%;
     background-color: #fafafa;
     box-shadow: ${props => props.mobile? '0px 5px 10px 0px rgba(0,0,0,0.3)':'0px 15px 30px 0px rgba(0,0,0,0.3)'};
     margin:3.0% auto;
@@ -18,8 +18,8 @@ export const WhiteContainer = styled.div`
     right:0;
     bottom:0;
     z-index:11;
-    width:${ props => props.path === '/calender'? '100%' : 'calc(100% - 70px)'};
-    height: ${ props => props.path === '/calender'? '100%' : 'calc(100% - 80px)'};
+    width:${ props => props.path === '/calender'? '100%' : props.mobile? 'calc(100% - 50px)':'calc(100% - 70px)'};
+    height: ${ props => props.path === '/calender'? '100%' : props.mobile? 'calc(100% - 65px)': 'calc(100% - 80px)'};
     background-color: rgba(0,0,0,0.3);
 `;
 

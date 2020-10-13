@@ -23,7 +23,8 @@ export default function eventsData(state = initialState, action)
             })
         case 'CANCEL_SUBSCRIBE_EVENT_SUCCESS':
         return produce(state, draft => {
-            draft[draft.findIndex(event => event.id_evento === action.eventID)].inscritos = draft[draft.findIndex(event => event.id_evento === action.eventID)].inscritos.filter(subscribe => subscribe.id_usuario !== action.userID);
+            //draft[draft.findIndex(event => event.id_evento === action.eventID)].inscritos = draft[draft.findIndex(event => event.id_evento === action.eventID)].inscritos.filter(subscribe => subscribe.id_usuario !== action.userID);
+            draft[draft.findIndex(event => event.inscritos.map(inscrito => inscrito.Inscricao.id_inscricao === action.subscribeID? true : false).includes(true))].inscritos = draft[draft.findIndex(element => element.inscritos.map(teste => teste.Inscricao.id_inscricao === action.subscribeID? true : false).includes(true))].inscritos.filter(element => element.Inscricao.id_inscricao !== action.subscribeID);
         })
         default:
             return state;

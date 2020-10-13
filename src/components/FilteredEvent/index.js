@@ -4,11 +4,9 @@ import BackIcon from '../../assets/Icon/icon_Back.png';
 import EventContainer from '../EventContainer/'
 function FilteredEvent({isRender, filterDate, eventList}) {
     const [dateLabel, setDateLabel] = useState();
-    
     const listEvents  = eventList.map((event, index) => {
         return(<EventContainer key={index} event={event}/>)
     });
-
     useEffect(() => {
         setDateLabel(`${filterDate.getDate()} / ${filterDate.getMonth() + 1} / ${filterDate.getFullYear()}`)
     }, [filterDate])

@@ -5,6 +5,7 @@ import StandartButton from '../StandartButton';
 import { useDispatch } from 'react-redux';
 import { editEventRequest } from '../../store/modules/eventsData/actions';
 import DatePicker, { registerLocale } from "react-datepicker";
+import { isMobile } from "react-device-detect";
 import ptbr from "date-fns/locale/pt-br"; // the locale you want
 registerLocale("pt", ptbr); // register it with the name you want
 
@@ -47,7 +48,9 @@ function EditComponent({isRender, editDate}) {
                 'descricao' : description,
                 'data_evento' : date,
                 'max_participantes' : numberP,
+                'nome_mediador':mediator
                 }
+                console.log(formData)
                 isRender();
                 dispatch(editEventRequest(formData))
                 e.preventDefault();
@@ -74,13 +77,13 @@ function EditComponent({isRender, editDate}) {
     }
 
   return (
-    <EditBox ref={wrapperRef}>
+    <EditBox ref={wrapperRef} mobile={isMobile}>
         <TopContainer>
-            <BackImg src={BackIcon} alt="LogoBIcon" onClick={isRender}/>
-            <TopText>Editar um evento</TopText>
+            <BackImg mobile={isMobile} src={BackIcon} alt="LogoBIcon" onClick={isRender}/>
+            <TopText mobile={isMobile}>Editar um evento</TopText>
         </TopContainer>
 
-        <EditContainer onSubmit={handleSubmit}>
+        <EditContainer onSubmit={handleSubmit} mobile={isMobile}>
             <input type="text" placeholder="Digite um novo título para o evento..." value={title} onChange={e => setTitle(e.target.value)}/>
             <input type="text" placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
             <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min="5" max="50"/>
@@ -101,7 +104,7 @@ function EditComponent({isRender, editDate}) {
 
             <textarea className='description' type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
             
-            <StandartButton type={"submit"} text={"Salvar"} fontsize={"30px"} customStyle={{width:'80%', height:'55px'}}/>
+            <StandartButton type={"submit"} text={"Salvar"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'90%', height:'35px'} : {width:'80%', height:'55px'}}/>
         </EditContainer>
     </EditBox>
   );

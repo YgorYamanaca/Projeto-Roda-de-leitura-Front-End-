@@ -39,21 +39,19 @@ function patchEvent(eventData)
 function subscribePostEvent(eventID, user)
 {
     let token = getToken();
-    console.log(eventID, user)
-    return api.post(`/inscricao`, {id_evento : eventID, id_usuario : parseInt(user.id_usuario)},{
+    return api.post(`/inscricao`, {id_evento : parseInt(eventID), id_usuario : user.id_usuario},{
             headers:{
                 'x-access-token':token
                 }
             })
 }
 
-function cancelSubDeleteEvent(eventID, userID)
+function cancelSubDeleteEvent(subscribeID)
 {
     let token = getToken();
     return api.delete(`/inscricao`,{
             data:{
-            id_evento : parseInt(eventID), 
-            id_usuario : parseInt(userID)
+            id_inscricao : parseInt(subscribeID)
             },
             headers:{
                 'x-access-token':token
@@ -63,7 +61,6 @@ function cancelSubDeleteEvent(eventID, userID)
 function* addEvent({eventData})
 {
     const response = yield call(postEvent, eventData)
-    console.log(response)
     if(response.status === 200 || response.status ===201)
     { 
         yield put(addEventSuccess(response.data));
@@ -78,7 +75,6 @@ function* addEvent({eventData})
 function* removeEvent({eventID})
 {
     const response = yield call(deleteEvent, eventID)
-    console.log(response)
     if(response.status === 200|| response.status ===204)
     { 
         yield put(removeEventSuccess(eventID));
@@ -95,7 +91,7 @@ function* editEvent({eventData})
     const response = yield call(patchEvent, eventData)
     if(response.status === 200 || response.status ===204)
     {
-        yield put(editEventSuccess(response.data));
+        yield put(editEventSuccess(eventData));
         alert("Evento editado com sucesso!")
     }
     else
@@ -107,8 +103,10 @@ function* editEvent({eventData})
 function* subscribeEvent({eventID, user})
 { 
     const response = yield call(subscribePostEvent, eventID, user)
-    if(response.status === 200|| response.status ===201)
+
+    if(response.status === 200 || response.status === 201)
     { 
+        user.Inscricao = response.data;
         yield put(subscribeEventSuccess(eventID, user));
         alert(`Você se inscreveu no evento!`);
     }
@@ -118,12 +116,12 @@ function* subscribeEvent({eventID, user})
     }
 }
 
-function* cancelSubEvent({eventID, userID})
+function* cancelSubEvent({subscribeID})
 {
-    const response = yield call(cancelSubDeleteEvent, eventID, userID)
-    if(response.status === 200|| response.status ===201)
+    const response = yield call(cancelSubDeleteEvent, subscribeID)
+    if(response.status === 200|| response.status ===204)
     { 
-        yield put(cancelSubEventSuccess(eventID, userID));
+        yield put(cancelSubEventSuccess(subscribeID));
         alert(`Você não está mais inscrito no evento!`);
     }
     else

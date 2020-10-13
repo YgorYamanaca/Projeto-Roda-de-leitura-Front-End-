@@ -29,9 +29,10 @@ export default function Login() {
                 dispatch({
                     type:'ADD_USER',
                     email:response.data.email, 
-                    id_usuario: response.data.id, 
+                    id_usuario: response.data.id_usuario, 
                     nome: response.data.nome, 
-                    tipo_usuario: response.data.tipo_usuario
+                    tipo_usuario: response.data.tipo_usuario,
+                    isAdmin: response.data.isAdmin
                 })
                 history.push("/calender");
             })

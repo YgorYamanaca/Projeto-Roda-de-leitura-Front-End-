@@ -73,13 +73,22 @@ export const EventsContainer = styled.div`
     }  
 `;
 
+export const CalenderHeader = styled.div`
+    button.addButton
+    {  
+        position:relative;
+        margin: 5px 10px 5px auto;
+    }
+`;
+
 export const CalenderContainer = styled.div`
     display:flex;
     flex-direction:column;
-    overflow: auto;
     height: 100%;
     width: 100%;
-    background-color: #fafafa;
+    justify-content:center;
+    padding:2.5px;
+    overflow-y:scroll;
     &::-webkit-scrollbar-track
     {
         
@@ -248,12 +257,4 @@ export const CalenderBox = styled.div`
         margin-right:0.6%;
     }
 
-`;
-
-export const CalenderHeader = styled.div`
-    button.addButton
-    {  
-        position:relative;
-        margin: 5px 10px 5px auto;
-    }
 `;

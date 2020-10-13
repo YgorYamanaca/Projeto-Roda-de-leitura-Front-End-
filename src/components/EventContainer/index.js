@@ -14,7 +14,6 @@ import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
 function EventContainer({event}) {
-    console.log("Teste", event)
     const toDay = new Date();
     const [isDeletePageRender, setDeletePage] = useState(false);
     const [isEditPageRender, setEditPage] = useState(false);
@@ -30,6 +29,7 @@ function EventContainer({event}) {
     const [numberMax, setNumberMax] = useState("");
     const [eventType, setEventT] = useState("");
     const user = useSelector(state => state.user);
+    
    function handleDate(timezone)
     {
         let newDate=new Date(timezone);
@@ -74,30 +74,30 @@ function EventContainer({event}) {
         setEventT(event.tipo);
         setParticipant(event.inscritos !== undefined? event.inscritos : "");
     }, [event])
-
+    
     return ( 
         <Container mobile={isMobile}>
         {isEditPageRender?
-            <WhiteContainer path={actualPath.pathname}>
+            <WhiteContainer path={actualPath.pathname} mobile={isMobile}>
                 <EditComponent isRender={handleEditPage} editDate={event}></EditComponent>
             </WhiteContainer>
             : null}
         
         {isDeletePageRender?
-            <WhiteContainer path={actualPath.pathname}>
+            <WhiteContainer path={actualPath.pathname} mobile={isMobile}>
                 <DeleteComponent isRender={handleDelete} eventID={event.id_evento}></DeleteComponent>
             </WhiteContainer>
             : null}
 
         {isSubscribePageRender?
-            <WhiteContainer path={actualPath.pathname}>
+            <WhiteContainer path={actualPath.pathname} mobile={isMobile}>
                 <SubscribeComponent isRender={handleSubPage} eventID={event.id_evento}></SubscribeComponent>
             </WhiteContainer>
             : null}
-        
+
         {isUnSubscribePageRender?
-            <WhiteContainer path={actualPath.pathname}>
-                <UnSubscribeComponent isRender={handleUnSubPage} eventID={event.id_evento}></UnSubscribeComponent>
+            <WhiteContainer path={actualPath.pathname} mobile={isMobile}>
+                <UnSubscribeComponent isRender={handleUnSubPage} subscribeID={event.inscritos[event.inscritos.findIndex(userArray => parseInt(userArray.id_usuario) === user.id_usuario)]}></UnSubscribeComponent>
             </WhiteContainer>
             : null}
 
@@ -106,7 +106,7 @@ function EventContainer({event}) {
                 <TitleContainer mobile={isMobile}>     
                     <div className="titleText">
                         <div className="titleSquare"></div>
-                        {title} - {eventType}
+                        {title}
                     </div>
                     {user.tipo_usuario === 4?
                     <IconBox  mobile={isMobile}>
@@ -118,7 +118,7 @@ function EventContainer({event}) {
                     {user.tipo_usuario !== 4 & toDay < new Date(event.data_evento)?
                     <IconBox  mobile={isMobile}>
                         {numberParticipant[0] !== undefined? 
-                            numberParticipant.find(element => element.id_usuario === user.id_usuario)? 
+                            numberParticipant.find(element => parseInt(element.id_usuario) === user.id_usuario)? 
                                 <img src={unCheckIcon} alt="logoCancelSubscribe" onClick={handleUnSubPage}/> : numberParticipant.length === numberMax? null : <img src={checkIcon} alt="logoSubscribe" onClick={handleSubPage}/>
                          : <img src={checkIcon} alt="logoSubscribe" onClick={handleSubPage}/>}
                     </IconBox>:

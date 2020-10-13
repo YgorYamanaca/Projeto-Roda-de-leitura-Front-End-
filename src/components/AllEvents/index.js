@@ -10,6 +10,7 @@ export default function AllEvents() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user);
     const eventsDate = useSelector(state => state.eventsData);
+
     useEffect(() => {
         let token = getToken();
         if(user.tipo_usuario === 4)
@@ -45,8 +46,8 @@ export default function AllEvents() {
 
     return(
         <Container>
-            {eventsDate !== undefined? eventsDate.map((event, index) => {
-        return(<EventContainer key={index} event={event}/>)}) : null}
+                {eventsDate !== undefined? eventsDate.sort((dateA, dateB) => {return new Date(dateB.data_evento) - new Date(dateA.data_evento)}).map((event, index) => {
+            return(<EventContainer key={index} event={event}/>)}) : null}
         </Container>
     );
 }

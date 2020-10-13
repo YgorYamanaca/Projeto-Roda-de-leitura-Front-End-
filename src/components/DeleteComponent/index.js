@@ -3,6 +3,7 @@ import { DeleteBox, ButtonBox, TopText } from './styles';
 import StandartButton from '../StandartButton';
 import {useDispatch} from 'react-redux'
 import { removeEventRequest } from "../../store/modules/eventsData/actions";
+import { isMobile } from "react-device-detect";
 
 function DeleteComponent({isRender, eventID}){
     const dispatch = useDispatch();
@@ -36,11 +37,11 @@ function DeleteComponent({isRender, eventID}){
     }
 
     return (
-    <DeleteBox ref={wrapperRef}>
-        <TopText>Deseja mesmo excluir este evento?</TopText>
+    <DeleteBox ref={wrapperRef} mobile={isMobile}>
+        <TopText mobile={isMobile}>Deseja mesmo excluir este evento?</TopText>
         <ButtonBox>  
-            <StandartButton  text={"Não"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={isRender}/>
-            <StandartButton  text={"Sim"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={handleDeleteEvent}/>
+            <StandartButton  text={"Não"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'35%', height:'35px'} : {width:'35%', height:'55px'}} onClick={isRender}/>
+            <StandartButton  text={"Sim"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'35%', height:'35px'} : {width:'35%', height:'55px'}} onClick={handleDeleteEvent}/>
         </ButtonBox>
     </DeleteBox>
     );

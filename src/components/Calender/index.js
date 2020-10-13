@@ -37,20 +37,20 @@ function Calender()
   const [isEventsListRender, setEventsListRender] = useState(false);
   const events = useSelector(state => state.eventsData);
   const dispatch = useDispatch();
+  
   useEffect(() => {
         let token = getToken();
         api.get("/evento",{
           headers:{'x-access-token':token} //Validar se é adm para ver se pode retornar todos os dados
         })
         .then(response => {
-          console.log(response)
-          dispatch(addEventsData(response.data))
+          dispatch(addEventsData(response.data.sort((dateA, dateB) => {return new Date(dateB.data_evento) - new Date(dateA.data_evento)})))
         })
         .catch(error => {
             alert("Não foi possível receber os eventos!");
         })
   },[dispatch])
-
+  
   function handleAddEvent(){
     setEventsRender(!isAddEventsRender);
   }

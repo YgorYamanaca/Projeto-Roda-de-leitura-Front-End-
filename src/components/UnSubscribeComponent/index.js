@@ -1,12 +1,12 @@
 import React, {useRef, useEffect} from 'react';
 import { UnSubscribeBox, ButtonBox, TopText } from './styles';
 import StandartButton from '../StandartButton';
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import {cancelSubEventRequest} from '../../store/modules/eventsData/actions'
+import { isMobile } from "react-device-detect";
 
-function UnSubscribeComponent({isRender, eventID}) {
+function UnSubscribeComponent({isRender, subscribeID}) {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
@@ -32,15 +32,15 @@ function UnSubscribeComponent({isRender, eventID}) {
     {
         e.preventDefault();
         isRender();
-        dispatch(cancelSubEventRequest(eventID, user.id_usuario))
+        dispatch(cancelSubEventRequest(subscribeID.Inscricao.id_inscricao))
     }
 
   return (
-    <UnSubscribeBox ref={wrapperRef}>
-        <TopText>Deseja cancelar a inscrição desse evento?</TopText>
+    <UnSubscribeBox ref={wrapperRef} mobile={isMobile}>
+        <TopText mobile={isMobile}>Deseja cancelar a inscrição desse evento?</TopText>
         <ButtonBox>  
-            <StandartButton  text={"Não"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={isRender}/>
-            <StandartButton  text={"Sim"} fontsize={"30px"} customStyle={{width:'35%', height:'55px'}} onClick={handleDeleteEvent}/>
+          <StandartButton  text={"Não"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'35%', height:'35px'} : {width:'35%', height:'55px'}} onClick={isRender}/>
+          <StandartButton  text={"Sim"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'35%', height:'35px'} : {width:'35%', height:'55px'}} onClick={handleDeleteEvent}/>
         </ButtonBox>
     </UnSubscribeBox>
   );
