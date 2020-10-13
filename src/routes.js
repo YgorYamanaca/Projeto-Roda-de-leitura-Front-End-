@@ -38,11 +38,11 @@ export default function Routes(){
                     <Route exact path="/signup" component={SignUp}/>
 
                     <Home>
-                        <Route exact path="/user" component={UserComponent}/>
-                        <Route exact path="/calender" component={Calender}/>
-                        <Route exact path="/events" component={AllEvents}/>
-                        <Route exact path="/forum" component={Forum}/>
-                        <Route exact path="/chat" component={Chat}/>
+                        <PrivateRoute exact path="/user" component={UserComponent}/>
+                        <PrivateRoute exact path="/calender" component={Calender}/>
+                        <PrivateRoute exact path="/events" component={AllEvents}/>
+                        <PrivateRoute exact path="/forum" component={Forum}/>
+                        <PrivateRoute exact path="/chat" component={Chat}/>
                     </Home>
                     <Redirect from="*" to="/" />
                 </Switch>

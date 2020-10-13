@@ -1,19 +1,109 @@
 import React, { memo } from 'react';
-import {Title} from './styles'
+import {ChatList} from './styles'
+import {Drawer} from './styles'
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ImageIcon from '@material-ui/icons/AccountCircle';
+import SendIcon from '@material-ui/icons/Send';
+import BackIcon from '@material-ui/icons/ArrowBack';
+import { Book } from '@material-ui/icons';
+import { shadows } from '@material-ui/system';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from "@material-ui/core/InputAdornment";
 
-
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    maxWidth: '100%'
+  },
+  inline: {
+    display: 'inline',
+  },
+}));
 
 function Chat() {
+	const classes = useStyles();
+	let livro = [{nome:"Pequeno principe", autor:"Henrique Savoia", criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"}]
+	let comments = [{id:1, idUsuario:1, nome:"Lucas Araujo", data:"18:33 - jan 13,2020", comentario:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. Fusce dapibus semper sapien vel rutrum. Sed quis enim arcu. Aenean libero ligula, efficitur vitae dolor ut, vestibulum rhoncus nulla. Maecenas et pretium massa. Aenean sollicitudin lectus nec nibh dictum laoreet. Cras in mollis augue, id faucibus libero. Phasellus sit amet leo pulvinar, commodo massa sed, facilisis massa. Ut sed neque tempus, tempus quam quis, euismod felis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."},
+                 {id:2, idUsuario:2, nome:"João Marçura", data:"19:10 - jan 13,2020", comentario:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. "}
+                ]
     return (
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean placerat odio ut magna dictum bibendum. Donec vestibulum placerat ante ut suscipit. Suspendisse potenti. Morbi in porttitor sapien, in scelerisque urna. Proin aliquam nisi quis lacus tincidunt commodo. Fusce accumsan condimentum dui. Nunc ac lectus quis odio sollicitudin aliquam.
-
-        Praesent quis luctus nibh. Aliquam ultrices, neque quis malesuada sollicitudin, massa nulla vestibulum arcu, sit amet pellentesque dolor purus a lorem. Praesent tellus diam, feugiat eget dignissim vel, molestie lobortis nulla. Mauris molestie laoreet ex, ac consectetur nisl aliquam et. Donec in diam interdum, tempus dolor quis, lobortis lorem. Etiam consectetur viverra lectus, at sollicitudin arcu venenatis at. Morbi at facilisis massa. Quisque eleifend ultrices tortor, viverra rhoncus ex condimentum vulputate. Nunc accumsan interdum pellentesque. Fusce sagittis aliquet efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
-        
-        Fusce vestibulum lacinia turpis sit amet sagittis. Donec et lorem a lacus euismod efficitur. Suspendisse eget interdum urna, ut faucibus diam. Nunc laoreet, justo feugiat sollicitudin ornare, est dolor consectetur mi, in fermentum elit diam sed leo. Morbi non interdum odio, ac accumsan mauris. Integer egestas diam ut odio egestas gravida. Phasellus in lorem consectetur, pulvinar dolor sit amet, interdum libero. Nullam tempus, metus quis sodales ultrices, ligula diam ultrices nulla, sed ultricies purus sapien id metus. Ut vel tincidunt sapien. Phasellus ullamcorper justo rutrum lacus posuere, tincidunt vulputate risus suscipit. Duis eleifend urna sed felis placerat, sed suscipit turpis luctus.
-        
-        Pellentesque at metus lobortis, tincidunt turpis a, fringilla ligula. Praesent vehicula lectus ligula, vel feugiat mi cursus non. Ut feugiat id lectus id commodo. Cras convallis purus ut turpis bibendum, vel porttitor enim molestie. Quisque risus enim, pretium et sagittis quis, vestibulum id lacus. Morbi maximus nisi sit amet laoreet gravida. Etiam viverra enim vitae nunc gravida vestibulum. Curabitur mollis gravida commodo. In eu tincidunt magna. Proin sodales tempor scelerisque. Maecenas blandit lorem vel posuere euismod. Fusce eget pretium velit. Integer quis tempus justo, ac lobortis nisl. Suspendisse potenti. Ut ornare quam erat, in semper libero facilisis non. Nulla vel volutpat dolor, in feugiat odio.
-        
-        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent sit amet suscipit sapien. Proin consequat lorem at pharetra ornare. Phasellus nec nibh in mauris laoreet malesuada in sit amet erat. Sed posuere quam enim, et rhoncus ex aliquet id. Donec purus sapien, blandit id vehicula ut, imperdiet ut neque. Phasellus et risus quam. Suspendisse non vehicula quam.</div> 
+	<div style={{width:"100%", height:"100%", backgroundColor:"yellow",display:"flex", flexDirection:"row"}}>
+	<Drawer style={{width:"20%", height:"100%", backgroundColor:"red"}}> 
+		<div>
+			<IconButton aria-label="enviar">
+				<BackIcon />
+			</IconButton>
+			Fórum
+		</div>
+		<hr />
+		{livro.map(liv=>{
+			return(
+			<div>
+			<div>
+			<h1>{liv.nome}</h1>
+			<h2>por {liv.autor}</h2>
+			<hr />
+			</div>
+			<div>
+			<h3>criado em {liv.criacao} </h3>
+			<h3>último comentário em {liv.ultimo} </h3>
+			</div>
+			</div>	
+		)})
+		}
+	</Drawer>
+	<ChatList style={{backgroundColor:"white",borderRadius: 20}}>
+		<List className={classes.root}>
+	{comments.map(comment=>{
+          return(
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+		<Avatar>
+			<ImageIcon/>
+			</Avatar>
+        </ListItemAvatar>
+        <ListItemText
+          primary= {<React.Fragment>
+		  {comment.nome}
+		  <Typography
+                component="span"
+                variant="body2"
+                className={classes.inline}
+                color="textPrimary"
+              >
+                 - {comment.data}
+              </Typography>
+			  </React.Fragment>}
+          secondary=
+			{comment.comentario}
+          
+        />
+      </ListItem>
+	   )
+         })}
+	  </List>
+	  <form className={classes.root} noValidate autoComplete="off">
+      <TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined"
+	  InputProps={{
+    endAdornment: (
+      <InputAdornment><IconButton aria-label="enviar">
+        <SendIcon />
+      </IconButton> 
+	  </InputAdornment>
+    )
+  }}/>       
+	  
+    </form>
+	  		 </ChatList>
+			 </div>
     );
   }
   
