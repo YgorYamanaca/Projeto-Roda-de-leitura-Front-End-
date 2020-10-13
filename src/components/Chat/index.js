@@ -1,17 +1,6 @@
 import React, { memo } from 'react';
 import {Title} from './styles'
-import {HeaderText} from './styles'
-import {Header} from './styles'
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/ImportContacts';
-import { Book } from '@material-ui/icons';
-import { shadows } from '@material-ui/system';
-import Box from '@material-ui/core/Box';
+
 
 
 function Chat() {
