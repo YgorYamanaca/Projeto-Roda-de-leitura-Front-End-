@@ -3,7 +3,6 @@ import { SideBarContainer, IconBox} from '../../components/SideBar/styles'
 import IconCalender from '../../assets/Icon/icon_Calendario.png'
 import IconForum from '../../assets/Icon/icon_Forum.png'
 import IconHelp from '../../assets/Icon/icon_info.png'
-import IconMore from '../../assets/Icon/icon_more.png'
 import { useHistory, useLocation } from 'react-router-dom'
 import { isMobile } from "react-device-detect";
 
