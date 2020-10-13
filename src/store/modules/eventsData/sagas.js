@@ -39,6 +39,7 @@ function patchEvent(eventData)
 function subscribePostEvent(eventID, user)
 {
     let token = getToken();
+    console.log(eventID, user)
     return api.post(`/inscricao`, {id_evento : eventID, id_usuario : parseInt(user.id_usuario)},{
             headers:{
                 'x-access-token':token
@@ -92,7 +93,7 @@ function* removeEvent({eventID})
 function* editEvent({eventData})
 {
     const response = yield call(patchEvent, eventData)
-    if(response.status === 200 || response.status ===201)
+    if(response.status === 200 || response.status ===204)
     {
         yield put(editEventSuccess(response.data));
         alert("Evento editado com sucesso!")
