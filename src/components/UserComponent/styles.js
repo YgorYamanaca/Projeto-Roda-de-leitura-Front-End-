@@ -6,7 +6,7 @@ export const Container = styled.div`
     align-items: center;
     height: 100%;
     width: 100%;
-    overflow-y: auto; 
+    overflow-y: auto;
     &::-webkit-scrollbar-track
     {
         
@@ -35,14 +35,9 @@ export const Container = styled.div`
 `;
 
 export const ImgContainer = styled.img`
-    height: 200px;
-    width: 200px;
-    @media only screen and (max-width: 764px)
-    {
-    /* For everything bigger than 768px */
-        height: 180px;
-        width: 180px;
-    }
+    height: ${props => props.mobile? '85px':'200px'};
+    width: ${props => props.mobile? '80px':'200px'};
+    background-color:#024ea2;
     margin:10px;
     padding:5px;
 `;
@@ -51,21 +46,20 @@ export const UserInfContainer = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
-`;
-
-export const TextContainer = styled.div`
     label
     {
         font-weight: 700;
         color: #024ea2;
-        font-size:35px;
+        font-size:${props => props.mobile? '26px':'34px'};
     }
     
     div
     {
         font-weight: 500;
-        font-size:2vw;
-        font-size:34px;
+        font-size:${props => props.mobile? '24px':'34px'};
     }
+`;
+
+export const TextContainer = styled.div`
     
 `;

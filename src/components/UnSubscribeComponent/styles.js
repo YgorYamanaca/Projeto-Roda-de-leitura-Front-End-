@@ -16,7 +16,7 @@ export const UnSubscribeBox = styled.span`
 
 export const TopText = styled.div`
     width:85%;
-    font-size:${props => props.mobile? '18px':'3vw'};;
+    font-size:${props => props.mobile? '18px':'3vw'};
     font-weight:500;
     text-align:center; 
     color:#024ea2;

@@ -4,6 +4,7 @@ import Avatar from '../../assets/Icon/icon_avatar.png';
 import { getToken } from "../../services/auth";
 import api from '../../services/api';
 import { useSelector } from 'react-redux';
+import { isMobile } from "react-device-detect";
 
 export default function UserComponent() {
   const [userData, setUser] = useState({});
@@ -111,9 +112,9 @@ export default function UserComponent() {
 
   return (
       <Container>
-        <ImgContainer src={Avatar} alt="UserImg"/>
+        <ImgContainer mobile={isMobile} src={Avatar} alt="UserImg"/>
         
-        <UserInfContainer>
+        <UserInfContainer mobile={isMobile}>
           {hadleUserData()}
         </UserInfContainer>
 
