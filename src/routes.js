@@ -4,10 +4,11 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import UserComponent from './components/UserComponent';
-import AllEvents from './components/AllEvents'
+import AllEvents from './components/AllEvents';
 import Calender from './components/Calender';
-import Forum from './components/Forum'
-import Chat from './components/Chat'
+import Forum from './components/Forum';
+import Chat from './components/Chat';
+import Help from './components/HelpComponent';
 import { isAuthenticated } from "./services/auth";
 import  {Provider}  from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -19,7 +20,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       {...rest}
       render={props =>
         isAuthenticated() ? (
-          <Component {...props} />
+          <Home><Component {...props} /></Home>
         ) : (
           <Redirect to={{ pathname: "/", state: { from: props.location } }} />
         )
@@ -37,14 +38,13 @@ export default function Routes(){
                     <Route exact path="/" component={Login}/>
                     <Route exact path="/signup" component={SignUp}/>
 
-                    <Home>
-                        <PrivateRoute exact path="/user" component={UserComponent}/>
-                        <PrivateRoute exact path="/calender" component={Calender}/>
-                        <PrivateRoute exact path="/events" component={AllEvents}/>
-                        <PrivateRoute exact path="/forum" component={Forum}/>
-                        <PrivateRoute exact path="/chat" component={Chat}/>
-                    </Home>
-                    <Redirect from="*" to="/" />
+                    <PrivateRoute exact path="/user" component={UserComponent}/>
+                    <PrivateRoute exact path="/calender" component={Calender}/>
+                    <PrivateRoute exact path="/events" component={AllEvents}/>
+                    <PrivateRoute exact path="/forum" component={Forum}/>
+                    <PrivateRoute exact path="/chat" component={Chat}/>
+                    <PrivateRoute exact path="/help" component={Help}/>
+                    <Redirect from="*" to="/sigup" />
                 </Switch>
             </BrowserRouter>
           </PersistGate>

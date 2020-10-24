@@ -3,10 +3,11 @@ import styled from 'styled-components';
 export const Container = styled.div`
     display:flex;
     flex-direction: column;
-    align-items: center;
     height: 100%;
     width: 100%;
     overflow-y: auto;
+    justify-content:center;
+    background-color: #F1F1F1;
     &::-webkit-scrollbar-track
     {
         
@@ -35,17 +36,18 @@ export const Container = styled.div`
 `;
 
 export const ImgContainer = styled.img`
-    height: ${props => props.mobile? '85px':'200px'};
-    width: ${props => props.mobile? '80px':'200px'};
+    height: ${props => props.mobile? '100px':'100px'};
+    width: ${props => props.mobile? '100px':'100px'};
     background-color:#024ea2;
-    margin:10px;
-    padding:5px;
+    border-radius: 50%;
+    margin:auto;
 `;
 
 export const UserInfContainer = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
+    margin:25px;
     label
     {
         font-weight: 700;
@@ -62,4 +64,17 @@ export const UserInfContainer = styled.div`
 
 export const TextContainer = styled.div`
     
+`;
+
+export const ExternalBox = styled.div`
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    height:95%;
+    width:90%;
+    margin:auto;
+    background-color: #FFF; 
+    box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.75); 
+    padding:25px;  
 `;

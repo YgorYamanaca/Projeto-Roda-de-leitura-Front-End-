@@ -61,6 +61,7 @@ export const Option = styled.ul`
         height:${props => props.mobile? '50px' : '65px'};
         margin:5px;
         background-color:#024ea2;
+        border-radius: 50%;
     }
     span
     {

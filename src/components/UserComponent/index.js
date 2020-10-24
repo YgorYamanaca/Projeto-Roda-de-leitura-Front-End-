@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, ImgContainer, TextContainer, UserInfContainer } from './styles';
+import { Container, ImgContainer, TextContainer, UserInfContainer, ExternalBox } from './styles';
 import Avatar from '../../assets/Icon/icon_avatar.png';
 import { getToken } from "../../services/auth";
 import api from '../../services/api';
@@ -112,11 +112,13 @@ export default function UserComponent() {
 
   return (
       <Container>
-        <ImgContainer mobile={isMobile} src={Avatar} alt="UserImg"/>
-        
-        <UserInfContainer mobile={isMobile}>
-          {hadleUserData()}
-        </UserInfContainer>
+
+        <ExternalBox>
+          <ImgContainer mobile={isMobile} src={Avatar} alt="UserImg"/>
+          <UserInfContainer mobile={isMobile}>
+            {hadleUserData()}
+          </UserInfContainer>
+        </ExternalBox>
 
       </Container>
   );
