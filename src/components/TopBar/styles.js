@@ -49,6 +49,7 @@ export const Option = styled.ul`
     list-style:none;
     z-index:99;
     position: absolute;
+
     div
     {
         display:flex;
@@ -72,23 +73,23 @@ export const Option = styled.ul`
     }
     li{
         font-weight:500;
-        margin: 3% 15%;
         cursor: pointer;
-        
+        margin:0 2.5px;
         :hover
         {
-            border:1px solid rgba(0,0,0,0.0);
+            background-color:#f1f1f1;
         }
         :before 
-        {
-            content: "•";
-            font-weight:700;
-            font-size:20px;
-            color: #024ea2;
-            display: inline-block; 
-            width: 0.5em;
-            margin-left: -1em;
-            cursor: pointer;
-        }
+            {
+                content: "•";
+                font-weight:700;
+                font-size:20px;
+                color: #024ea2;
+                display: inline-block; 
+                width: 0.5em;
+                margin-left: -1em;
+                cursor: pointer;
+                margin-left:10px;
+            }
     }
 `;

@@ -54,6 +54,7 @@ function TopBar({TopBarID}) {
                         <img src={Avatar} alt="LogoAvatar"/>
                         <span>{user.nome}</span>
                     </div>
+
                     <li onClick={() => {history.push('/user')}}>Meu Perfil</li>
                     <li onClick={() => {history.push('/events')}}>{user.tipo_usuario === 4? "Eventos Cadastrados" :  "Meus Eventos"}</li>
                     <li onClick={() => {logout(); dispatch({ type:'CLEAR_USER' }); history.push('/')}}>Sair</li>
