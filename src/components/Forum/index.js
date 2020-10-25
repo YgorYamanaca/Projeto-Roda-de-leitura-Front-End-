@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/ImportContacts';
+import ImageIcon from '@material-ui/icons/ImportContactsTwoTone';
 import { Book } from '@material-ui/icons';
 import { shadows } from '@material-ui/system';
 import Box from '@material-ui/core/Box';
@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
       maxWidth:'95%',
       backgroundColor: theme.palette.background.paper,
       marginTop: "1%",
-      margin: "auto"
+      margin: "auto",
+      backgroundColor: "#fafafa",
     },
   }));
 
@@ -27,22 +28,20 @@ function Forum() {
                 ]
     return (
       <div>
-			  <Title>Fórum</Title>
+			  <Title><p>Fórum</p></Title>
         <List className={classes.root}>
         <Header>
           <HeaderTextTitle>Título</HeaderTextTitle>
           <HeaderTextDate>Data de criação</HeaderTextDate>
           <HeaderTextLast>Último comentário</HeaderTextLast>
+          <hr></hr>
         </Header>
-        <hr></hr>
 
             {books.map(book=>{
               return(
                 <ListItem button>
                   <ListItemAvatar>
-                    <Avatar>
-                      <ImageIcon/>
-                    </Avatar>
+                    <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
                   </ListItemAvatar>
                   <ListItemText primary={book.nome} secondary={book.comentarios + " comentários"}  style={{textAlign: 'left'}}/>
                   <ListItemText primary={book.criacao} style={{textAlign: 'right'}} />
