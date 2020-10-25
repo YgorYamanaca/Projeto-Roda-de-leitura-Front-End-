@@ -34,6 +34,27 @@ function Chat() {
 	const classes = useStyles();
 	let livro = [{ nome: "Pequeno principe", autor: "Henrique Savoia", criacao: "Jan, 12,2020", ultimo: "18:33 - jan 13,2020" }]
 	let comments = [{ id: 1, idUsuario: 1, nome: "Lucas Araujo", data: "18:33 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. Fusce dapibus semper sapien vel rutrum. Sed quis enim arcu. Aenean libero ligula, efficitur vitae dolor ut, vestibulum rhoncus nulla. Maecenas et pretium massa. Aenean sollicitudin lectus nec nibh dictum laoreet. Cras in mollis augue, id faucibus libero. Phasellus sit amet leo pulvinar, commodo massa sed, facilisis massa. Ut sed neque tempus, tempus quam quis, euismod felis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus." },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
 	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " }
 	]
 	return (
@@ -63,7 +84,7 @@ function Chat() {
 				})
 				}
 			</Drawer>
-			<ChatList style={{ backgroundColor: "white", borderRadius: 20 }}>
+			<ChatList style={{ overflowY:"scroll", backgroundColor: "white", borderRadius: 20 }}>
 				<List className={classes.root}>
 					{comments.map(comment => {
 						if (comment.idUsuario == 1) {
@@ -121,17 +142,17 @@ function ComentarioComum(comment) {
 
 function ComentarioProprio(comment) {
 	const classes = useStyles();
-	const [anchorEl, setAnchorEl] = React.useState(null);
-	const handleClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
-	const editarComentario = () => {
-		handleClose()
-		setEditing((v) => !v)
-	}
+	//const [anchorEl, setAnchorEl] = React.useState(null);
+	//const handleClick = (event) => {
+	//	setAnchorEl(event.currentTarget);
+	//};
+	//const handleClose = () => {
+	//	setAnchorEl(null);
+	//};
+	//const editarComentario = () => {
+	//	handleClose()
+	//	setEditing((v) => !v)
+	//}
 	const [editing, setEditing] = useState(false);
 	const [value, setValue] = useState(comment.comentario);
 
@@ -170,25 +191,25 @@ function ComentarioProprio(comment) {
 					/>
 				}
 			/>
-			<IconButton
-				aria-label="more"
-				aria-controls="long-menu"
-				aria-haspopup="true"
-				onClick={handleClick}
-			>
-				<MoreHorizIcon />
-			</IconButton>
-			<Menu
-				id="simple-menu"
-				anchorEl={anchorEl}
-				keepMounted
-				open={Boolean(anchorEl)}
-				onClose={handleClose}
-			>
-				<MenuItem onClick={editarComentario}>Editar</MenuItem>
-				<MenuItem onClick={handleClose}>Excluir</MenuItem>
-			</Menu>
-		</ListItem>
+		 </ListItem>//<IconButton
+			//	aria-label="more"
+			//	aria-controls="long-menu"
+			//	aria-haspopup="true"
+			//	onClick={handleClick}
+			//>
+			//	<MoreHorizIcon />
+			//</IconButton>
+			//</ListItem><Menu
+			//	id="simple-menu"
+			//	anchorEl={anchorEl}
+			//	keepMounted
+			//	open={Boolean(anchorEl)}
+			//	onClose={handleClose}
+			//>
+			//	<MenuItem onClick={editarComentario}>Editar</MenuItem>
+			//	<MenuItem onClick={handleClose}>Excluir</MenuItem>
+			//</Menu>
+		//</ListItem>
 	)
 }
 
