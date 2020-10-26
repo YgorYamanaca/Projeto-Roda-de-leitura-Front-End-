@@ -1,6 +1,5 @@
 import React, { memo, useState } from 'react';
-import { ChatList } from './styles'
-import { Drawer } from './styles'
+import { ChatList, ResponseText, Drawer, BookContainer,Abstract,AbstractContent,DateCreated, Date, LastComment, AboutBook} from './styles'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -32,52 +31,37 @@ const useStyles = makeStyles((theme) => ({
 
 function Chat() {
 	const classes = useStyles();
-	let livro = [{ nome: "Pequeno principe", autor: "Henrique Savoia", criacao: "Jan, 12,2020", ultimo: "18:33 - jan 13,2020" }]
+	let livro = [{ nome: "Pequeno principe", autor: "Henrique Savoia", resumo:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum, tellus ut malesuada sagittis, dolor magna efficitur justo, ac rhoncus sem felis vitae arcu.", criacao: "Jan, 12,2020", ultimo: "18:33 - jan 13,2020" }]
 	let comments = [{ id: 1, idUsuario: 1, nome: "Lucas Araujo", data: "18:33 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. Fusce dapibus semper sapien vel rutrum. Sed quis enim arcu. Aenean libero ligula, efficitur vitae dolor ut, vestibulum rhoncus nulla. Maecenas et pretium massa. Aenean sollicitudin lectus nec nibh dictum laoreet. Cras in mollis augue, id faucibus libero. Phasellus sit amet leo pulvinar, commodo massa sed, facilisis massa. Ut sed neque tempus, tempus quam quis, euismod felis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus." },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
 	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " }
 	]
 	return (
-		<div style={{ width: "100%", height: "100%", backgroundColor: "yellow", display: "flex", flexDirection: "row" }}>
-			<Drawer style={{ width: "20%", height: "100%", backgroundColor: "red" }}>
+		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row" }}>
+			<Drawer>
 				<div>
-					<IconButton aria-label="enviar">
-						<BackIcon />
-					</IconButton>
-			Fórum
-		</div>
-				<hr />
+					<p className="forum">
+						<IconButton aria-label="enviar">
+							<BackIcon />
+						</IconButton>
+						Fórum
+					</p>	
+				</div>
+				<hr/>
 				{livro.map(liv => {
 					return (
 						<div>
+							<BookContainer>
+								<div className="BookName">{liv.nome}</div>
+								<div className="AuthorName">por {liv.autor}</div>
+							</BookContainer>
+							<hr/>
 							<div>
-								<h1>{liv.nome}</h1>
-								<h2>por {liv.autor}</h2>
-								<hr />
-							</div>
-							<div>
-								<h3>criado em {liv.criacao} </h3>
-								<h3>último comentário em {liv.ultimo} </h3>
+								<Abstract>Resumo:</Abstract>
+								<AbstractContent>{liv.resumo}</AbstractContent>
+								<Date>Tópico criado em:</Date>
+								<DateCreated>{liv.criacao}</DateCreated> 
+								<LastComment>Último comentário em</LastComment>
+								<AboutBook>{liv.ultimo}</AboutBook>
 							</div>
 						</div>
 					)
@@ -95,17 +79,19 @@ function Chat() {
 						}
 					})}
 				</List>
-				<form className={classes.root} noValidate autoComplete="off">
-					<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined"
-						InputProps={{
-							endAdornment: (
-								<InputAdornment><IconButton aria-label="enviar">
-									<SendIcon />
-								</IconButton>
-								</InputAdornment>
-							)
-						}} />
-				</form>
+			
+					<ResponseText className={classes.root} noValidate autoComplete="off">
+						<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" 
+						style={{minWidth:"90%"}}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment><IconButton aria-label="enviar">
+										<SendIcon />
+									</IconButton>
+									</InputAdornment>
+								)
+							}} />
+				</ResponseText>
 			</ChatList>
 		</div>
 	);
@@ -129,7 +115,7 @@ function ComentarioComum(comment) {
 						className={classes.inline}
 						color="textPrimary"
 					>
-						- {comment.data}
+						 {comment.data}
 					</Typography>
 				</React.Fragment>}
 				secondary=
