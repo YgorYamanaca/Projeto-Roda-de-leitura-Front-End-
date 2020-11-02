@@ -1,56 +1,63 @@
-import React, { memo } from 'react';
-import {Header, Title, HeaderTextTitle, HeaderTextDate, HeaderTextLast} from './styles'
+import React, { } from 'react';
+import {Header, Title, HeaderTextTitle, ForumContainer, ListContainer} from './styles'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
 import ImageIcon from '@material-ui/icons/ImportContactsTwoTone';
-import { Book } from '@material-ui/icons';
-import { shadows } from '@material-ui/system';
-import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth:'95%',
-      backgroundColor: theme.palette.background.paper,
-      marginTop: "1%",
-      margin: "auto",
+      minWidth:'98%',
       backgroundColor: "#fafafa",
+      zIndex:'1',
+      margin:'15px 0'
     },
   }));
 
 function Forum() {
     const classes = useStyles();
     let books = [{nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
+                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
                  {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"}
                 ]
     return (
-      <div>
+      <ForumContainer>
 			  <Title><p>Fórum</p></Title>
-        <List className={classes.root}>
-        <Header>
-          <HeaderTextTitle>Título</HeaderTextTitle>
-          <HeaderTextDate>Data de criação</HeaderTextDate>
-          <HeaderTextLast>Último comentário</HeaderTextLast>
-          <hr></hr>
-        </Header>
 
-            {books.map(book=>{
-              return(
-                <ListItem button>
-                  <ListItemAvatar>
-                    <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
-                  </ListItemAvatar>
-                  <ListItemText primary={book.nome} secondary={book.comentarios + " comentários"}  style={{textAlign: 'left'}}/>
-                  <ListItemText primary={book.criacao} style={{textAlign: 'right'}} />
-                  <ListItemText primary={book.ultimo} style={{textAlign: 'right'}} />
-                </ListItem>
-              )
-            })}
-          </List>
-      </div>
+        <ListContainer>
+          <List className={classes.root}>
+            <Header>
+              <HeaderTextTitle>Título</HeaderTextTitle>
+              <HeaderTextTitle>Data de criação</HeaderTextTitle>
+              <HeaderTextTitle>Último comentário</HeaderTextTitle>
+            </Header>
+
+                {books.map(book=>{
+                  return(
+                    <ListItem button>
+                      <ListItemAvatar>
+                        <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
+                      </ListItemAvatar>
+                      <ListItemText primary={book.nome} secondary={book.comentarios + " comentários"} style={{flex:1}} />
+                      <ListItemText primary={book.criacao} style={{flex:1}}/>
+                      <ListItemText primary={book.ultimo} style={{flex:1}}/>
+                    </ListItem>
+                  )
+                })}
+            </List>
+          </ListContainer>
+      </ForumContainer>
     );
   }
   

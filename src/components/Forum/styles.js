@@ -1,9 +1,27 @@
 import styled from 'styled-components';
 
+export const ForumContainer = styled.div`
+	display:flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    background-color: #F1F1F1;
+`;
+
+export const ListContainer = styled.div`
+	display:flex;
+    flex-direction: column;
+    min-height: 100%;
+    width: 100%;
+    align-items:center;
+`;
+
 export const Title = styled.div`
 	font-weight: bold;
     padding: 15px;
-    box-shadow: 0px 5px 10px #707070;
+    box-shadow: 0px 2px 5px #707070;
+    z-index: 2;
     p{
         color:#444444;
         font-size: 28px;
@@ -15,30 +33,12 @@ export const Title = styled.div`
 export const HeaderTextTitle = styled.div`
     font-size: 22px;
     color:#a6a6a6;
-	display: inline-block;
-    margin-left: 4%;
-`;
-
-export const HeaderTextDate = styled.div`
-    font-size: 22px;
-    color:#a6a6a6;
-	display: inline-block;
-    margin-left: 50%;
-`;
-
-export const HeaderTextLast = styled.div`
-    font-size: 22px;
-    color:#a6a6a6;
-	display: inline-block;
-    margin-left: 19%;
-
+    flex:1;
 `;
 
 export const Header = styled.div`
+    display: flex;
     width: 100%;
-    hr{
-    display: block; 
-    border: 0; 
-    border-top: 1px solid #BCBCBC;
-    }
+    padding:8px 27px;
+    border-bottom:1px solid #BCBCBC;
 `;
