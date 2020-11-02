@@ -39,60 +39,64 @@ function Chat() {
 		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row" }}>
 			<Drawer>
 				<div>
-					<p className="forum">
-						<IconButton aria-label="enviar">
-							<BackIcon />
-						</IconButton>
-						Fórum
-					</p>	
-				</div>
-				<hr/>
-				{livro.map(liv => {
-					return (
-						<div>
-							<BookContainer>
-								<div className="BookName">{liv.nome}</div>
-								<div className="AuthorName">por {liv.autor}</div>
-							</BookContainer>
-							<hr/>
+					<div>
+						<p className="forum">
+							<IconButton aria-label="enviar">
+								<BackIcon />
+							</IconButton>
+							Fórum
+						</p>	
+					</div>
+					<hr/>
+					{livro.map(liv => {
+						return (
 							<div>
-								<Abstract>Resumo:</Abstract>
-								<AbstractContent>{liv.resumo}</AbstractContent>
-								<Date>Tópico criado em:</Date>
-								<DateCreated>{liv.criacao}</DateCreated> 
-								<LastComment>Último comentário em</LastComment>
-								<AboutBook>{liv.ultimo}</AboutBook>
+								<BookContainer>
+									<div className="BookName">{liv.nome}</div>
+									<div className="AuthorName">por {liv.autor}</div>
+								</BookContainer>
+								<hr/>
+								<div>
+									<Abstract>Resumo:</Abstract>
+									<AbstractContent>{liv.resumo}</AbstractContent>
+									<Date>Tópico criado em:</Date>
+									<DateCreated>{liv.criacao}</DateCreated> 
+									<LastComment>Último comentário em</LastComment>
+									<AboutBook>{liv.ultimo}</AboutBook>
+								</div>
 							</div>
-						</div>
-					)
-				})
-				}
+						)
+					})
+					}
+			</div>
 			</Drawer>
-			<ChatList style={{ overflowY:"scroll", backgroundColor: "white", borderRadius: 20 }}>
-				<List className={classes.root}>
-					{comments.map(comment => {
-						if (comment.idUsuario == 1) {
-							return ComentarioProprio(comment)
-						}
-						else {
-							return ComentarioComum(comment)
-						}
-					})}
-				</List>
-			
-					<ResponseText className={classes.root} noValidate autoComplete="off">
-						<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" 
-						style={{minWidth:"90%"}}
-							InputProps={{
-								endAdornment: (
-									<InputAdornment><IconButton aria-label="enviar">
-										<SendIcon />
-									</IconButton>
-									</InputAdornment>
-								)
-							}} />
-				</ResponseText>
-			</ChatList>
+			<div style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "center", display:"flex"}}>
+				<ChatList style={{ overflowY:"scroll", backgroundColor: "#FFFFFF", borderRadius: 20}}>
+					<List className={classes.root}>
+						{comments.map(comment => {
+							if (comment.idUsuario == 1) {
+								return ComentarioProprio(comment)
+							}
+							else {
+								return ComentarioComum(comment)
+							}
+						})}
+
+					</List>
+						<ResponseText className={classes.root} noValidate autoComplete="off">
+							<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" 
+							style={{minWidth:"90%"}}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment><IconButton aria-label="enviar">
+											<SendIcon />
+										</IconButton>
+										</InputAdornment>
+									)
+								}} />
+					</ResponseText>
+				</ChatList>
+			</div>
 		</div>
 	);
 }
