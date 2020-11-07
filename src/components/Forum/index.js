@@ -12,7 +12,8 @@ const useStyles = makeStyles((theme) => ({
       minWidth:'98%',
       backgroundColor: "#fafafa",
       zIndex:'1',
-      margin:'15px 0'
+      margin:'15px 0',
+      boxShadow:'0px 0px 20px -10px rgba(0,0,0,0.75)'
     },
   }));
 
