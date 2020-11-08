@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, {useEffect, useState } from 'react';
 import {Header, Title, HeaderTextTitle, ForumContainer, ListContainer} from './styles'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -6,6 +6,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ImageIcon from '@material-ui/icons/ImportContactsTwoTone';
+import api from '../../services/api';
+import { getToken } from "../../services/auth";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,20 +21,30 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Forum() {
-    const classes = useStyles();
-    let books = [{nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Harry", comentarios:2, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"},
-                 {nome:"Pequeno principe", comentarios:3, criacao:"Jan, 12,2020", ultimo:"18:33 - jan 13,2020"}
-                ]
+
+  const classes = useStyles();
+    const [books, setBooks] = useState([])
+    const [comment, setComents] = useState([])
+
+    let token = getToken();
+    useEffect(() => {
+      api.get('/topico',{
+        headers:{'x-access-token':token}
+      })
+      .then(res => {
+         const topics = res.data;
+         setBooks(topics)
+      })
+      // api.get('/comentario',{
+      //   headers:{'x-access-token':token}
+      // })
+      // .then(res => {
+      //    const comment = res.data;
+      //    setComents(comment)
+      // })
+    },[]);
+    // console.log(comment)
+
     return (
       <ForumContainer>
 			  <Title><p>Fórum</p></Title>
@@ -50,9 +63,9 @@ function Forum() {
                       <ListItemAvatar>
                         <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
                       </ListItemAvatar>
-                      <ListItemText primary={book.nome} secondary={book.comentarios + " comentários"} style={{flex:1}} />
-                      <ListItemText primary={book.criacao} style={{flex:1}}/>
-                      <ListItemText primary={book.ultimo} style={{flex:1}}/>
+                      <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios + " comentários"} />
+                      <ListItemText primary={book.created_at} style={{flex:1}}/>
+                      <ListItemText primary={book.updated_at} style={{flex:1}}/>
                     </ListItem>
                   )
                 })}
