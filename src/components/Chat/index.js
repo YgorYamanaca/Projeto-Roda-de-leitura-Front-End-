@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { ChatList, ResponseText, Drawer, BookContainer,Abstract,AbstractContent,DateCreated, Date, LastComment, AboutBook} from './styles'
+import { ChatList, ResponseText, Drawer, BookContainer,Abstract,AbstractContent,DateCreated, Date, LastComment, AboutBook, ChatContainer} from './styles'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -18,6 +18,12 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import EdiText from 'react-editext'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import "./app.css";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -33,6 +39,21 @@ function Chat() {
 	const classes = useStyles();
 	let livro = [{ nome: "Pequeno principe", autor: "Henrique Savoia", resumo:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum, tellus ut malesuada sagittis, dolor magna efficitur justo, ac rhoncus sem felis vitae arcu.", criacao: "Jan, 12,2020", ultimo: "18:33 - jan 13,2020" }]
 	let comments = [{ id: 1, idUsuario: 1, nome: "Lucas Araujo", data: "18:33 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. Fusce dapibus semper sapien vel rutrum. Sed quis enim arcu. Aenean libero ligula, efficitur vitae dolor ut, vestibulum rhoncus nulla. Maecenas et pretium massa. Aenean sollicitudin lectus nec nibh dictum laoreet. Cras in mollis augue, id faucibus libero. Phasellus sit amet leo pulvinar, commodo massa sed, facilisis massa. Ut sed neque tempus, tempus quam quis, euismod felis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus." },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
+	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
 	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " }
 	]
 	return (
@@ -71,7 +92,8 @@ function Chat() {
 			</div>
 			</Drawer>
 			<div style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "center", display:"flex"}}>
-				<ChatList style={{ overflowY:"scroll", backgroundColor: "#FFFFFF", borderRadius: 20}}>
+				<ChatList style={{ backgroundColor: "#FFFFFF", borderRadius: 20}} >
+					<div style={{ overflowY:"scroll", width: "100%", height: "95%" }} className="scrollbar mt-5 mx-auto" >
 					<List className={classes.root}>
 						{comments.map(comment => {
 							if (comment.idUsuario == 1) {
@@ -83,7 +105,9 @@ function Chat() {
 						})}
 
 					</List>
-						<ResponseText className={classes.root} noValidate autoComplete="off">
+					</div>
+					<div>
+					<ResponseText className={classes.root} noValidate autoComplete="off">
 							<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" 
 							style={{minWidth:"90%"}}
 								InputProps={{
@@ -95,6 +119,7 @@ function Chat() {
 									)
 								}} />
 					</ResponseText>
+					</div>
 				</ChatList>
 			</div>
 		</div>
@@ -118,8 +143,7 @@ function ComentarioComum(comment) {
 						variant="body2"
 						className={classes.inline}
 						color="textPrimary"
-					>
-						 {comment.data}
+					> - {comment.data}
 					</Typography>
 				</React.Fragment>}
 				secondary=
@@ -132,23 +156,45 @@ function ComentarioComum(comment) {
 
 function ComentarioProprio(comment) {
 	const classes = useStyles();
-	//const [anchorEl, setAnchorEl] = React.useState(null);
-	//const handleClick = (event) => {
-	//	setAnchorEl(event.currentTarget);
-	//};
-	//const handleClose = () => {
-	//	setAnchorEl(null);
-	//};
-	//const editarComentario = () => {
-	//	handleClose()
-	//	setEditing((v) => !v)
-	//}
-	const [editing, setEditing] = useState(false);
-	const [value, setValue] = useState(comment.comentario);
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+	const editarComentario = () => {
+		handleClose()
+		handleDialogOpen()
+	}
+	const excluirComentario = () => {
+		handleClose()
+		handleExcluirOpen()
+	}
+	const [open, setOpen] = React.useState(false);
 
-	const handleSave = (value) => {
-		console.log(value);
-		setValue(value);
+	const handleDialogOpen = () => {
+		setOpen(true);
+	};
+
+	const handleDialogClose = () => {
+		setOpen(false);
+	};
+	const dialogEditarComentario = () => {
+		setOpen(false);
+		window.location.reload(false);
+	};
+	const [openExcluir, setOpenExcluir] = React.useState(false);
+
+	const handleExcluirOpen = () => {
+		setOpenExcluir(true);
+	};
+	const dialogExcluirComentario = () => {
+		setOpen(false);
+		window.location.reload(false);
+	};
+	const handleExcluirClose = () => {
+		setOpenExcluir(false);
 	};
 	return (
 		<ListItem alignItems="flex-start">
@@ -158,49 +204,84 @@ function ComentarioProprio(comment) {
 				</Avatar>
 			</ListItemAvatar>
 			<ListItemText
-				primary={<React.Fragment>
-					{comment.nome}
-					<Typography
-						component="span"
-						variant="body2"
-						className={classes.inline}
-						color="textPrimary"
-					>
-						- {comment.data}
-					</Typography>
-				</React.Fragment>}
-				secondary={
-					<EdiText
-						value={value}
-						type="text"
-						onSave={handleSave}
-						editing={editing}
-						inputProps={{
-							rows: 5
-						  }}
-					/>
-				}
-			/>
-		 </ListItem>//<IconButton
-			//	aria-label="more"
-			//	aria-controls="long-menu"
-			//	aria-haspopup="true"
-			//	onClick={handleClick}
-			//>
-			//	<MoreHorizIcon />
-			//</IconButton>
-			//</ListItem><Menu
-			//	id="simple-menu"
-			//	anchorEl={anchorEl}
-			//	keepMounted
-			//	open={Boolean(anchorEl)}
-			//	onClose={handleClose}
-			//>
-			//	<MenuItem onClick={editarComentario}>Editar</MenuItem>
-			//	<MenuItem onClick={handleClose}>Excluir</MenuItem>
-			//</Menu>
-		//</ListItem>
+			primary= {<React.Fragment>
+			{comment.nome}
+			<Typography
+                component="span"
+                variant="body2"
+                className={classes.inline}
+                color="textPrimary"
+              > - {comment.data}
+              </Typography>
+			  </React.Fragment>}
+          secondary=
+			{comment.comentario}
+          
+        />
+		 <IconButton
+				aria-label="more"
+				aria-controls="long-menu"
+				aria-haspopup="true"
+				onClick={handleClick}
+			>
+				<MoreHorizIcon />
+			</IconButton>
+			<Menu
+				id="simple-menu"
+				anchorEl={anchorEl}
+				keepMounted
+				open={Boolean(anchorEl)}
+				onClose={handleClose}>
+				<MenuItem onClick={editarComentario}>Editar</MenuItem>
+				<MenuItem onClick={excluirComentario}>Excluir</MenuItem>
+			</Menu>
+			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Editar comentário</DialogTitle>
+        <DialogContent>
+          <TextField
+			defaultValue={comment.comentario}
+            autoFocus
+            margin="dense"
+            id="name"
+            fullWidth
+			variant="outlined"
+			multiline
+			rowsMax={10}
+			style = {{width:"400px"}}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={dialogEditarComentario} color="primary">
+            Editar
+          </Button>
+        </DialogActions>
+      </Dialog>
+	  <Dialog
+        open={openExcluir}
+        onClose={handleExcluirClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Excluir comentário"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Deseja mesmo excluir o comentário?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleExcluirClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={dialogExcluirComentario} color="primary" autoFocus>
+            Excluir
+          </Button>
+        </DialogActions>
+      </Dialog>
+		</ListItem>
 	)
-}
+}	
 
 export default Chat;
