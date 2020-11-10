@@ -27,6 +27,7 @@ function Forum() {
     const [comment, setComents] = useState([])
 
     let token = getToken();
+
     useEffect(() => {
       api.get('/topico',{
         headers:{'x-access-token':token}
@@ -35,16 +36,18 @@ function Forum() {
          const topics = res.data;
          setBooks(topics)
       })
-      // api.get('/comentario',{
-      //   headers:{'x-access-token':token}
-      // })
-      // .then(res => {
-      //    const comment = res.data;
-      //    setComents(comment)
-      // })
+      api.get('/comentario',{
+        headers:{'x-access-token':token}
+      })
+      .then(res => {
+         const comment = res.data;
+         setComents(comment)
+      })
     },[]);
-    // console.log(comment)
-
+    function convertDate(date){
+      let finalDate = new Date(date)
+      return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
+    }
     return (
       <ForumContainer>
 			  <Title><p>Fórum</p></Title>
@@ -63,9 +66,9 @@ function Forum() {
                       <ListItemAvatar>
                         <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
                       </ListItemAvatar>
-                      <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios + " comentários"} />
-                      <ListItemText primary={book.created_at} style={{flex:1}}/>
-                      <ListItemText primary={book.updated_at} style={{flex:1}}/>
+                      <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios.length + " comentários"} />
+                      <ListItemText primary={convertDate(book.created_at)} style={{flex:1}}/>
+                      <ListItemText primary={convertDate(book.updated_at)} style={{flex:1}}/>
                     </ListItem>
                   )
                 })}
