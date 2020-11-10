@@ -9,6 +9,7 @@ import Calender from './components/Calender';
 import Forum from './components/Forum';
 import Chat from './components/Chat';
 import Help from './components/HelpComponent';
+import AnalyticsComponent from './components/AnalyticsComponent';
 import { isAuthenticated } from "./services/auth";
 import  {Provider}  from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -44,6 +45,7 @@ export default function Routes(){
                     <PrivateRoute exact path="/forum" component={Forum}/>
                     <PrivateRoute exact path="/chat" component={Chat}/>
                     <PrivateRoute exact path="/help" component={Help}/>
+                    <PrivateRoute exact path="/statistic" component={AnalyticsComponent}/>
                     <Redirect from="*" to="/sigup" />
                 </Switch>
             </BrowserRouter>

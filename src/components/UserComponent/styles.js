@@ -72,7 +72,7 @@ export const ExternalBox = styled.div`
     justify-content:center;
     align-items:center;
     height:95%;
-    width:90%;
+    width:98%;
     margin:auto;
     background-color: #FFF; 
     box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.75); 

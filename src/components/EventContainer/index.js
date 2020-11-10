@@ -27,7 +27,7 @@ function EventContainer({event}) {
     const [date, setDate] = useState("");
     const [numberParticipant, setParticipant] = useState("");
     const [numberMax, setNumberMax] = useState("");
-    const [eventType, setEventT] = useState("");
+    // const [eventType, setEventT] = useState("");
     const user = useSelector(state => state.user);
     
    function handleDate(timezone)
@@ -71,7 +71,7 @@ function EventContainer({event}) {
         setDescription(event.descricao);
         setDate(event.data_evento);
         setNumberMax(event.max_participantes);
-        setEventT(event.tipo);
+        // setEventT(event.tipo);
         setParticipant(event.inscritos !== undefined? event.inscritos : "");
     }, [event])
     

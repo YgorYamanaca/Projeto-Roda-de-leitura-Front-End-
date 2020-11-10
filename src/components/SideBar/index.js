@@ -3,13 +3,16 @@ import { SideBarContainer, IconBox} from '../../components/SideBar/styles'
 import IconCalender from '../../assets/Icon/icon_Calendario.png'
 import IconForum from '../../assets/Icon/icon_Forum.png'
 import IconHelp from '../../assets/Icon/icon_info.png'
+import AssessmentOutlinedIcon from '../../assets/Icon/icon_Analytics.png';
 import { useHistory, useLocation } from 'react-router-dom'
 import { isMobile } from "react-device-detect";
+import { useSelector } from 'react-redux';
 
 function SideBar({SideBarID}) {
     const history = useHistory();
     const location = useLocation();
-
+    const user = useSelector(state => state.user);
+    console.log(user.tipo_usuario);
     return (
         <SideBarContainer mobile={isMobile}>  
             <IconBox mobile={isMobile}  className="Calender" onClick={() => {history.push('/calender')}} isSelected={location.pathname === "/calender"? true:false}>
@@ -21,6 +24,13 @@ function SideBar({SideBarID}) {
                 <img src={IconForum} alt="LogoForum"/>
                 {!isMobile? <div>Fórum</div> : null}
             </IconBox>
+
+            {user.tipo_usuario === 4?
+            <IconBox mobile={isMobile} className="Statistic" onClick={() => {history.push('/statistic')}} isSelected={location.pathname === "/statistic"? true:false}>
+                <img src={AssessmentOutlinedIcon} alt="LogoStatistic"/>
+                {!isMobile? <div>Estátistica</div> : null}
+            </IconBox>
+            :null}
 
             <IconBox mobile={isMobile} className="Help" onClick={() => {history.push('/help')}} isSelected={location.pathname === "/help"? true:false}>
                 <img src={IconHelp} alt="LogoHelp"/>

@@ -41,7 +41,6 @@ export const UserContainer = styled.div`
 
 export const Option = styled.ul`
     width:${props => props.mobile? '195px' : '200px'};
-    height:${props => props.mobile? '205px' : '215px'};
     background-color:#fafafa;
     padding:10px;
     box-shadow: 0px 15px 30px 0px rgba(0,0,0,0.3);

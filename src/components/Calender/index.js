@@ -79,45 +79,45 @@ function Calender()
   
   return (
     <Container>
-      {isAddEventsRender?
-      <WhiteContainer>
-        <AddEventContainer>
-          {isAddEventsRender? <CreateComponent isRender={handleAddEvent}/> : null}
-        </AddEventContainer>
-      </WhiteContainer>
-      : null}
-      {isEventsListRender && events.filter(teste).length > 0? 
+        {isAddEventsRender?
         <WhiteContainer>
-          <EventsContainer >
-            {isEventsListRender && events.filter(teste).length > 0? <FilteredEvent isRender={handleEventsList} filterDate={filter} eventList={events.filter(teste)} data={events} /> : null}
-          </EventsContainer>
+          <AddEventContainer>
+            {isAddEventsRender? <CreateComponent isRender={handleAddEvent}/> : null}
+          </AddEventContainer>
         </WhiteContainer>
-          : null}
+        : null}
+        {isEventsListRender && events.filter(teste).length > 0? 
+          <WhiteContainer>
+            <EventsContainer >
+              {isEventsListRender && events.filter(teste).length > 0? <FilteredEvent isRender={handleEventsList} filterDate={filter} eventList={events.filter(teste)} data={events} /> : null}
+            </EventsContainer>
+          </WhiteContainer>
+            : null}
 
-        <CalenderContainer>
-          <CalenderHeader>
-            {user.tipo_usuario === 4? isMobile? <StandartButton className="addButton" type={"button"} icon={Plus} customStyle={{width:'30px', height:'30px'}} onClick={handleAddEvent}/> : <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
-          </CalenderHeader> 
-          {isMobile?
-          <AllEvents/>
-          :
-          <CalenderBox>
-            <Calendar
-              selectable={'ignoreEvents'} 
-              localizer={localizer}
-              events={events && events.length > 0? events : [{}]}
-              views={{
-                month: true,
-              }}
-              messages={messages}
-              titleAccessor="titulo"
-              startAccessor="data_evento"
-              endAccessor="data_evento"
-              onSelectSlot={handleEventsList}
-            />
-          </CalenderBox>}
-          
-        </CalenderContainer> 
+          <CalenderContainer>
+            <CalenderHeader>
+              {user.tipo_usuario === 4? isMobile? <StandartButton className="addButton" type={"button"} icon={Plus} customStyle={{width:'30px', height:'30px'}} onClick={handleAddEvent}/> : <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
+            </CalenderHeader> 
+            {isMobile?
+            <AllEvents/>
+            :
+            <CalenderBox>
+              <Calendar
+                selectable={'ignoreEvents'} 
+                localizer={localizer}
+                events={events && events.length > 0? events : [{}]}
+                views={{
+                  month: true,
+                }}
+                messages={messages}
+                titleAccessor="titulo"
+                startAccessor="data_evento"
+                endAccessor="data_evento"
+                onSelectSlot={handleEventsList}
+              />
+            </CalenderBox>}
+            
+          </CalenderContainer> 
     </Container>
   );
 }
