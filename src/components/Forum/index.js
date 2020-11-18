@@ -36,6 +36,9 @@ function Forum() {
          const topics = res.data;
          setBooks(topics)
       })
+      .catch(error => {
+      })
+      
       api.get('/comentario',{
         headers:{'x-access-token':token}
       })
@@ -43,7 +46,9 @@ function Forum() {
          const comment = res.data;
          setComents(comment)
       })
-    },[]);
+      .catch(error => {
+      })
+    },[token]);
     function convertDate(date){
       let finalDate = new Date(date)
       return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
@@ -60,7 +65,8 @@ function Forum() {
               <HeaderTextTitle>Último comentário</HeaderTextTitle>
             </Header>
 
-                {books.map(book=>{
+                {books?
+                books.map(book=>{
                   return(
                     <ListItem button>
                       <ListItemAvatar>
@@ -71,7 +77,7 @@ function Forum() {
                       <ListItemText primary={convertDate(book.updated_at)} style={{flex:1}}/>
                     </ListItem>
                   )
-                })}
+                }) : null}
             </List>
           </ListContainer>
       </ForumContainer>

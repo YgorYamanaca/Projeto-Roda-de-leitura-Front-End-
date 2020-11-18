@@ -29,7 +29,6 @@ const BarChartData = () => {
 
   useEffect(() => {
     csv('../Dados/barcahrtData.csv', type).then(data => {
-        console.log(data)
       const dataClean = filterData(data)
       setBarChartData(
         prepareBarChartData(dataClean).sort((a, b) => {

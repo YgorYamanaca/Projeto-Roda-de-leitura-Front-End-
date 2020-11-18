@@ -12,7 +12,6 @@ function SideBar({SideBarID}) {
     const history = useHistory();
     const location = useLocation();
     const user = useSelector(state => state.user);
-    console.log(user.tipo_usuario);
     return (
         <SideBarContainer mobile={isMobile}>  
             <IconBox mobile={isMobile}  className="Calender" onClick={() => {history.push('/calender')}} isSelected={location.pathname === "/calender"? true:false}>
