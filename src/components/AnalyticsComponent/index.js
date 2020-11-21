@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Container, ExternalBox, Title, Context} from './styles';
-import BarChartData from './Graphs/BarChartData'
 
 export default function AnalyticsComponent() {
 
@@ -12,7 +11,7 @@ export default function AnalyticsComponent() {
                 </Title>
 
                 <Context>
-                    <BarChartData/>
+                    
                 </Context>
             </ExternalBox>
         </Container>

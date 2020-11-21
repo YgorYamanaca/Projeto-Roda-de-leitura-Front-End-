@@ -5,11 +5,13 @@ import trashIcon from '../../assets/Icon/icon_trash.png';
 import editIcon from '../../assets/Icon/icon_edit.png';
 import checkIcon from '../../assets/Icon/icon_checkbox.png';
 import unCheckIcon from '../../assets/Icon/icon_cancel.png';
+import analyticIcon from '../../assets/Icon/icon_Analytics - Blue.png';
 import {useLocation} from 'react-router-dom';
 import EditComponent from '../EditComponent/';
 import DeleteComponent from '../DeleteComponent/';
 import SubscribeComponent from '../SubscribeComponent/';
 import UnSubscribeComponent from '../UnSubscribeComponent/';
+import EventAnalyticComponent from '../EventAnalyticsComponent/';
 import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
@@ -19,6 +21,7 @@ function EventContainer({event}) {
     const [isEditPageRender, setEditPage] = useState(false);
     const [isSubscribePageRender, setSubPage] = useState(false);
     const [isUnSubscribePageRender, setUnSubPage] = useState(false);
+    const [isAnalyticPageRender, setAnalyticPage] = useState(false);
     const actualPath = useLocation();
     const [title, setTitle] = useState("");
     const [mediator, setMediator] = useState("");
@@ -64,6 +67,11 @@ function EventContainer({event}) {
         setUnSubPage(!isUnSubscribePageRender)
     }
 
+    function handleAnalyticPage()
+    {
+        setAnalyticPage(!isAnalyticPageRender)
+    }
+
     useEffect(() => {
         setTitle(event.titulo);
         setMediator(event.nome_mediador);
@@ -101,6 +109,11 @@ function EventContainer({event}) {
             </WhiteContainer>
             : null}
 
+        {isAnalyticPageRender?
+            <WhiteContainer path={actualPath.pathname} mobile={isMobile}>
+                <EventAnalyticComponent isRender={handleAnalyticPage} subscribes={event.inscritos} />
+            </WhiteContainer>
+            : null}
             
             <EventInfoContainer>
                 <TitleContainer mobile={isMobile}>     
@@ -110,6 +123,7 @@ function EventContainer({event}) {
                     </div>
                     {user.tipo_usuario === 4?
                     <IconBox  mobile={isMobile}>
+                        {event.inscritos.length > 0 && <img src={analyticIcon} alt="logoStatistic" onClick={handleAnalyticPage}/>}
                         <img src={editIcon} alt="logoEdit" onClick={handleEditPage}/>
                         <img src={trashIcon} alt="logoTrash" onClick={handleDelete}/>
                     </IconBox>:

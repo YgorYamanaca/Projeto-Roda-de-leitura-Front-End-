@@ -41,7 +41,7 @@ export const SingUpBox = styled.div`
 `;
 
 export const Form = styled.form`
-    margin-top:5%;
+    margin-top:1%;
     display:flex;
     flex-direction:column;
     align-items:center;

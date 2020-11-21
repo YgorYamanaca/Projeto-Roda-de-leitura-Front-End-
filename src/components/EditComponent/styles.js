@@ -9,7 +9,7 @@ export const EditBox = styled.span`
     background-color:#ffff;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
     border:1px solid #DDD;
-    margin-top:25px;
+    margin-top:1%;
 `;
 
 export const TopContainer = styled.div`

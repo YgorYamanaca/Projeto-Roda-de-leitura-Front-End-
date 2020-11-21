@@ -6,7 +6,7 @@ export const AddEventBox = styled.div`
     position:absolute;
     width: 55%;
     height: auto;
-    margin-top:25px;
+    margin-top:1%;
     background-color:#ffff;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
     border:1px solid #DDD;

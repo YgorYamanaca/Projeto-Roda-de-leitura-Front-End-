@@ -50,7 +50,6 @@ function EditComponent({isRender, editDate}) {
                 'max_participantes' : numberP,
                 'nome_mediador':mediator
                 }
-                console.log(formData)
                 isRender();
                 dispatch(editEventRequest(formData))
                 e.preventDefault();
