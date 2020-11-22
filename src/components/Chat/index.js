@@ -96,7 +96,7 @@ function Chat() {
 					<div style={{ overflowY:"scroll", width: "100%", height: "95%" }} className="scrollbar mt-5 mx-auto" >
 					<List className={classes.root}>
 						{comments.map(comment => {
-							if (comment.idUsuario == 1) {
+							if (comment.idUsuario === 1) {
 								return ComentarioProprio(comment)
 							}
 							else {

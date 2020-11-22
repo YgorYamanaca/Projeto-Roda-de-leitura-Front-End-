@@ -8,6 +8,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ImageIcon from '@material-ui/icons/ImportContactsTwoTone';
 import api from '../../services/api';
 import { getToken } from "../../services/auth";
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,9 +24,8 @@ const useStyles = makeStyles((theme) => ({
 function Forum() {
 
   const classes = useStyles();
-    const [books, setBooks] = useState([])
-    const [comment, setComents] = useState([])
-
+    const [books, setBooks] = useState([]);
+    const history = useHistory();
     let token = getToken();
 
     useEffect(() => {
@@ -38,17 +38,9 @@ function Forum() {
       })
       .catch(error => {
       })
-      
-      api.get('/comentario',{
-        headers:{'x-access-token':token}
-      })
-      .then(res => {
-         const comment = res.data;
-         setComents(comment)
-      })
-      .catch(error => {
-      })
     },[token]);
+    console.log(books)
+
     function convertDate(date){
       let finalDate = new Date(date)
       return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
@@ -68,7 +60,7 @@ function Forum() {
                 {books?
                 books.map(book=>{
                   return(
-                    <ListItem button>
+                    <ListItem button onClick={() => history.push(`/chat/${book.id_topico}`)}>
                       <ListItemAvatar>
                         <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
                       </ListItemAvatar>

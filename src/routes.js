@@ -43,10 +43,11 @@ export default function Routes(){
                     <PrivateRoute exact path="/calender" component={Calender}/>
                     <PrivateRoute exact path="/events" component={AllEvents}/>
                     <PrivateRoute exact path="/forum" component={Forum}/>
-                    <PrivateRoute exact path="/chat" component={Chat}/>
+                    <PrivateRoute exact path="/chat/:id" component={Chat}/>
                     <PrivateRoute exact path="/help" component={Help}/>
                     <PrivateRoute exact path="/statistic" component={AnalyticsComponent}/>
-                    <Redirect from="*" to="/sigup" />
+                    
+                    <Redirect from="*" to="/" />
                 </Switch>
             </BrowserRouter>
           </PersistGate>
