@@ -10,7 +10,7 @@ export const EventAnalyticsBox = styled.span`
     margin-top:1.5%;
     background-color:#ffff;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
-    padding:10px;
+    padding:10px 20px;
     border:1px solid #DDD;
     height: 95%;
 `;
@@ -27,10 +27,30 @@ export const TopText = styled.div`
 
 export const AnalyticContent = styled.div`
     display:flex;
-    flex-direction:column;
     width: 100%;
-    padding:2.5px;
+    justify-content:center;
+    padding:5.5px;
     overflow: auto;
+    flex-wrap: wrap;
+    &::-webkit-scrollbar-track
+    {
+        
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #FFFFFF;
+    }
+
+    &::-webkit-scrollbar
+    {
+        width: 0.6%;
+        background-color: #FFFFFF;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        
+        box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #024ea2;
+    }
 `;
 
 export const GraphicContent = styled.div`
@@ -44,7 +64,7 @@ export const GraphicContent = styled.div`
     box-shadow:0 0 10px rgb(0, 0, 0 , 0.2);
     background-color:#ffff;
     padding: 5px;
-    margin:5px 0;
+    margin:5px;
 
     height: auto;
     width: 500px;

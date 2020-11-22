@@ -1,9 +1,12 @@
 import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import Routes from './routes';
 
 ReactDOM.render(
-    <Routes/>,
+  <StrictMode>
+    <Routes/>
+  </StrictMode>,
   document.getElementById('root')
 );
 

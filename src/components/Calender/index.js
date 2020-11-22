@@ -122,4 +122,4 @@ function Calender()
   );
 }
 
-export default Calender;
+export default React.memo(Calender);
