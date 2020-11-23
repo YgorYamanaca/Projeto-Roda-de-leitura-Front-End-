@@ -187,13 +187,14 @@ function EventAnalyticComponent({isRender, subscribes}){
                     Centro dos inscritos
                     <HorizontalBar data={centerData} options={options}/>
                 </GraphicContent> : null}
-            </AnalyticContent>
+            
 
             {birthData?
                 <GraphicContent>
                     Idade dos inscritos
                     <Pie data={birthData}/>
                 </GraphicContent> : null}
+            </AnalyticContent>
         </EventAnalyticsBox>
     );
 }
