@@ -39,12 +39,13 @@ function Forum() {
       .catch(error => {
       })
     },[token]);
-    console.log(books)
+    console.log(typeof (books))
 
     function convertDate(date){
       let finalDate = new Date(date)
       return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
     }
+    
     return (
       <ForumContainer>
 			  <Title><p>Fórum</p></Title>
@@ -60,7 +61,7 @@ function Forum() {
                 {books?
                 books.map(book=>{
                   return(
-                    <ListItem button onClick={() => history.push(`/chat/${book.id_topico}`)}>
+                    <ListItem button onClick={() => history.push(`/chat/${book.id_topico}`, history.push('/go-here'))}>
                       <ListItemAvatar>
                         <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
                       </ListItemAvatar>
