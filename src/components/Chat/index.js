@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { ChatList, ResponseText, Drawer, BookContainer,Abstract,AbstractContent,DateCreated, Date, LastComment, AboutBook, ChatContainer} from './styles'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -24,6 +24,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import "./app.css";
+import api from '../../services/api';
+import { getToken } from "../../services/auth";
+import { useHistory, useParams } from 'react-router-dom';
+import { SignalCellularNull } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -35,27 +39,33 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+
 function Chat() {
 	const classes = useStyles();
-	let livro = [{ nome: "Pequeno principe", autor: "Henrique Savoia", resumo:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum, tellus ut malesuada sagittis, dolor magna efficitur justo, ac rhoncus sem felis vitae arcu.", criacao: "Jan, 12,2020", ultimo: "18:33 - jan 13,2020" }]
-	let comments = [{ id: 1, idUsuario: 1, nome: "Lucas Araujo", data: "18:33 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. Fusce dapibus semper sapien vel rutrum. Sed quis enim arcu. Aenean libero ligula, efficitur vitae dolor ut, vestibulum rhoncus nulla. Maecenas et pretium massa. Aenean sollicitudin lectus nec nibh dictum laoreet. Cras in mollis augue, id faucibus libero. Phasellus sit amet leo pulvinar, commodo massa sed, facilisis massa. Ut sed neque tempus, tempus quam quis, euismod felis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus." },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " },
-	{ id: 2, idUsuario: 2, nome: "João Marçura", data: "19:10 - jan 13,2020", comentario: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere quam ac nunc condimentum, sit amet posuere enim hendrerit. " }
-	]
+    const [topicInfo, setTopicInfo] = useState([]);
+    let token = getToken();
+	let { id } = useParams();
+
+    useEffect(() => {
+      api.get(`/topico/${id}`,{
+		headers:{'x-access-token':token}
+      })
+      .then(res => {
+         const topics = res.data;
+         setTopicInfo(topics)
+      })
+      .catch(error => {
+      })
+	},[token]);
+
+
+    console.log(topicInfo.created_at)
+
+	function convertDate(opa){
+		let finalDate = new Date(opa)
+		return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
+	  }
+	
 	return (
 		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row" }}>
 			<Drawer>
@@ -68,41 +78,39 @@ function Chat() {
 							Fórum
 						</p>	
 					</div>
-					<hr/>
-					{livro.map(liv => {
-						return (
+					<hr/>		
 							<div>
 								<BookContainer>
-									<div className="BookName">{liv.nome}</div>
-									<div className="AuthorName">por {liv.autor}</div>
+									<div className="BookName">{topicInfo.titulo}</div>
+									<div className="AuthorName">por {topicInfo.autor}</div>
 								</BookContainer>
 								<hr/>
 								<div>
 									<Abstract>Resumo:</Abstract>
-									<AbstractContent>{liv.resumo}</AbstractContent>
+									<AbstractContent>{topicInfo.sinopse}</AbstractContent>
 									<Date>Tópico criado em:</Date>
-									<DateCreated>{liv.criacao}</DateCreated> 
+									<DateCreated>{topicInfo.created_at}</DateCreated> 
 									<LastComment>Último comentário em</LastComment>
-									<AboutBook>{liv.ultimo}</AboutBook>
+									<AboutBook>{topicInfo.updated_at}</AboutBook>
 								</div>
 							</div>
-						)
-					})
-					}
+						
+					
 			</div>
 			</Drawer>
 			<div style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "center", display:"flex"}}>
 				<ChatList style={{ backgroundColor: "#FFFFFF", borderRadius: 20}} >
 					<div style={{ overflowY:"scroll", width: "100%", height: "95%" }} className="scrollbar mt-5 mx-auto" >
 					<List className={classes.root}>
-						{comments.map(comment => {
-							if (comment.idUsuario === 1) {
+						{topicInfo.comentarios?
+						 topicInfo.comentarios.map(comment => {
+							if (comment.id_Usuario === 1) {
 								return ComentarioProprio(comment)
 							}
 							else {
 								return ComentarioComum(comment)
 							}
-						})}
+						}): null}
 
 					</List>
 					</div>
@@ -127,7 +135,7 @@ function Chat() {
 }
 
 function ComentarioComum(comment) {
-	const classes = useStyles();
+	// const classes = useStyles();
 	return (
 		<ListItem alignItems="flex-start">
 			<ListItemAvatar>
@@ -137,17 +145,17 @@ function ComentarioComum(comment) {
 			</ListItemAvatar>
 			<ListItemText
 				primary={<React.Fragment>
-					{comment.nome}
+					{comment.usuario.nome}
 					<Typography
 						component="span"
 						variant="body2"
-						className={classes.inline}
+						// className={classes.inline}
 						color="textPrimary"
-					> - {comment.data}
+					> - {comment.created_at}
 					</Typography>
 				</React.Fragment>}
 				secondary=
-				{comment.comentario}
+				{comment.conteudo}
 
 			/>
 		</ListItem>
