@@ -189,11 +189,11 @@ function EventAnalyticComponent({isRender, subscribes}){
                 </GraphicContent> : null}
             
 
-            {birthData?
-                <GraphicContent>
-                    Idade dos inscritos
-                    <Pie data={birthData}/>
-                </GraphicContent> : null}
+                {birthData?
+                    <GraphicContent>
+                        Idade dos inscritos
+                        <Pie data={birthData}/>
+                    </GraphicContent> : null}
             </AnalyticContent>
         </EventAnalyticsBox>
     );
