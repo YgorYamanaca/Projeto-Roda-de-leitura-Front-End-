@@ -28,6 +28,9 @@ import api from '../../services/api';
 import { getToken } from "../../services/auth";
 import { useHistory, useParams } from 'react-router-dom';
 import { SignalCellularNull } from '@material-ui/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { index } from 'd3-array';
+
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -57,113 +60,7 @@ function Chat() {
       .catch(error => {
       })
 	},[token]);
-
-
-    console.log(topicInfo.created_at)
-
-	function convertDate(opa){
-		let finalDate = new Date(opa)
-		return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
-	  }
-	
-	return (
-		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row" }}>
-			<Drawer>
-				<div>
-					<div>
-						<p className="forum">
-							<IconButton aria-label="enviar">
-								<BackIcon />
-							</IconButton>
-							Fórum
-						</p>	
-					</div>
-					<hr/>		
-							<div>
-								<BookContainer>
-									<div className="BookName">{topicInfo.titulo}</div>
-									<div className="AuthorName">por {topicInfo.autor}</div>
-								</BookContainer>
-								<hr/>
-								<div>
-									<Abstract>Resumo:</Abstract>
-									<AbstractContent>{topicInfo.sinopse}</AbstractContent>
-									<Date>Tópico criado em:</Date>
-									<DateCreated>{topicInfo.created_at}</DateCreated> 
-									<LastComment>Último comentário em</LastComment>
-									<AboutBook>{topicInfo.updated_at}</AboutBook>
-								</div>
-							</div>
-						
-					
-			</div>
-			</Drawer>
-			<div style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "center", display:"flex"}}>
-				<ChatList style={{ backgroundColor: "#FFFFFF", borderRadius: 20}} >
-					<div style={{ overflowY:"scroll", width: "100%", height: "95%" }} className="scrollbar mt-5 mx-auto" >
-					<List className={classes.root}>
-						{topicInfo.comentarios?
-						 topicInfo.comentarios.map(comment => {
-							if (comment.id_Usuario === 1) {
-								return ComentarioProprio(comment)
-							}
-							else {
-								return ComentarioComum(comment)
-							}
-						}): null}
-
-					</List>
-					</div>
-					<div>
-					<ResponseText className={classes.root} noValidate autoComplete="off">
-							<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" 
-							style={{minWidth:"90%"}}
-								InputProps={{
-									endAdornment: (
-										<InputAdornment><IconButton aria-label="enviar">
-											<SendIcon />
-										</IconButton>
-										</InputAdornment>
-									)
-								}} />
-					</ResponseText>
-					</div>
-				</ChatList>
-			</div>
-		</div>
-	);
-}
-
-function ComentarioComum(comment) {
-	// const classes = useStyles();
-	return (
-		<ListItem alignItems="flex-start">
-			<ListItemAvatar>
-				<Avatar>
-					<ImageIcon />
-				</Avatar>
-			</ListItemAvatar>
-			<ListItemText
-				primary={<React.Fragment>
-					{comment.usuario.nome}
-					<Typography
-						component="span"
-						variant="body2"
-						// className={classes.inline}
-						color="textPrimary"
-					> - {comment.created_at}
-					</Typography>
-				</React.Fragment>}
-				secondary=
-				{comment.conteudo}
-
-			/>
-		</ListItem>
-	)
-}
-
-function ComentarioProprio(comment) {
-	const classes = useStyles();
+	const user = useSelector(state => state.user);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -204,92 +101,201 @@ function ComentarioProprio(comment) {
 	const handleExcluirClose = () => {
 		setOpenExcluir(false);
 	};
+
+	function convertDate(opa){
+		let finalDate = new Date(opa)
+		return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
+	  }
+	
+	  function ComentarioComum(comment, index) {
+	
+		return (
+	
+			<ListItem alignItems="flex-start" key={"comentarioComum" + index}>
+				<ListItemAvatar>
+					<Avatar>
+						<ImageIcon />
+					</Avatar>
+				</ListItemAvatar>
+				<ListItemText
+					primary={<React.Fragment>
+						{comment.usuario.nome}
+						<Typography
+							component="span"
+							variant="body2"
+							className = {classes.inline}
+							color="textPrimary"
+						> - {comment.created_at}
+						</Typography>
+					</React.Fragment>}
+					secondary=
+					{comment.conteudo}
+	
+				/>
+			</ListItem>
+		)
+	}
+	
+	function ComentarioProprio(comment, index) {
+		
+		return (
+			<ListItem alignItems="flex-start" key={"ComentarioProprio" + index}>
+				<ListItemAvatar>
+					<Avatar>
+						<ImageIcon />
+					</Avatar>
+				</ListItemAvatar>
+				<ListItemText
+				primary= {<React.Fragment>
+				{comment.usuario.nome}
+				<Typography
+					component="span"
+					variant="body2"
+					className={classes.inline}
+					color="textPrimary"
+				  > - {comment.created_at}
+				  </Typography>
+				  </React.Fragment>}
+			  secondary=
+				{comment.conteudo}
+			  
+			/>
+			 <IconButton
+					aria-label="more"
+					aria-controls="long-menu"
+					aria-haspopup="true"
+					onClick={handleClick}
+				>
+					<MoreHorizIcon />
+				</IconButton>
+				<Menu
+					id="simple-menu"
+					anchorEl={anchorEl}
+					keepMounted
+					open={Boolean(anchorEl)}
+					onClose={handleClose}>
+					<MenuItem onClick={editarComentario}>Editar</MenuItem>
+					<MenuItem onClick={excluirComentario}>Excluir</MenuItem>
+				</Menu>
+				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+			<DialogTitle id="form-dialog-title">Editar comentário</DialogTitle>
+			<DialogContent>
+			  <TextField
+				defaultValue={comment.conteudo}
+				autoFocus
+				margin="dense"
+				id="name"
+				fullWidth
+				variant="outlined"
+				multiline
+				rowsMax={10}
+				style = {{width:"400px"}}
+			  />
+			</DialogContent>
+			<DialogActions>
+			  <Button onClick={handleDialogClose} color="primary">
+				Cancelar
+			  </Button>
+			  <Button onClick={dialogEditarComentario} color="primary">
+				Editar
+			  </Button>
+			</DialogActions>
+		  </Dialog>
+		  <Dialog
+			open={openExcluir}
+			onClose={handleExcluirClose}
+			aria-labelledby="alert-dialog-title"
+			aria-describedby="alert-dialog-description"
+		  >
+			<DialogTitle id="alert-dialog-title">{"Excluir comentário"}</DialogTitle>
+			<DialogContent>
+			  <DialogContentText id="alert-dialog-description">
+				Deseja mesmo excluir o comentário?
+			  </DialogContentText>
+			</DialogContent>
+			<DialogActions>
+			  <Button onClick={handleExcluirClose} color="primary">
+				Cancelar
+			  </Button>
+			  <Button onClick={dialogExcluirComentario} color="primary" autoFocus>
+				Excluir
+			  </Button>
+			</DialogActions>
+		  </Dialog>
+			</ListItem>
+		)
+	}	
+
 	return (
-		<ListItem alignItems="flex-start">
-			<ListItemAvatar>
-				<Avatar>
-					<ImageIcon />
-				</Avatar>
-			</ListItemAvatar>
-			<ListItemText
-			primary= {<React.Fragment>
-			{comment.nome}
-			<Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              > - {comment.data}
-              </Typography>
-			  </React.Fragment>}
-          secondary=
-			{comment.comentario}
-          
-        />
-		 <IconButton
-				aria-label="more"
-				aria-controls="long-menu"
-				aria-haspopup="true"
-				onClick={handleClick}
-			>
-				<MoreHorizIcon />
-			</IconButton>
-			<Menu
-				id="simple-menu"
-				anchorEl={anchorEl}
-				keepMounted
-				open={Boolean(anchorEl)}
-				onClose={handleClose}>
-				<MenuItem onClick={editarComentario}>Editar</MenuItem>
-				<MenuItem onClick={excluirComentario}>Excluir</MenuItem>
-			</Menu>
-			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Editar comentário</DialogTitle>
-        <DialogContent>
-          <TextField
-			defaultValue={comment.comentario}
-            autoFocus
-            margin="dense"
-            id="name"
-            fullWidth
-			variant="outlined"
-			multiline
-			rowsMax={10}
-			style = {{width:"400px"}}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDialogClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={dialogEditarComentario} color="primary">
-            Editar
-          </Button>
-        </DialogActions>
-      </Dialog>
-	  <Dialog
-        open={openExcluir}
-        onClose={handleExcluirClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Excluir comentário"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Deseja mesmo excluir o comentário?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleExcluirClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={dialogExcluirComentario} color="primary" autoFocus>
-            Excluir
-          </Button>
-        </DialogActions>
-      </Dialog>
-		</ListItem>
-	)
-}	
+		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row" }}>
+			<Drawer>
+				<div>
+					<div>
+						<p className="forum">
+							<IconButton aria-label="enviar">
+								<BackIcon />
+							</IconButton>
+							Fórum
+						</p>	
+					</div>
+					<hr/>		
+							<div>
+								<BookContainer>
+									<div className="BookName">{topicInfo.titulo}</div>
+									<div className="AuthorName">por {topicInfo.autor}</div>
+								</BookContainer>
+								<hr/>
+								<div>
+									<Abstract>Resumo:</Abstract>
+									<AbstractContent>{topicInfo.sinopse}</AbstractContent>
+									<Date>Tópico criado em:</Date>
+									<DateCreated>{topicInfo.created_at}</DateCreated> 
+									<LastComment>Último comentário em</LastComment>
+									<AboutBook>{topicInfo.updated_at}</AboutBook>
+								</div>
+							</div>
+						
+					
+			</div>
+			</Drawer>
+			<div style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "center", display:"flex"}}>
+				<ChatList style={{ backgroundColor: "#FFFFFF", borderRadius: 20}} >
+					<div style={{ overflowY:"scroll", width: "100%", height: "95%" }} className="scrollbar mt-5 mx-auto" >
+					<List className={classes.root}>
+						{topicInfo.comentarios?
+						 topicInfo.comentarios.map((comment, index) => {
+							if (comment.id_usuario == user.id_usuario) {
+								console.log("Passou1")
+								return ComentarioProprio(comment, index)
+							}
+							else {
+								console.log("Passou2")
+								return ComentarioComum(comment, index)
+							}
+						}): null}
+
+					</List>
+					</div>
+					<div>
+					<ResponseText className={classes.root} noValidate autoComplete="off">
+							<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" 
+							style={{minWidth:"90%"}}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment><IconButton aria-label="enviar">
+											<SendIcon />
+										</IconButton>
+										</InputAdornment>
+									)
+								}} />
+					</ResponseText>
+					</div>
+				</ChatList>
+			</div>
+		</div>
+	);
+}
+
+
 
 export default Chat;
