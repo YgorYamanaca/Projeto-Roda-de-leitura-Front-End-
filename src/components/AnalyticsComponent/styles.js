@@ -38,7 +38,7 @@ export const ExternalBox = styled.div`
     margin:auto;
     background-color: #FFF; 
     box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.75); 
-    padding:25px;  
+    padding:15px;  
 
     word-wrap: break-word;
 `;
@@ -50,11 +50,55 @@ export const Title = styled.div`
 `
 
 export const Context = styled.div`
-    font-size:20px;
-    font-weight:500;
-    span{
-        font-weight:600; 
-        color:#024ea2;
-        margin:0 5px;
+    display:flex;
+    flex-direction:column;
+    padding:1.5%;
+    width:100%;
+    height:100%;
+
+`
+
+export const DateRequestSty = styled.div`
+    display:flex;
+    justify-content:center;
+    width:100%;
+    align-items:center;
+    padding:5px;
+    input
+    {
+        font-family: 'Catamaran', sans-serif;
+        height: auto;
+        font-size:${props => props.mobile? '14px':'clamp(13px, 1.5vw, 2.0vw)'};
+        border:1px solid #DDD;
+        background-color:#fafafa;
+        box-sizing: border-box;
+        padding: 0.5px 10px;
+        text-overflow: ellipsis;
+        ::placeholder
+        {
+            opacity:0.5;
+        }
+    }
+
+    div.react-datepicker-wrapper
+    {
+        display:block; 
     }
 `
+
+export const DateContent = styled.div`
+    display:flex;
+    flex-direction:column;
+    font-size:${props => props.mobile? '14px':'clamp(13px, 1.5vw, 2.0vw)'};
+    margin: 0 15px;
+    & > div
+    {  
+        opacity: ${props => props.disabled? '0.75':'1'};
+    }
+`
+
+export const ResponseDataSty = styled.div`
+    height:100%;
+    width:100%;
+    background-color:blue;
+`   
