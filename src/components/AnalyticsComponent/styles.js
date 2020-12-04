@@ -62,7 +62,7 @@ export const DateRequestSty = styled.div`
     display:flex;
     justify-content:center;
     width:100%;
-    align-items:center;
+    align-items:flex-end;
     padding:5px;
     input
     {

@@ -48,18 +48,18 @@ export default function SingUp() {
                      api.post("/usuario", formData)
                     .then(res => {
                         //se ok voltar para tela de login 
-                        res.status? history.push("/") : alert ("Erro no servidor");
+                        res.status? alert ("Você se cadastrou no sistema"): alert ("Erro no servidor");
+                        history.push("/") 
                     })
                     .catch(error => {
                         console.log(error);
-
                        alert("Houve um problema no cadastro, verifique as informações digitadas.");
                     })
                 }
                 
                 else
                 {
-                    alert("As duas senhas não não coincidem");
+                    alert("As duas senhas não coincidem.");
                 }
             }
             else{

@@ -15,6 +15,8 @@ export const Container = styled.button.attrs(props => ({
     overflow:hidden;
     padding:5px;
     margin:5px;
+    opacity:${props => props.disabled? '0.5' : '1'};
+    pointer-events:${props => props.disabled? 'none' : 'default'};
     img
     {
         width:${(props) => props.mobile? '15px' : '30px'};
@@ -34,7 +36,7 @@ export const Container = styled.button.attrs(props => ({
     }
     :hover
     {
-        cursor:pointer;
+        cursor:${props => props.disabled? 'default' : 'pointer'};
     }
     :active
     {
