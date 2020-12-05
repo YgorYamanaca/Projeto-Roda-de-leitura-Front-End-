@@ -22,11 +22,10 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function Forum() {
-
   const classes = useStyles();
-    const [books, setBooks] = useState([]);
-    const history = useHistory();
-    let token = getToken();
+  const [books, setBooks] = useState([]);
+  const history = useHistory();
+  let token = getToken();
 
     useEffect(() => {
       api.get('/topico',{
@@ -43,7 +42,7 @@ function Forum() {
 
     function convertDate(date){
       let finalDate = new Date(date)
-      return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
+      return `${finalDate.getDate()}/${finalDate.getMonth()+1}/${finalDate.getFullYear()} `
     }
     
     return (
@@ -67,7 +66,7 @@ function Forum() {
                       </ListItemAvatar>
                       <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios.length + " comentários"} />
                       <ListItemText primary={convertDate(book.created_at)} style={{flex:1}}/>
-                      <ListItemText primary={convertDate(book.updated_at)} style={{flex:1}}/>
+                      <ListItemText primary={convertDate(book.comentarios[book.comentarios.length-1].created_at)} style={{flex:1}}/>
                     </ListItem>
                   )
                 }) : null}

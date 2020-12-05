@@ -48,6 +48,7 @@ function Chat() {
     const [topicInfo, setTopicInfo] = useState([]);
     let token = getToken();
 	let { id } = useParams();
+	const [COMENTARIO, setCOMENTARIO] = useState([]);
 
     useEffect(() => {
       api.get(`/topico/${id}`,{
@@ -62,7 +63,8 @@ function Chat() {
 	},[token]);
 	const user = useSelector(state => state.user);
 	const [anchorEl, setAnchorEl] = React.useState(null);
-	const handleClick = (event) => {
+	const handleClick = (event, comment) => {
+		setCOMENTARIO(comment)  
 		setAnchorEl(event.currentTarget);
 	};
 	const handleClose = () => {
@@ -85,28 +87,48 @@ function Chat() {
 	const handleDialogClose = () => {
 		setOpen(false);
 	};
-	const dialogEditarComentario = () => {
+	const dialogEditarComentario = (event, comment) => {
+		console.log(comment)
+		alterarComentario(comment)
 		setOpen(false);
-		window.location.reload(false);
 	};
 	const [openExcluir, setOpenExcluir] = React.useState(false);
 
 	const handleExcluirOpen = () => {
 		setOpenExcluir(true);
 	};
-	const dialogExcluirComentario = () => {
+	function dialogExcluirComentario(){
 		setOpen(false);
-		window.location.reload(false);
+		deletarComentario()
 	};
 	const handleExcluirClose = () => {
 		setOpenExcluir(false);
 	};
 
-	function convertDate(opa){
-		let finalDate = new Date(opa)
+	function deletarComentario(){
+		api.delete(`/comentario`, {id_comentario:parseInt(COMENTARIO.id_comentario)}, {
+			headers:{'x-access-token':token}
+		})	
+  }
+	
+	  function inserirComentario(comment){
+		api.post(`/comentario`, {conteudo: comment, id_usuario:user.id_usuario, id_topico:parseInt(topicInfo.id_topico)}, {
+			headers:{
+				'x-access-token':token
+				}
+			}).then(window.location.reload(false))
+	}
+
+	function alterarComentario(comment){
+		api.patch(`/comentario`, {id_comentario:COMENTARIO.id_comentario, conteudo: comment}, {
+			headers:{'x-access-token':token}
+		}).then(window.location.reload(false))
+  }
+	
+	function convertDate(data){
+		let finalDate = new window.Date(data)
 		return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
 	  }
-	
 	  function ComentarioComum(comment, index) {
 	
 		return (
@@ -125,7 +147,7 @@ function Chat() {
 							variant="body2"
 							className = {classes.inline}
 							color="textPrimary"
-						> - {comment.created_at}
+						> - {convertDate(comment.created_at)}
 						</Typography>
 					</React.Fragment>}
 					secondary=
@@ -135,9 +157,9 @@ function Chat() {
 			</ListItem>
 		)
 	}
-	
+
+
 	function ComentarioProprio(comment, index) {
-		
 		return (
 			<ListItem alignItems="flex-start" key={"ComentarioProprio" + index}>
 				<ListItemAvatar>
@@ -153,7 +175,7 @@ function Chat() {
 					variant="body2"
 					className={classes.inline}
 					color="textPrimary"
-				  > - {comment.created_at}
+				  > - {convertDate(comment.created_at)}
 				  </Typography>
 				  </React.Fragment>}
 			  secondary=
@@ -164,67 +186,15 @@ function Chat() {
 					aria-label="more"
 					aria-controls="long-menu"
 					aria-haspopup="true"
-					onClick={handleClick}
+					onClick = {(e) =>handleClick(e, comment)}
 				>
 					<MoreHorizIcon />
 				</IconButton>
-				<Menu
-					id="simple-menu"
-					anchorEl={anchorEl}
-					keepMounted
-					open={Boolean(anchorEl)}
-					onClose={handleClose}>
-					<MenuItem onClick={editarComentario}>Editar</MenuItem>
-					<MenuItem onClick={excluirComentario}>Excluir</MenuItem>
-				</Menu>
-				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-			<DialogTitle id="form-dialog-title">Editar comentário</DialogTitle>
-			<DialogContent>
-			  <TextField
-				defaultValue={comment.conteudo}
-				autoFocus
-				margin="dense"
-				id="name"
-				fullWidth
-				variant="outlined"
-				multiline
-				rowsMax={10}
-				style = {{width:"400px"}}
-			  />
-			</DialogContent>
-			<DialogActions>
-			  <Button onClick={handleDialogClose} color="primary">
-				Cancelar
-			  </Button>
-			  <Button onClick={dialogEditarComentario} color="primary">
-				Editar
-			  </Button>
-			</DialogActions>
-		  </Dialog>
-		  <Dialog
-			open={openExcluir}
-			onClose={handleExcluirClose}
-			aria-labelledby="alert-dialog-title"
-			aria-describedby="alert-dialog-description"
-		  >
-			<DialogTitle id="alert-dialog-title">{"Excluir comentário"}</DialogTitle>
-			<DialogContent>
-			  <DialogContentText id="alert-dialog-description">
-				Deseja mesmo excluir o comentário?
-			  </DialogContentText>
-			</DialogContent>
-			<DialogActions>
-			  <Button onClick={handleExcluirClose} color="primary">
-				Cancelar
-			  </Button>
-			  <Button onClick={dialogExcluirComentario} color="primary" autoFocus>
-				Excluir
-			  </Button>
-			</DialogActions>
-		  </Dialog>
+				
 			</ListItem>
 		)
 	}	
+
 
 	return (
 		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row" }}>
@@ -249,9 +219,9 @@ function Chat() {
 									<Abstract>Resumo:</Abstract>
 									<AbstractContent>{topicInfo.sinopse}</AbstractContent>
 									<Date>Tópico criado em:</Date>
-									<DateCreated>{topicInfo.created_at}</DateCreated> 
+									<DateCreated>{topicInfo.created_at&& convertDate(topicInfo.created_at)}</DateCreated> 
 									<LastComment>Último comentário em</LastComment>
-									<AboutBook>{topicInfo.updated_at}</AboutBook>
+									<AboutBook>{topicInfo.updated_at&& convertDate(topicInfo.updated_at)}</AboutBook>
 								</div>
 							</div>
 						
@@ -265,11 +235,9 @@ function Chat() {
 						{topicInfo.comentarios?
 						 topicInfo.comentarios.map((comment, index) => {
 							if (comment.id_usuario == user.id_usuario) {
-								console.log("Passou1")
 								return ComentarioProprio(comment, index)
 							}
 							else {
-								console.log("Passou2")
 								return ComentarioComum(comment, index)
 							}
 						}): null}
@@ -278,11 +246,11 @@ function Chat() {
 					</div>
 					<div>
 					<ResponseText className={classes.root} noValidate autoComplete="off">
-							<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" 
-							style={{minWidth:"90%"}}
+							<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
+							style={{minWidth:"90%"} }
 								InputProps={{
 									endAdornment: (
-										<InputAdornment><IconButton aria-label="enviar">
+										<InputAdornment ><IconButton aria-label="enviar" onClick={() =>inserirComentario(document.getElementById("outlined-basic").value) }>
 											<SendIcon />
 										</IconButton>
 										</InputAdornment>
@@ -292,6 +260,60 @@ function Chat() {
 					</div>
 				</ChatList>
 			</div>
+			<Menu
+					id="simple-menu"
+					anchorEl={anchorEl}
+					keepMounted
+					open={Boolean(anchorEl)}
+					onClose={handleClose}>
+					<MenuItem onClick={editarComentario}>Editar</MenuItem>
+					<MenuItem onClick={excluirComentario}>Excluir</MenuItem>
+				</Menu>
+				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+			<DialogTitle id="form-dialog-title">Editar comentário</DialogTitle>
+			<DialogContent>
+			  <TextField
+				defaultValue={COMENTARIO?COMENTARIO.conteudo:'erro'}	
+				autoFocus
+				margin="dense"
+				id="editarComentarioText"
+				fullWidth
+				variant="outlined"
+				multiline
+				rowsMax={10}
+				style = {{width:"400px"}}
+			  />
+			</DialogContent>
+			<DialogActions>
+			  <Button onClick={handleDialogClose} color="primary">
+				Cancelar
+			  </Button>
+			  <Button onClick={(e) =>dialogEditarComentario(e, document.getElementById("editarComentarioText").value)} color="primary">
+				Editar
+			  </Button> 
+			</DialogActions>
+		  </Dialog>
+		  <Dialog
+			open={openExcluir}
+			onClose={handleExcluirClose}
+			aria-labelledby="alert-dialog-title"
+			aria-describedby="alert-dialog-description"
+		  >
+			<DialogTitle id="alert-dialog-title">{"Excluir comentário"}</DialogTitle>
+			<DialogContent>
+			  <DialogContentText id="alert-dialog-description">
+				Deseja mesmo excluir o comentário?
+			  </DialogContentText>
+			</DialogContent>
+			<DialogActions>
+			  <Button onClick={handleExcluirClose} color="primary">
+				Cancelar
+			  </Button>
+			  <Button onClick={dialogExcluirComentario } color="primary" autoFocus>
+				Excluir
+			  </Button>
+			</DialogActions>
+		  </Dialog>
 		</div>
 	);
 }
