@@ -80,6 +80,7 @@ export const EditContainer = styled.form`
         margin: 2% 0;
         box-sizing: border-box;
         padding: 0.5px 10px;
+        resize: none;
         background-color:#fafafa;
         ::placeholder{
             opacity:0.5;

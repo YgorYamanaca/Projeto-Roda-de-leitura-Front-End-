@@ -15,6 +15,10 @@ import EventAnalyticComponent from '../EventAnalyticsComponent/';
 import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
+/** 
+ * @description Container de um evento 
+ * @param {eventData} event recebe um evento como parâmetro
+ */
 function EventContainer({event}) {
     const toDay = new Date();
     const [isDeletePageRender, setDeletePage] = useState(false);
@@ -31,8 +35,13 @@ function EventContainer({event}) {
     const [numberParticipant, setParticipant] = useState("");
     const [numberMax, setNumberMax] = useState("");
     // const [eventType, setEventT] = useState("");
-    const user = useSelector(state => state.user);
     
+        
+    /** 
+     * @description Função para editar o formato de data
+     * @param {data} tiomezone Objeto data do Js.
+     * @return data formatada
+     */const user = useSelector(state => state.user);
    function handleDate(timezone)
     {
         let newDate=new Date(timezone);
@@ -40,33 +49,52 @@ function EventContainer({event}) {
         return newDate;
     }
 
+    /** 
+     * @description Função para editar o formato de tempo
+     * @param {data} tiomezone Objeto data do Js.
+     * @return tempo formatado
+     */
     function handleTime(timezone)
     {
         let newDate=new Date(timezone);
         newDate = `${newDate.getHours() > 9? newDate.getHours():'0' + newDate.getHours()}:${newDate.getMinutes() > 9? newDate.getMinutes(): '0' + newDate.getMinutes()}`;
         return newDate;
     }
-    
+    /** 
+     * @description Função para renderizar componente de edição
+     * */
     function handleEditPage()
     {
         setEditPage(!isEditPageRender)
     }
 
+    /** 
+     * @description Função para renderizar componente de deletar
+     * */
     function handleDelete()
     {
         setDeletePage(!isDeletePageRender)
     }
-    
+
+    /** 
+     * @description Função para renderizar componente de inscrição
+     * */
     function handleSubPage()
     {
         setSubPage(!isSubscribePageRender)
     }
 
+    /** 
+     * @description Função para renderizar componente de cancelar inscrição
+     * */
     function handleUnSubPage()
     {
         setUnSubPage(!isUnSubscribePageRender)
     }
 
+    /** 
+     * @description Função para renderizar componente de cancelar inscrição
+     * */
     function handleAnalyticPage()
     {
         setAnalyticPage(!isAnalyticPageRender)
@@ -79,7 +107,6 @@ function EventContainer({event}) {
         setDescription(event.descricao);
         setDate(event.data_evento);
         setNumberMax(event.max_participantes);
-        // setEventT(event.tipo);
         setParticipant(event.inscritos !== undefined? event.inscritos : "");
     }, [event])
     

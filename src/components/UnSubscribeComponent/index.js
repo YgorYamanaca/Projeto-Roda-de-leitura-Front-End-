@@ -4,30 +4,32 @@ import StandartButton from '../StandartButton';
 import {useDispatch } from 'react-redux';
 import {cancelSubEventRequest} from '../../store/modules/eventsData/actions'
 import { isMobile } from "react-device-detect";
-
+/** 
+ * @description Componente de desisnscrever
+ * @param {boolean} isRender Se está renderizado
+ * @param {string} eventID Id do evento
+ */
 function UnSubscribeComponent({isRender, subscribeID}) {
     const dispatch = useDispatch();
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
       useEffect(() => {
-          /**
-           * Alert if clicked on outside of element
-           */
           function handleClickOutside(event) {
               if (ref.current && !ref.current.contains(event.target)) {
                 isRender()
               }
           }
-  
-          // Bind the event listener
           document.addEventListener("mousedown", handleClickOutside);
           return () => {
-              // Unbind the event listener on clean up
               document.removeEventListener("mousedown", handleClickOutside);
           };
       }, [ref]);
   }
+
+/** 
+ * @description Executa a requisição de cancelar a inscrição do evento
+ */
     function handleDeleteEvent(e)
     {
         e.preventDefault();

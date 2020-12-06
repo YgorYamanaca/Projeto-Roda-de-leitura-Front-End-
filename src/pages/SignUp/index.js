@@ -8,6 +8,9 @@ import DatePicker from 'react-datepicker';
 import api from '../../services/api';
 import { isMobile } from "react-device-detect";
 
+/** 
+* @description Página para se cadastrar no sistema
+*/
 export default function SingUp() {
     let history = useHistory();
     const [name, setName] = useState('');
@@ -24,11 +27,21 @@ export default function SingUp() {
         day: n => days[n]
     },formatLong: {}}
     
+    
+    /** 
+    * @description Função que realiza a validação do email
+    * @param {string} email Função para validar email do usuário
+    * @return {boolean} True ou False se o email passa no teste
+    */
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
       }
-
+    
+    /** 
+    * @description Função para que realiza a validação da requisição, caso todas as informações estiverem corretor realiza o request
+    * @param {Event} e Evento do botão ao ser clicado
+    */
     function handleSubmit(e)
     {
         e.preventDefault();

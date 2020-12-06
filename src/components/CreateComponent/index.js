@@ -4,10 +4,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import StandartButton from '../StandartButton';
 import { AddEventBox, BackImg, TopContainer, TopText, AddContainer  } from './styles';
 import DatePicker, { registerLocale } from "react-datepicker";
-import ptbr from "date-fns/locale/pt-br"; // the locale you want
+import ptbr from "date-fns/locale/pt-br";
 import {addEventRequest} from '../../store/modules/eventsData/actions'
 import { useDispatch } from 'react-redux';
-registerLocale("pt", ptbr); // register it with the name you want
+registerLocale("pt", ptbr);
+
+
+  /** 
+  * @description Componente de criação de evento
+  */
 
 function CreateComponent({isRender}) {
     const [title, setTitle] = useState('');
@@ -21,23 +26,21 @@ function CreateComponent({isRender}) {
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
       useEffect(() => {
-          /**
-           * Alert if clicked on outside of element
-           */
           function handleClickOutside(event) {
               if (ref.current && !ref.current.contains(event.target)) {
                 isRender()
               }
           }
-  
-          // Bind the event listener
           document.addEventListener("mousedown", handleClickOutside);
           return () => {
-              // Unbind the event listener on clean up
               document.removeEventListener("mousedown", handleClickOutside);
           };
       }, [ref]);
   }
+
+/** 
+  * @description Função para validar os dados de edição e realizar a requisição
+  */
     function handleSubmit(e){
         if(title && mediator && date && description && place && numberP)
         {
@@ -89,7 +92,7 @@ function CreateComponent({isRender}) {
             placeholderText="Selecione uma data para o evento..."
         />
 
-        <textarea className='description' type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
+        <textarea className='description' maxLength={100} type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
         
         <StandartButton type={"submit"} text={"Cadastrar"} fontsize={"30px"} customStyle={{width:'80%', height:'55px'}}/>
     </AddContainer>

@@ -217,7 +217,7 @@ function Chat() {
 			  <Button onClick={handleExcluirClose} color="primary">
 				Cancelar
 			  </Button>
-			  <Button onClick={dialogExcluirComentario} color="primary" autoFocus>
+			  <Button onClick={dialogExcluirComentario} color="primary" autoFocus >
 				Excluir
 			  </Button>
 			</DialogActions>
@@ -264,7 +264,7 @@ function Chat() {
 					<List className={classes.root}>
 						{topicInfo.comentarios?
 						 topicInfo.comentarios.map((comment, index) => {
-							if (comment.id_usuario == user.id_usuario) {
+							if (comment.id_usuario === user.id_usuario) {
 								console.log("Passou1")
 								return ComentarioProprio(comment, index)
 							}

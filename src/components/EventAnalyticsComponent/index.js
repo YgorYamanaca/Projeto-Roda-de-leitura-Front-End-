@@ -4,6 +4,9 @@ import StandartButton from '../StandartButton';
 import { isMobile } from "react-device-detect";
 import { HorizontalBar, Pie } from 'react-chartjs-2';
 
+/** 
+ * @description Componente para análise de um evento
+ */
 function EventAnalyticComponent({isRender, subscribes}){
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
@@ -34,24 +37,22 @@ function EventAnalyticComponent({isRender, subscribes}){
 
     function useOutsideAlerter(ref) {
       useEffect(() => {
-          /**
-           * Alert if clicked on outside of element
-           */
           function handleClickOutside(event) {
               if (ref.current && !ref.current.contains(event.target)) {
                 isRender()
               }
           }
-  
-          // Bind the event listener
           document.addEventListener("mousedown", handleClickOutside);
           return () => {
-              // Unbind the event listener on clean up
               document.removeEventListener("mousedown", handleClickOutside);
           };
       }, [ref]);
   }
 
+  
+/** 
+ * @description Função para gerar cores aleatória
+ */
   function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
@@ -60,14 +61,16 @@ function EventAnalyticComponent({isRender, subscribes}){
     }
     return color;
 }
+/** 
+ * @description Função para calcular idade
+ */
+function calculateAge(date) { 
+    let auxDate = new Date(date)
+    var diff_ms = Date.now() - auxDate.getTime();
+    var age_dt = new Date(diff_ms); 
 
-    function calculateAge(date) { 
-        let auxDate = new Date(date)
-        var diff_ms = Date.now() - auxDate.getTime();
-        var age_dt = new Date(diff_ms); 
-    
-        return Math.abs(age_dt.getUTCFullYear() - 1970);
-    }
+    return Math.abs(age_dt.getUTCFullYear() - 1970);
+}
   useLayoutEffect(() => {
     let dataFaculdade = subscribes.reduce((newArray, subscribe) => {
         if(subscribe.faculdade)

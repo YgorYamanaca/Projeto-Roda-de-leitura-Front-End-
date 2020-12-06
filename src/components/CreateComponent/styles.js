@@ -88,6 +88,7 @@ export const AddContainer = styled.form`
         box-sizing: border-box;
         padding: 0.5px 10px;
         background-color:#fafafa;
+        resize: none;
         ::placeholder{
             opacity:0.5;
         }  

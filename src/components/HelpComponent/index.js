@@ -1,6 +1,9 @@
 import React from 'react'
 import { Container, ExternalBox, Title, Context} from './styles';
 
+/** 
+ * @description Componente da página de ajuda
+ */
 export default function HelpComponent() {
     return (
         <Container>

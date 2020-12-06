@@ -6,6 +6,9 @@ import api from '../../services/api';
 import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
+/** 
+ * @description Componente do usuário
+ */
 export default function UserComponent() {
   const [userData, setUser] = useState({});
   const user = useSelector(state => state.user);
@@ -74,6 +77,9 @@ export default function UserComponent() {
         </TextContainer>);
     }
 
+  /** 
+   * @description Adiciona os dados de usuário no status
+   */
     function hadleUserData()
     {
         switch(userData.tipo_usuario)

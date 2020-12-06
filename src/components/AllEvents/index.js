@@ -6,6 +6,10 @@ import api from '../../services/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { addEventsData } from '../../store/modules/eventsData/actions'
 
+
+/** 
+* @description Componente com todos os eventos listados
+*/
 export default function AllEvents() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user);

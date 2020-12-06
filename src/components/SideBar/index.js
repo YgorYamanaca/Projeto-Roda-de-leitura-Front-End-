@@ -8,7 +8,12 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { isMobile } from "react-device-detect";
 import { useSelector } from 'react-redux';
 
-function SideBar({SideBarID}) {
+
+
+/** 
+* @description Componente de side bar
+*/
+function SideBar() {
     const history = useHistory();
     const location = useLocation();
     const user = useSelector(state => state.user);

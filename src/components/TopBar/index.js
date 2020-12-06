@@ -7,7 +7,11 @@ import {logout} from '../../services/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
-function TopBar({TopBarID}) {
+
+/** 
+* @description Componente de top bar
+*/
+function TopBar() {
     const history = useHistory();
     const location = useLocation();
     const [isExpand, setExpand] = useState(false);
@@ -22,19 +26,14 @@ function TopBar({TopBarID}) {
     
     function useOutsideAlerter(ref) {
         useEffect(() => {
-            /**
-             * Alert if clicked on outside of element
-             */
             function handleClickOutside(event) {
                 if (ref.current && !ref.current.contains(event.target)) {
                     setExpand(false);
                 }
             }
     
-            // Bind the event listener
             document.addEventListener("mousedown", handleClickOutside);
             return () => {
-                // Unbind the event listener on clean up
                 document.removeEventListener("mousedown", handleClickOutside);
             };
         }, [ref]);

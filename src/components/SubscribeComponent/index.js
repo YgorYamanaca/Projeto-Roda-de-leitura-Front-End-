@@ -5,6 +5,12 @@ import {subscribeEventRequest} from '../../store/modules/eventsData/actions'
 import { useSelector, useDispatch } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
+/** 
+ * @description componente de inscrição
+ * @param {boolean} isRender Se está renderizado
+ * @param {string} eventID Id do evento
+ */
+
 function SubscribeComponent({isRender, eventID}) {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user);
@@ -12,24 +18,21 @@ function SubscribeComponent({isRender, eventID}) {
   useOutsideAlerter(wrapperRef);
   function useOutsideAlerter(ref) {
     useEffect(() => {
-        /**
-         * Alert if clicked on outside of element
-         */
         function handleClickOutside(event) {
             if (ref.current && !ref.current.contains(event.target)) {
               isRender()
             }
         }
-
-        // Bind the event listener
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [ref]);
   }
 
+/** 
+ * @description Executa a requisição de inscrição do evento
+ */
   function handleNewSubsEvent(e)
   {
     e.preventDefault();

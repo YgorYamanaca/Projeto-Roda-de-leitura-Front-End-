@@ -3,6 +3,10 @@ import api from '../../../services/api';
 import { getToken } from "../../../services/auth";
 import {addEventSuccess, cancelSubEventSuccess, subscribeEventSuccess, removeEventSuccess, editEventSuccess} from "./actions";
 
+/** 
+* @description Requisição para adicionar o evento 
+* @param {Object} eventData Objeto do evento que será utilizado para requisição de adicionar evento
+*/
 function postEvent(eventData)
 {
     let token = getToken();
@@ -13,6 +17,10 @@ function postEvent(eventData)
     })
 }
 
+/** 
+* @description Requisição para deletar um evento
+* @param {string} eventID id do evento que será utilizado para deletar
+*/
 function deleteEvent(eventID)
 {
     let token = getToken();
@@ -26,6 +34,11 @@ function deleteEvent(eventID)
         })
 }
 
+
+/** 
+* @description Requisição para editar o evento
+* @param {Object} eventData Objeto do evento que será utilizado para requisição de editar evento
+*/
 function patchEvent(eventData)
 {
     let token = getToken();
@@ -36,6 +49,11 @@ function patchEvent(eventData)
     })
 }
 
+/** 
+* @description Requisição para inscrever em um evento
+* @param {string} eventID id do evento para se inscrever
+* @param {Object} user objeto do usuário
+*/
 function subscribePostEvent(eventID, user)
 {
     let token = getToken();
@@ -46,6 +64,10 @@ function subscribePostEvent(eventID, user)
             })
 }
 
+/** 
+* @description Requisição para cancelar o inscrição do evento
+* @param {string} subscribeID Objeto do evento que será utilizado para requisição de adicionar evento
+*/
 function cancelSubDeleteEvent(subscribeID)
 {
     let token = getToken();
@@ -58,6 +80,11 @@ function cancelSubDeleteEvent(subscribeID)
                 }
             })
 }
+
+/** 
+* @description Função para adicionar o evento 
+* @param {Object} eventData Objeto do evento que será utilizado para requisição de adicionar evento
+*/
 function* addEvent({eventData})
 {
     const response = yield call(postEvent, eventData)
@@ -72,6 +99,10 @@ function* addEvent({eventData})
     }
 }
 
+/** 
+* @description Função para remover o evento 
+* @param {string} eventID id do evento que será utilizado para deletar
+*/
 function* removeEvent({eventID})
 {
     const response = yield call(deleteEvent, eventID)
@@ -86,6 +117,10 @@ function* removeEvent({eventID})
     }
 }
 
+/** 
+* @description Função para editar o evento 
+* @param {Object} eventData Objeto do evento que será utilizado para requisição de editar evento
+*/
 function* editEvent({eventData})
 {
     const response = yield call(patchEvent, eventData)
@@ -100,6 +135,11 @@ function* editEvent({eventData})
     }
 }
 
+/** 
+* @description Função para cancelar a inscrição
+* @param {string} eventID id do evento para se inscrever
+* @param {Object} user objeto do usuário
+*/
 function* subscribeEvent({eventID, user})
 { 
     const response = yield call(subscribePostEvent, eventID, user)
@@ -116,6 +156,10 @@ function* subscribeEvent({eventID, user})
     }
 }
 
+/** 
+* @description Função para cancelar a inscrição
+* @param {string} subscribeID id da inscrição a ser cancelado
+*/
 function* cancelSubEvent({subscribeID})
 {
     const response = yield call(cancelSubDeleteEvent, subscribeID)

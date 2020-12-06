@@ -1,9 +1,12 @@
 import axios from "axios";
 import { getToken } from "./auth";
 
+/** 
+* @description Serviço de Api utilizado para realizar o request no back-end
+*/
 const api = axios.create({
   baseURL: "http://127.0.0.1:3000", 
-  });
+});
 
 api.interceptors.request.use(async config => {
   const token = getToken();

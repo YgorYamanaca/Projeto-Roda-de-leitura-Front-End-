@@ -8,11 +8,16 @@ import StandartButton from "../StandartButton";
 import { getToken } from "../../services/auth";
 registerLocale("pt", ptbr);
 
-
+/** 
+* @description Componente de renderização das análises
+*/
 export default function AnalyticsComponent() {
     const [fisrtDate, setFirstDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
+    /** 
+    * @description Função para realizar a requisição dos dados de estátistica
+    */
     function doRequest() {
         let token = getToken();
         api.get(`/estatistica`, {params: {inicio:fisrtDate, fim:endDate}, headers:{'x-access-token':token}})

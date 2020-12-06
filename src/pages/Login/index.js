@@ -7,13 +7,21 @@ import api from '../../services/api';
 import { useDispatch } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
+
+/** 
+* @description Prágina de login 
+*/
 export default function Login() {
     const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
 
-     function handleSubmit(e){
+    /** 
+    * @description Função para realizar o reqeust de login, após isso envia para o redux o usuário.
+    * @param {Event} e event disparado pela ação do botão
+    */
+    function handleSubmit(e){
         e.preventDefault();
         if(email && password)
         {
@@ -21,26 +29,21 @@ export default function Login() {
                 'email' : email,
                 'senha' : password
             }
-        
-             api.post("/usuario/login", formData)
-            .then(response => {
-                login(response.data.token);
-                //Resposta 200 e recebeu token mandar para a página home
-                dispatch({
-                    type:'ADD_USER',
-                    email:response.data.email, 
-                    id_usuario: response.data.id_usuario, 
-                    nome: response.data.nome, 
-                    tipo_usuario: response.data.tipo_usuario,
-                    isAdmin: response.data.isAdmin
+            api.post("/usuario/login", formData).then(response => {
+                    login(response.data.token);
+                    dispatch({
+                        type:'ADD_USER',
+                        email:response.data.email, 
+                        id_usuario: response.data.id_usuario, 
+                        nome: response.data.nome, 
+                        tipo_usuario: response.data.tipo_usuario,
+                        isAdmin: response.data.isAdmin
+                    })
+                    history.push("/calender");
+                }).catch(error => {
+                    console.log(error);
+                    alert("Houve um problema com o login, verifique suas credenciais.");
                 })
-                history.push("/calender");
-            })
-            .catch(error => {
-                console.log(error);
-
-                alert("Houve um problema com o login, verifique suas credenciais.");
-            })
         }
         else
         {

@@ -15,6 +15,10 @@ import { addEventsData } from '../../store/modules/eventsData/actions'
 import { isMobile } from "react-device-detect";
 import AllEvents from '../AllEvents';
 
+
+/** 
+* @description Componente de calendário
+*/
 function Calender() 
 {
   const messages = { 
@@ -50,11 +54,15 @@ function Calender()
             alert("Não foi possível receber os eventos!");
         })
   },[dispatch])
-  
+  /** 
+  * @description Função para renderizar o modal de adicionar evento
+  */
   function handleAddEvent(){
     setEventsRender(!isAddEventsRender);
   }
-
+  /** 
+  * @description Função de teste para validar a data
+  */
   function teste(value)
   {
     let aux1 = new Date(value.data_evento);
@@ -71,7 +79,9 @@ function Calender()
       }
     }
   }
-
+  /** 
+  * @description Função para renderizar a lista de eventos
+  */
   function handleEventsList(data){
     setFilter(data.start);
     setEventsListRender(!isEventsListRender);

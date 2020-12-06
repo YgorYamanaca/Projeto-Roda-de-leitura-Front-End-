@@ -16,19 +16,28 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store';
 import GlobalStyle from './styles/global';
 
+/** 
+* @description Componente de rota privada
+* @param {Object} component Componente que será renderizado para rotas que já possuem um usário
+*/
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
       {...rest}
       render={props =>
         isAuthenticated() ? (
           <Home><Component {...props} /></Home>
-        ) : (
-          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+        ) : 
+        (
+          <Redirect to={{ pathname: "/"}} />
         )
       }
     />
   );
 
+/** 
+* @description Rotas com o seus respectível componentes
+*/
 export default function Routes(){
     return (
       <Provider store={store}>
@@ -36,18 +45,19 @@ export default function Routes(){
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter>
                 <Switch>
-                    <Route exact path="/" component={Login}/>
-                    <Route exact path="/signup" component={SignUp}/>
-
-                    <PrivateRoute exact path="/user" component={UserComponent}/>
-                    <PrivateRoute exact path="/calender" component={Calender}/>
-                    <PrivateRoute exact path="/events" component={AllEvents}/>
-                    <PrivateRoute exact path="/forum" component={Forum}/>
-                    <PrivateRoute exact path="/chat/:id" component={Chat}/>
-                    <PrivateRoute exact path="/help" component={Help}/>
-                    <PrivateRoute exact path="/statistic" component={AnalyticsComponent}/>
-                    
-                    <Redirect from="*" to="/" />
+                  {/* Rotas de Login */}
+                  <Route exact path="/" component={Login}/>
+                  <Route exact path="/signup" component={SignUp}/>
+                  {/* Rotas após o Login */}
+                  <PrivateRoute exact path="/user" component={UserComponent}/>
+                  <PrivateRoute exact path="/calender" component={Calender}/>
+                  <PrivateRoute exact path="/events" component={AllEvents}/>
+                  <PrivateRoute exact path="/forum" component={Forum}/>
+                  <PrivateRoute exact path="/chat/:id" component={Chat}/>
+                  <PrivateRoute exact path="/help" component={Help}/>
+                  <PrivateRoute exact path="/statistic" component={AnalyticsComponent}/>
+                  {/* Caso o usuário coleque outra rota */}
+                  <Redirect from="*" to={isAuthenticated()? "/calender": "/"} />
                 </Switch>
             </BrowserRouter>
           </PersistGate>
