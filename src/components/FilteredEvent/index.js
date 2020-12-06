@@ -11,7 +11,7 @@ function FilteredEvent({isRender, filterDate, eventList}) {
     const listEvents  = eventList.map((event, index) => {
         return(<EventContainer key={index} event={event}/>)
     });
-    console.log(eventList);
+    
     useEffect(() => {
         setDateLabel(`${filterDate.getDate()} / ${filterDate.getMonth() + 1} / ${filterDate.getFullYear()}`)
     }, [filterDate])

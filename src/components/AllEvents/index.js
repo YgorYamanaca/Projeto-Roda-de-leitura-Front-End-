@@ -25,7 +25,6 @@ export default function AllEvents() {
                }
             })
             .then(response => {
-                console.log(response);
                 dispatch(addEventsData(response.data))
             })
             .catch(error => {
@@ -40,7 +39,6 @@ export default function AllEvents() {
             }
             })
             .then(response => {
-                console.log(response);
                 dispatch(addEventsData(response.data))
             })
             .catch(error => {
@@ -49,7 +47,7 @@ export default function AllEvents() {
             })}
 
     }, [user.tipo_usuario, user.id_usuario, dispatch])
-    console.log(eventsDate)
+
     return(
         <Container>
             {eventsDate.length > 0? 

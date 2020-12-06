@@ -52,7 +52,6 @@ export default function Login() {
     }
 
     React.useLayoutEffect(() => {
-        console.log('teste')
         logout();
     }, [])
 
