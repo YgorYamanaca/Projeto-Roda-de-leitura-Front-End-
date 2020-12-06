@@ -74,12 +74,13 @@ export function subscribeEventRequest(eventID, user)
     }
 }
 
-export function subscribeEventSuccess(eventID, user)
+export function subscribeEventSuccess(eventID, user, response)
 {
     return {
         type:SUBSCRIBE_EVENT_SUCCESS,
         eventID,
         user,
+        response,
     }
 }
 

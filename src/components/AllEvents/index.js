@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Container, StyEmpetyEvent } from './styles';
 import { getToken } from "../../services/auth";
 import EventContainer from '../../components/EventContainer/';
@@ -15,7 +15,7 @@ export default function AllEvents() {
     const user = useSelector(state => state.user);
     const eventsDate = useSelector(state => state.eventsData);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         let token = getToken();
         if(user.tipo_usuario === 4)
         {
@@ -25,6 +25,7 @@ export default function AllEvents() {
                }
             })
             .then(response => {
+                console.log(response);
                 dispatch(addEventsData(response.data))
             })
             .catch(error => {
@@ -39,6 +40,7 @@ export default function AllEvents() {
             }
             })
             .then(response => {
+                console.log(response);
                 dispatch(addEventsData(response.data))
             })
             .catch(error => {
@@ -47,7 +49,7 @@ export default function AllEvents() {
             })}
 
     }, [user.tipo_usuario, user.id_usuario, dispatch])
-
+    console.log(eventsDate)
     return(
         <Container>
             {eventsDate.length > 0? 

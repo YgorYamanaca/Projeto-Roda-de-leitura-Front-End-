@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { LoginScreen, LoginBox, Form, SubmitButton, LinkText , OrText} from './styles'
 import PucLogo from '../../assets/Logo/logo_PUC_azul.png';
 import { Link, useHistory} from "react-router-dom";
-import { login } from '../../services/auth';
+import { login, logout } from '../../services/auth';
 import api from '../../services/api';
 import { useDispatch } from 'react-redux';
 import { isMobile } from "react-device-detect";
@@ -50,6 +50,12 @@ export default function Login() {
             alert("Preencha e-mail ou senha para continuar!");
         }
     }
+
+    React.useLayoutEffect(() => {
+        console.log('teste')
+        logout();
+    }, [])
+
     return (
         <LoginScreen>
             <LoginBox mobile={isMobile}>

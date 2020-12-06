@@ -1,4 +1,4 @@
-import { call, takeLatest, all, put} from 'redux-saga/effects';
+import { call, takeLatest, all, put, takeEvery} from 'redux-saga/effects';
 import api from '../../../services/api';
 import { getToken } from "../../../services/auth";
 import {addEventSuccess, cancelSubEventSuccess, subscribeEventSuccess, removeEventSuccess, editEventSuccess} from "./actions";
@@ -73,7 +73,7 @@ function cancelSubDeleteEvent(subscribeID)
     let token = getToken();
     return api.delete(`/inscricao`,{
             data:{
-            id_inscricao : parseInt(subscribeID)
+                id_inscricao : parseInt(subscribeID)
             },
             headers:{
                 'x-access-token':token
@@ -141,13 +141,11 @@ function* editEvent({eventData})
 * @param {Object} user objeto do usuário
 */
 function* subscribeEvent({eventID, user})
-{ 
+{  
     const response = yield call(subscribePostEvent, eventID, user)
-
     if(response.status === 200 || response.status === 201)
-    { 
-        user.Inscricao = response.data;
-        yield put(subscribeEventSuccess(eventID, user));
+    {
+        yield put(subscribeEventSuccess(eventID, user, response.data));
         alert(`Você se inscreveu no evento!`);
     }
     else
@@ -178,6 +176,6 @@ export default all([
     takeLatest('ADD_EVENT_REQUEST', addEvent),
     takeLatest('REMOVE_EVENT_REQUEST', removeEvent),
     takeLatest('EDIT_EVENT_REQUEST', editEvent),
-    takeLatest('SUBSCRIBE_EVENT_REQUEST', subscribeEvent),
-    takeLatest('CANCEL_SUBSCRIBE_EVENT_REQUEST', cancelSubEvent)
+    takeEvery('SUBSCRIBE_EVENT_REQUEST', subscribeEvent),
+    takeEvery('CANCEL_SUBSCRIBE_EVENT_REQUEST', cancelSubEvent)
 ])
