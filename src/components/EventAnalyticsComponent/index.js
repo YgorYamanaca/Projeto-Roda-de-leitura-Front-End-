@@ -1,6 +1,5 @@
 import React, {useRef, useEffect, useLayoutEffect, useState} from 'react';
 import { EventAnalyticsBox, TopText, AnalyticContent, GraphicContent } from './styles';
-import StandartButton from '../StandartButton';
 import { isMobile } from "react-device-detect";
 import { HorizontalBar, Pie } from 'react-chartjs-2';
 
@@ -13,6 +12,7 @@ function EventAnalyticComponent({isRender, subscribes}){
     const [universityData, setUniversityData] = useState( {datasets:[], labels:[]} );
     const [centerData, setCenterData] = useState( {datasets:[], labels:[]} );
     const [birthData, setBirthData] = useState( {datasets:[], labels:[]} );
+    const [userType, setUserType] = useState( {datasets:[], labels:[]} );
     const options = {
     scales: {
         maintainAspectRatio: false,
@@ -68,46 +68,93 @@ function calculateAge(date) {
     let auxDate = new Date(date)
     var diff_ms = Date.now() - auxDate.getTime();
     var age_dt = new Date(diff_ms); 
-
+    
     return Math.abs(age_dt.getUTCFullYear() - 1970);
 }
   useLayoutEffect(() => {
-    let dataFaculdade = subscribes.reduce((newArray, subscribe) => {
-        if(subscribe.faculdade)
+        let auxData = subscribes;
+        let userType = auxData.reduce((newArray, subscribe) => {
+            if(subscribe.tipo_usuario === "2")
+            {
+                newArray[`Aluno`] = (newArray[`Aluno`] || 0 ) + 1
+            }
+            else if(subscribe.tipo_usuario === "1")
+            {
+                newArray[`Aluno Externo`] = (newArray[`Aluno Externo`] || 0 ) + 1
+            }
+            else if(subscribe.tipo_usuario === "3")
+            {
+                newArray[`Professor`] = (newArray[`Professor`] || 0 ) + 1
+            }
+            else
+            {
+                newArray[`Funcionário`] = (newArray[`Funcionário`] || 0 ) + 1
+            }
+            return newArray
+        }, [])
+
+        let dataFaculdade = auxData.reduce((newArray, subscribe) => {
+        if(subscribe.faculdade && subscribe.tipo_usuario === "2")
         {
             newArray[`${subscribe.faculdade}`] = (newArray[`${subscribe.faculdade}`] || 0 ) + 1
         }
+        else if(subscribe.tipo_usuario === "1")
+        {
+            newArray[`Aluno Externo`] = (newArray[`Aluno Externo`] || 0 ) + 1
+        }
+        else if(subscribe.tipo_usuario === "3")
+        {
+            newArray[`Professor`] = (newArray[`Professor`] || 0 ) + 1
+        }
         else
         {
-            newArray[`Outros`] = (newArray[`Outros`] || 0 ) + 1
+            newArray[`Funcionário`] = (newArray[`Funcionário`] || 0 ) + 1
         }
         return newArray
     }, [])
 
-    let dataCentro = subscribes.reduce((newArray, subscribe) => {
+    let dataCentro = auxData.reduce((newArray, subscribe) => {
         if(subscribe.centro)
         {
             newArray[`${subscribe.centro}`] = (newArray[`${subscribe.centro}`] || 0 ) + 1
         }
-        else
+        else if(!subscribe.faculdade &&subscribe.tipo_usuario === "1")
         {
-            newArray[`Outros`] = (newArray[`Outros`] || 0 ) + 1
+            newArray[`Aluno Externo`] = (newArray[`Aluno Externo`] || 0 ) + 1
+        }
+        else if(!subscribe.faculdade && subscribe.tipo_usuario === "3")
+        {
+            newArray[`Professor`] = (newArray[`Professor`] || 0 ) + 1
+        }
+        else if(!subscribe.faculdade && subscribe.tipo_usuario === "4")
+        {
+            newArray[`Funcionário`] = (newArray[`Funcionário`] || 0 ) + 1
         }
         return newArray
     }, [])
 
-    let dataBirth = subscribes.reduce((newArray, subscribe) => {
+    let dataBirth = auxData.reduce((newArray, subscribe) => {
         if(subscribe.data_nasc)
         {
-            subscribe.data_nasc = calculateAge(subscribe.data_nasc)
-            newArray[`${subscribe.data_nasc}`] = (newArray[`${subscribe.data_nasc}`] || 0 ) + 1
-        }
-        else
-        {
-            newArray[`Outros`] = (newArray[`Outros`] || 0 ) + 1
+            subscribe.age = calculateAge(subscribe.data_nasc)
+            newArray[`${subscribe.age}`] = (newArray[`${subscribe.age}`] || 0 ) + 1
         }
         return newArray
     }, [])
+
+    
+    setUserType({
+        labels:Object.keys(userType),
+        datasets: [
+            {
+                label: '# Curso',
+                data: Object.values(userType),
+                backgroundColor: getRandomColor(),
+                borderColor: getRandomColor(),
+                borderWidth: 1,
+            },
+        ],
+    })
 
     setBirthData({
         labels:Object.keys(dataBirth),
@@ -147,38 +194,19 @@ function calculateAge(date) {
             },
         ],
     })
-    // let data = {
-    //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-    //     datasets: [
-    //         {
-    //             label: '# of Votes',
-    //         data: [12, 19, 3, 5, 2, 3],
-    //         backgroundColor: [
-    //             'rgba(255, 99, 132, 0.2)',
-    //             'rgba(54, 162, 235, 0.2)',
-    //             'rgba(255, 206, 86, 0.2)',
-    //             'rgba(75, 192, 192, 0.2)',
-    //             'rgba(153, 102, 255, 0.2)',
-    //             'rgba(255, 159, 64, 0.2)',
-    //         ],
-    //         borderColor: [
-    //             'rgba(255, 99, 132, 1)',
-    //             'rgba(54, 162, 235, 1)',
-    //             'rgba(255, 206, 86, 1)',
-    //             'rgba(75, 192, 192, 1)',
-    //             'rgba(153, 102, 255, 1)',
-    //             'rgba(255, 159, 64, 1)',
-    //         ],
-    //         borderWidth: 1,
-    //         },
-    //     ],
-    //    }
   }, [subscribes])
 
     return (
         <EventAnalyticsBox ref={wrapperRef} mobile={isMobile}>
             <TopText mobile={isMobile}>Estátistica do evento</TopText>
             <AnalyticContent>
+
+                {userType?
+                    <GraphicContent>
+                        Faculdade dos inscritos
+                        <HorizontalBar data={userType} options={options}/>
+                    </GraphicContent> : null}
+
                 {universityData?
                 <GraphicContent>
                     Faculdade dos inscritos

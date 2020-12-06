@@ -41,7 +41,7 @@ function Calender()
   const [isEventsListRender, setEventsListRender] = useState(false);
   const events = useSelector(state => state.eventsData);
   const dispatch = useDispatch();
-  
+  console.log(user);
   useEffect(() => {
         let token = getToken();
         api.get("/evento",{

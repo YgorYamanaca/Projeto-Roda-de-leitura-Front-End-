@@ -64,11 +64,12 @@ export const DateRequestSty = styled.div`
     width:100%;
     align-items:flex-end;
     padding:5px;
+    flex-wrap: wrap;
     input
     {
         font-family: 'Catamaran', sans-serif;
         height: auto;
-        font-size:${props => props.mobile? '14px':'clamp(13px, 1.5vw, 2.0vw)'};
+        font-size:${props => props.isMobile? '14px':'clamp(13px, 1.5vw, 2.0vw)'};
         border:1px solid #DDD;
         background-color:#fafafa;
         box-sizing: border-box;
@@ -84,13 +85,21 @@ export const DateRequestSty = styled.div`
     {
         display:block; 
     }
+
+    button
+    {
+        margin-top: ${props => props.isMobile? '10px':'0px'};
+        margin-bottom: ${props => props.isMobile? '0px':'0px'};
+    }
 `
 
 export const DateContent = styled.div`
     display:flex;
     flex-direction:column;
-    font-size:${props => props.mobile? '14px':'clamp(13px, 1.5vw, 2.0vw)'};
+    font-size:${props => props.isMobile? '14px':'clamp(13px, 1.5vw, 2.0vw)'};
     margin: 0 15px;
+    color: #024ea2;
+    margin-top: ${props => props.isMobile? '5px':'null'};
     & > div
     {  
         opacity: ${props => props.disabled? '0.75':'1'};
@@ -100,5 +109,18 @@ export const DateContent = styled.div`
 export const ResponseDataSty = styled.div`
     height:100%;
     width:100%;
-    background-color:blue;
+    padding:10px;
+    margin-top:15px;
 `   
+export const StySubData = styled.div`
+    display:flex;
+    width:100%;
+    margin-bottom:10px;
+    justify-content:space-around;
+    font-size:${props => props.isMobile? '14px':'clamp(13px, 2vw, 2.5vw)'};
+    & > div > span
+    {
+        color: #024ea2;
+        font-size:${props => props.isMobile? '14px':'clamp(13px, 2vw, 2.5vw)'};
+    }
+`  
