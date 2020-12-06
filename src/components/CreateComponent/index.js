@@ -72,10 +72,10 @@ function CreateComponent({isRender}) {
     </TopContainer>
 
     <AddContainer onSubmit={handleSubmit}>
-        <input type="text" placeholder="Digite o título do evento..." value={title} onChange={e => setTitle(e.target.value)}/>
-        <input type="text" placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
+        <input type="text" maxLength={50} placeholder="Digite o título do evento..." value={title} onChange={e => setTitle(e.target.value)}/>
+        <input type="text" maxLength={20} placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
         <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min={5} max={200}/>
-        <input type="text" placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
+        <input type="text" maxLength={35} placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
 
         <DatePicker
             locale={"pt"}

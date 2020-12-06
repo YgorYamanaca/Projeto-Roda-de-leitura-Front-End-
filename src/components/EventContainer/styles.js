@@ -41,7 +41,7 @@ export const EventdialogContainer = styled.div`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 
@@ -145,7 +145,7 @@ export const DescriptionContainer = styled.section`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 

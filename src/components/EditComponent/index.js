@@ -36,7 +36,6 @@ function EditComponent({isRender, editDate}) {
           };
       }, [ref]);
   }
-
     /** 
      * @description Função para validar os dados e enviar requisição para edição
      */
@@ -95,10 +94,10 @@ function EditComponent({isRender, editDate}) {
         </TopContainer>
 
         <EditContainer onSubmit={handleSubmit} mobile={isMobile}>
-            <input type="text" placeholder="Digite um novo título para o evento..." value={title} onChange={e => setTitle(e.target.value)}/>
-            <input type="text" placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
-            <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min="5" max="50"/>
-            <input type="text" placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
+            <input type="text" maxLength={50} placeholder="Digite um novo título para o evento..." value={title} onChange={e => setTitle(e.target.value)}/>
+            <input type="text" maxLength={20} placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
+            <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min={editDate.inscritos.length > 0? editDate.inscritos.length : "5"} max="50"/>
+            <input type="text" maxLength={35} placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
             <DatePicker
             locale={"pt"}
             selected={new Date (date)}

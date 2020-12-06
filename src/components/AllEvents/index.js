@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container } from './styles';
+import { Container, StyEmpetyEvent } from './styles';
 import { getToken } from "../../services/auth";
 import EventContainer from '../../components/EventContainer/';
 import api from '../../services/api';
@@ -50,8 +50,14 @@ export default function AllEvents() {
 
     return(
         <Container>
-                {eventsDate !== undefined? eventsDate.sort((dateA, dateB) => {return new Date(dateB.data_evento) - new Date(dateA.data_evento)}).map((event, index) => {
-            return(<EventContainer key={index} event={event}/>)}) : null}
+            {eventsDate.length > 0? 
+            eventsDate !== undefined && eventsDate.length > 0? [...eventsDate].sort((dateA, dateB) => {return new Date(dateB.data_evento) - new Date(dateA.data_evento)}).map((event, index) => {
+                return(<EventContainer key={index} event={event}/>)})
+            :
+            <StyEmpetyEvent>
+                {user.tipo_usuario === 4? 'Nenhum Evento está cadastrado' : 'Você não está inscrito em nenhum evento'}
+            </StyEmpetyEvent>
+             : null}
         </Container>
     );
 }

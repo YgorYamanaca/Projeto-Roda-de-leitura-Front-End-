@@ -9,6 +9,10 @@ export const SideBarContainer = styled.div`
     height:100%;
     padding: 2px;
     flex-direction: column;
+    & > div:first-of-type
+    {
+        margin-top:15px;
+    }
     div.More
     {
         height:55px;
@@ -28,7 +32,6 @@ export const IconBox = styled.div`
     width: 100%;
     height:${props => props.mobile? '50px' : '75px'};
     font-size:14px;
-    /*Precisa de media query na fonte */
     overflow-wrap: break-word;
     font-weight:500;
     text-align: center;

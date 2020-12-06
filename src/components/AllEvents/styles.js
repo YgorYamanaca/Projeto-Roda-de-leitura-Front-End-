@@ -5,7 +5,7 @@ export const Container = styled.div`
     height: 100%;
     width: 100%;
     flex-direction: column;
-    overflow-y:scroll;
+    overflow-y:auto;
     &::-webkit-scrollbar-track
     {
         
@@ -15,7 +15,7 @@ export const Container = styled.div`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 
@@ -25,4 +25,16 @@ export const Container = styled.div`
         box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
         background-color: #024ea2;
     }
+`;
+
+export const StyEmpetyEvent = styled.div`
+    display:flex;
+    height: 100%;
+    width: 100%;
+    justify-content:center;
+    align-items:center;
+    color: #024ea2;
+    font-weight:600;
+    font-size: 24px;
+    padding:10px;
 `;

@@ -32,7 +32,7 @@ export const AddEventContainer = styled.div`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 
@@ -60,7 +60,7 @@ export const EventsContainer = styled.div`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 
@@ -97,7 +97,7 @@ export const CalenderContainer = styled.div`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 

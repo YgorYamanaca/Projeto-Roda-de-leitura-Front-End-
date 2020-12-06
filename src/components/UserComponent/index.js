@@ -44,8 +44,8 @@ export default function UserComponent() {
       let newDate = new Date(userData.data_nasc);
       return(
         <TextContainer>
-          <label>Nome: <div>{userData.nome}</div></label>
-          
+          <label>Nome:</label>
+          <div>{userData.nome}</div>
           <label>E-Mail:</label>
           <div>{userData.email}</div>
           <label>Data de Nascimento:</label>
@@ -56,6 +56,8 @@ export default function UserComponent() {
           <div>{userData.faculdade}</div>
           <label>Centro:</label>
           <div>{userData.centro}</div>
+          <label>Periódo:</label>
+          <div>{userData.periodo}</div>
         </TextContainer>);
     }
     const teacherUser = (userData) => {
@@ -119,7 +121,7 @@ export default function UserComponent() {
   return (
       <Container>
 
-        <ExternalBox>
+        <ExternalBox mobile={isMobile}>
           <ImgContainer mobile={isMobile} src={Avatar} alt="UserImg"/>
           <UserInfContainer mobile={isMobile}>
             {hadleUserData()}

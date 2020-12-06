@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react'
+import React, { memo, useState, useLayoutEffect } from 'react'
 import { Container, WhiteContainer, TitleContainer, IconBox,
     EventInfoContainer, InfoContainer, DescriptionContainer,} from './styles';
 import trashIcon from '../../assets/Icon/icon_trash.png';
@@ -100,7 +100,7 @@ function EventContainer({event}) {
         setAnalyticPage(!isAnalyticPageRender)
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         setTitle(event.titulo);
         setMediator(event.nome_mediador);
         setPlace(event.local);
@@ -150,9 +150,9 @@ function EventContainer({event}) {
                     </div>
                     {user.tipo_usuario === 4?
                     <IconBox  mobile={isMobile}>
-                        {event.inscritos.length > 0 && <img src={analyticIcon} alt="logoStatistic" onClick={handleAnalyticPage}/>}
+                        {event.inscritos && event.inscritos.length > 0 && <img src={analyticIcon} alt="logoStatistic" onClick={handleAnalyticPage}/>}
                         <img src={editIcon} alt="logoEdit" onClick={handleEditPage}/>
-                        <img src={trashIcon} alt="logoTrash" onClick={handleDelete}/>
+                        {event.inscritos && event.inscritos.length === 0 && <img src={trashIcon} alt="logoTrash" onClick={handleDelete}/>}
                     </IconBox>:
                      null}
 
