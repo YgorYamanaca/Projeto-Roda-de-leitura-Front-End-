@@ -8,7 +8,8 @@ export default function user(state = INITIAL_STATE, action){
                 email:action.email,
                 id_usuario:action.id_usuario,
                 nome:action.nome,
-                tipo_usuario:action.tipo_usuario
+                tipo_usuario:action.tipo_usuario,
+                isAdmin:action.isAdmin
             };
 
         case 'CLEAR_USER':

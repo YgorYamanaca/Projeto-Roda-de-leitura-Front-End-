@@ -1,38 +1,79 @@
-import React, { memo } from 'react'
-function Forum({SideBarID}) {
+import React, {useEffect, useState } from 'react';
+import {Header, Title, HeaderTextTitle, ForumContainer, ListContainer} from './styles'
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ImageIcon from '@material-ui/icons/ImportContactsTwoTone';
+import api from '../../services/api';
+import { getToken } from "../../services/auth";
+import { useHistory } from 'react-router-dom';
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      minWidth:'98%',
+      backgroundColor: "#fafafa",
+      zIndex:'1',
+      margin:'15px 0',
+      boxShadow:'0px 0px 20px -10px rgba(0,0,0,0.75)'
+    },
+  }));
+
+function Forum() {
+  const classes = useStyles();
+  const [books, setBooks] = useState([]);
+  const history = useHistory();
+  let token = getToken();
+
+    useEffect(() => {
+      api.get('/topico',{
+        headers:{'x-access-token':token}
+      })
+      .then(res => {
+         const topics = res.data;
+         setBooks(topics)
+      })
+      .catch(error => {
+      })
+    },[token]);
+    console.log(typeof (books))
+
+    function convertDate(date){
+      let finalDate = new Date(date)
+      return `${finalDate.getDate()}/${finalDate.getMonth()+1}/${finalDate.getFullYear()} `
+    }
+    
     return (
-        <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed nibh a arcu suscipit consectetur nec tempor lectus. Donec arcu risus, imperdiet quis est quis,
-            molestie pellentesque sapien. Donec condimentum elementum semper. Vivamus ac finibus sem. Fusce vel justo pretium, condimentum dolor sed, 
-            pretium velit. Fusce maximus libero a nibh iaculis, at venenatis sapien varius. Proin rutrum ornare urna, vel fringilla sem ullamcorper id. 
-            Suspendisse eu ante sagittis, hendrerit ligula a, gravida mauris. Praesent egestas facilisis pretium. Praesent in elementum metus. Duis ut volutpat velit.
-            Fusce molestie elit eu erat iaculis, eu aliquam ipsum egestas. Pellentesque commodo tristique convallis.
+      <ForumContainer>
+			  <Title><p>Fórum</p></Title>
 
-            In fringilla, est sit amet sagittis consequat, lectus ligula sollicitudin turpis, eget volutpat mauris ante sed magna. Vestibulum lacinia, mauris et convallis mattis, 
-            nulla magna faucibus sapien, eget varius purus arcu ac neque. Nulla ornare nisl eu nulla congue, ut euismod neque consequat. Sed mollis, dui id viverra sagittis, 
-            odio enim tristique tellus, at egestas turpis tellus lacinia dui. Pellentesque a accumsan odio, a consequat velit. Nullam at sem ut velit suscipit congue quis bibendum augue.
-            Nunc elementum purus a velit blandit, et finibus orci fermentum. Pellentesque et tellus rutrum, vehicula nisl eleifend, tristique ante. Donec dictum libero interdum neque 
-            molestie venenatis. Vestibulum volutpat, lorem sit amet interdum consectetur, ex mi accumsan turpis, quis laoreet nunc nulla egestas sem. Sed lobortis fermentum metus.
-            Sed nec venenatis dolor, nec sodales lorem. Curabitur est nibh, mollis vel justo quis, consectetur blandit lectus. Suspendisse potenti. Maecenas dignissim est non libero
-            lobortis pellentesque.
-            
-            Nulla nibh enim, malesuada ac ullamcorper ac, pulvinar vel ex. Cras hendrerit aliquet dolor sit amet ornare. Sed tristique nulla sed odio congue scelerisque. Maecenas sit 
-            amet metus non sapien accumsan aliquam. Phasellus posuere, urna ut efficitur tincidunt, ex ipsum accumsan enim, at egestas diam turpis nec tortor. Nam porttitor metus non 
-            nisl cursus, ut venenatis mauris venenatis. Cras volutpat hendrerit tincidunt. Proin luctus nunc sit amet mattis faucibus. Suspendisse in placerat dui. Aliquam sed feugiat 
-            nisi. Proin accumsan aliquam nulla luctus lobortis. Duis efficitur enim lectus, pharetra eleifend turpis tincidunt id. Praesent sem odio, cursus eget nisl condimentum, 
-            rutrum condimentum tellus.
-            
-            Integer congue eget est eu aliquet. Vivamus rutrum nisi nec accumsan efficitur. Fusce vitae arcu dolor. Suspendisse laoreet lorem vel tellus vehicula, a convallis mi 
-            feugiat. Nulla vestibulum lacus sodales lectus tempus, id varius tellus aliquam. Maecenas nec velit tempus, sagittis tellus sit amet, venenatis tellus. Praesent sodales 
-            metus arcu, in consequat arcu consectetur quis. Integer id ipsum finibus, commodo massa nec, semper purus. Pellentesque eget erat quam. Sed vitae auctor sapien, eget 
-            efficitur ante.
-            
-            Mauris eleifend enim vel urna molestie, vel blandit tellus elementum. Praesent consequat odio vel ex commodo, id imperdiet est tristique. Donec sed dolor sed arcu mattis 
-            egestas. Nullam velit ante, pretium quis tortor ac, condimentum congue magna. Ut ullamcorper, ligula vel laoreet venenatis, nisi orci lacinia tellus, quis pellentesque 
-            ex massa quis justo. Curabitur vel tellus id ante aliquet ultrices. Sed erat massa, vulputate non commodo id, vestibulum eget quam. Sed lobortis ipsum a ipsum tincidunt, 
-            vitae cursus dui tincidunt. Nulla vitae tempus mi. Maecenas viverra congue facilisis. Aenean sagittis sem diam, sed finibus purus ullamcorper ut.
-        </div>  
-    )
+        <ListContainer>
+          <List className={classes.root}>
+            <Header>
+              <HeaderTextTitle>Título</HeaderTextTitle>
+              <HeaderTextTitle>Data de criação</HeaderTextTitle>
+              <HeaderTextTitle>Último comentário</HeaderTextTitle>
+            </Header>
 
-}
+                {books?
+                books.map(book=>{
+                  return(
+                    <ListItem button onClick={() => history.push(`/chat/${book.id_topico}`, history.push('/go-here'))}>
+                      <ListItemAvatar>
+                        <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
+                      </ListItemAvatar>
+                      <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios?book.comentarios.length<2?book.comentarios.length + " Comentário":' Comentários':'Erro'} />
+                      <ListItemText primary={convertDate(book.created_at)} style={{flex:1}}/>
+                      <ListItemText primary={book.comentarios[book.comentarios.length-1]?convertDate(book.comentarios[book.comentarios.length-1].created_at):'Nenhum comentário adicionado'} style={{flex:1}}/>
+                    </ListItem>
+                  )
+                }) : null}
+            </List>
+          </ListContainer>
+      </ForumContainer>
+    );
+  }
+  
 export default Forum;

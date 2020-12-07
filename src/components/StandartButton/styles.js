@@ -8,18 +8,21 @@ export const Container = styled.button.attrs(props => ({
     justify-content:center;
     background-color: #024ea2;
     height: ${(props) => props.heightStyle};
-    width: ${(props) => props.widthStyle};
-    padding:10px 2.5px;
+    min-width: ${(props) => props.widthStyle};
+    padding:5px 2.5px;
     border-radius:10px;
     border: 0px solid;
     overflow:hidden;
     padding:5px;
     margin:5px;
+    opacity:${props => props.disabled? '0.5' : '1'};
+    pointer-events:${props => props.disabled? 'none' : 'default'};
     img
     {
-        width:12%;
+        width:${(props) => props.mobile? '15px' : '30px'};
+        height:${(props) => props.mobile? '15px' : '30px'};
         padding: 0.5px;
-        margin-right:10px;
+        margin:5px;
     }
     div
     {
@@ -29,10 +32,11 @@ export const Container = styled.button.attrs(props => ({
         font-weight:600;
         height:auto;
         width:auto;
+        margin:${(props) => props.text? '0px 10px' : '0px'};
     }
     :hover
     {
-        cursor:pointer;
+        cursor:${props => props.disabled? 'default' : 'pointer'};
     }
     :active
     {

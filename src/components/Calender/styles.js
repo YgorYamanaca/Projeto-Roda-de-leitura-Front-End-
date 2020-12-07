@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const Container = styled.div`
     position:relative;
     height: 100%;
@@ -33,7 +32,7 @@ export const AddEventContainer = styled.div`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 
@@ -61,7 +60,7 @@ export const EventsContainer = styled.div`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 
@@ -73,14 +72,22 @@ export const EventsContainer = styled.div`
     }  
 `;
 
+export const CalenderHeader = styled.div`
+    button.addButton
+    {  
+        position:relative;
+        margin: 5px 10px 5px auto;
+    }
+`;
+
 export const CalenderContainer = styled.div`
     display:flex;
     flex-direction:column;
-    justify-content:center;
-    overflow: auto;
     height: 100%;
     width: 100%;
-    background-color: #fafafa;
+    justify-content:center;
+    padding:2.5px;
+    overflow-y:scroll;
     &::-webkit-scrollbar-track
     {
         
@@ -90,7 +97,7 @@ export const CalenderContainer = styled.div`
 
     &::-webkit-scrollbar
     {
-        width: 0.6%;
+        width: 10px;
         background-color: #FFFFFF;
     }
 
@@ -109,7 +116,7 @@ export const CalenderBox = styled.div`
     border: 10px solid #024ea2;
     border-radius:5px;
     overflow:hidden;
-    margin:10px;
+    margin:2.5px;
     align-self: center;
     div.rbc-header
     {
@@ -249,13 +256,4 @@ export const CalenderBox = styled.div`
         margin-right:0.6%;
     }
 
-`;
-
-export const CalenderHeader = styled.div`
-    display:flex;
-    button.addButton
-    {  
-        position:relative;
-        margin: 5px 10px 5px auto;
-    }
 `;

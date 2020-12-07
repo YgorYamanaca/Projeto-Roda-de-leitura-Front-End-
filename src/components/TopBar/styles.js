@@ -6,13 +6,12 @@ export const TopBarStyle = styled.div`
     background-color: #024ea2;
     padding:5px;
     width:100%;
-    height:80px;
+    height:${props => props.mobile? '65px' : '80px'};
     box-shadow: 0 0 1em black;
 `;
 
-export const PUCLogo = styled.img`
-    /*Precisa ser midia query*/ 
-    width: 190px;
+export const PUCLogo = styled.img` 
+    width: ${props => props.mobile? '135px' : '190px'};
     height: 95%;
     margin-left:5%;
     :hover
@@ -24,13 +23,13 @@ export const PUCLogo = styled.img`
 export const UserContainer = styled.div`
     display:flex;
     justify-content:center;
-    margin:0% 1.5em 0% 0%;
+    margin:0% 1.5% 0% 0%;
     padding: 2px;
     img
     {
         /*Precisa ser midia query*/ 
-        width:60px;
-        height:95%;
+        width:${props => props.mobile? '50px' : '60px'};
+        height:${props => props.mobile? '100%' : '95%'};
         :hover
         {
             cursor: pointer;
@@ -41,8 +40,7 @@ export const UserContainer = styled.div`
 `;
 
 export const Option = styled.ul`
-    width:200px;
-    height:215px;
+    width:${props => props.mobile? '195px' : '200px'};
     background-color:#fafafa;
     padding:10px;
     box-shadow: 0px 15px 30px 0px rgba(0,0,0,0.3);
@@ -50,6 +48,7 @@ export const Option = styled.ul`
     list-style:none;
     z-index:99;
     position: absolute;
+
     div
     {
         display:flex;
@@ -58,9 +57,11 @@ export const Option = styled.ul`
     }
     img
     {
-        width:65px;
-        height:35%;
+        width:${props => props.mobile? '50px' : '65px'};
+        height:${props => props.mobile? '50px' : '65px'};
         margin:5px;
+        background-color:#024ea2;
+        border-radius: 50%;
     }
     span
     {
@@ -71,23 +72,23 @@ export const Option = styled.ul`
     }
     li{
         font-weight:500;
-        margin: 3% 15%;
         cursor: pointer;
-        
+        margin:0 2.5px;
         :hover
         {
-            border:1px solid rgba(0,0,0,0.0);
+            background-color:#f1f1f1;
         }
         :before 
-        {
-            content: "•";
-            font-weight:700;
-            font-size:20px;
-            color: #024ea2;
-            display: inline-block; 
-            width: 0.5em;
-            margin-left: -1em;
-            cursor: pointer;
-        }
+            {
+                content: "•";
+                font-weight:700;
+                font-size:20px;
+                color: #024ea2;
+                display: inline-block; 
+                width: 0.5em;
+                margin-left: -1em;
+                cursor: pointer;
+                margin-left:10px;
+            }
     }
 `;

@@ -5,7 +5,7 @@ export const UnSubscribeBox = styled.span`
     flex-direction: column;
     position:absolute;
     align-items:center;
-    width: 50%;
+    width: ${props => props.mobile? '98%':'50%'};
     height: auto;
     margin-top:10%;
     background-color:#ffff;
@@ -16,7 +16,7 @@ export const UnSubscribeBox = styled.span`
 
 export const TopText = styled.div`
     width:85%;
-    font-size:3vw;
+    font-size:${props => props.mobile? '18px':'3vw'};
     font-weight:500;
     text-align:center; 
     color:#024ea2;

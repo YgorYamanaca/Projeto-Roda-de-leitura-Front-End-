@@ -74,29 +74,28 @@ export function subscribeEventRequest(eventID, user)
     }
 }
 
-export function subscribeEventSuccess(eventID, user)
+export function subscribeEventSuccess(eventID, user, response)
 {
     return {
         type:SUBSCRIBE_EVENT_SUCCESS,
         eventID,
-        user
+        user,
+        response,
     }
 }
 
-export function cancelSubEventRequest(eventID, userID)
+export function cancelSubEventRequest(subscribeID)
 {
     return {
         type:CANCEL_SUBSCRIBE_EVENT_REQUEST,
-        eventID,
-        userID
+        subscribeID
     }
 }
 
-export function cancelSubEventSuccess(eventID, userID)
+export function cancelSubEventSuccess(subscribeID)
 {
     return {
         type:CANCEL_SUBSCRIBE_EVENT_SUCCESS,
-        eventID,
-        userID
+        subscribeID
     }
 }

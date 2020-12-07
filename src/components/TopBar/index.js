@@ -5,8 +5,13 @@ import Avatar from '../../assets/Icon/icon_avatar.png';
 import { useHistory, useLocation } from 'react-router-dom'
 import {logout} from '../../services/auth';
 import { useDispatch, useSelector } from 'react-redux';
+import { isMobile } from "react-device-detect";
 
-function TopBar({TopBarID}) {
+
+/** 
+* @description Componente de top bar
+*/
+function TopBar() {
     const history = useHistory();
     const location = useLocation();
     const [isExpand, setExpand] = useState(false);
@@ -21,19 +26,14 @@ function TopBar({TopBarID}) {
     
     function useOutsideAlerter(ref) {
         useEffect(() => {
-            /**
-             * Alert if clicked on outside of element
-             */
             function handleClickOutside(event) {
                 if (ref.current && !ref.current.contains(event.target)) {
                     setExpand(false);
                 }
             }
     
-            // Bind the event listener
             document.addEventListener("mousedown", handleClickOutside);
             return () => {
-                // Unbind the event listener on clean up
                 document.removeEventListener("mousedown", handleClickOutside);
             };
         }, [ref]);
@@ -41,20 +41,21 @@ function TopBar({TopBarID}) {
 
     return (    
         <>
-            <TopBarStyle>
-                <PUCLogo src={PucLogo} alt="PucLogo"  onClick={() => {history.push('/calender')}}/>
-                <UserContainer isExpand={isExpand}>
+            <TopBarStyle mobile={isMobile}>
+                <PUCLogo mobile={isMobile} src={PucLogo} alt="PucLogo"  onClick={() => {history.push('/calender')}}/>
+                <UserContainer mobile={isMobile} isExpand={isExpand}>
                     <img src={Avatar} alt="LogoAvatar" onClick={() => setExpand(true)}/>
                 </UserContainer>
             </TopBarStyle> 
             {isExpand?
-                <Option ref={wrapperRef}>
+                <Option ref={wrapperRef} mobile={isMobile}>
                     <div> 
                         <img src={Avatar} alt="LogoAvatar"/>
                         <span>{user.nome}</span>
                     </div>
+
                     <li onClick={() => {history.push('/user')}}>Meu Perfil</li>
-                    <li onClick={() => {history.push('/events')}}>{user.tipo_usuario === "4"? "Eventos Cadastrados" :  "Meus Eventos"}</li>
+                    <li onClick={() => {history.push('/events')}}>{user.tipo_usuario === 4? "Eventos Cadastrados" :  "Meus Eventos"}</li>
                     <li onClick={() => {logout(); dispatch({ type:'CLEAR_USER' }); history.push('/')}}>Sair</li>
                 </Option> : null}
             </>

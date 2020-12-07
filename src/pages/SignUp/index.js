@@ -6,7 +6,11 @@ import { useHistory } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from 'react-datepicker';
 import api from '../../services/api';
+import { isMobile } from "react-device-detect";
 
+/** 
+* @description Página para se cadastrar no sistema
+*/
 export default function SingUp() {
     let history = useHistory();
     const [name, setName] = useState('');
@@ -23,11 +27,21 @@ export default function SingUp() {
         day: n => days[n]
     },formatLong: {}}
     
+    
+    /** 
+    * @description Função que realiza a validação do email
+    * @param {string} email Função para validar email do usuário
+    * @return {boolean} True ou False se o email passa no teste
+    */
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
       }
-
+    
+    /** 
+    * @description Função para que realiza a validação da requisição, caso todas as informações estiverem corretor realiza o request
+    * @param {Event} e Evento do botão ao ser clicado
+    */
     function handleSubmit(e)
     {
         e.preventDefault();
@@ -47,18 +61,18 @@ export default function SingUp() {
                      api.post("/usuario", formData)
                     .then(res => {
                         //se ok voltar para tela de login 
-                        res.status? history.push("/") : alert ("Erro no servidor");
+                        res.status? alert ("Você se cadastrou no sistema"): alert ("Erro no servidor");
+                        history.push("/") 
                     })
                     .catch(error => {
                         console.log(error);
-
                        alert("Houve um problema no cadastro, verifique as informações digitadas.");
                     })
                 }
                 
                 else
                 {
-                    alert("As duas senhas não não coincidem");
+                    alert("As duas senhas não coincidem.");
                 }
             }
             else{
@@ -73,13 +87,13 @@ export default function SingUp() {
 
     return (
         <SingUpScreen>
-            <SingUpBox>
+            <SingUpBox mobile={isMobile}>
                 <span className="topSide">
                     <img className={"backIcon"} src={BackIcon} alt="LogoBIcon" onClick={() => history.push("/")}/>
                 </span>
 
                 <img className="pucLogo" src={PucLogo} alt="PucLogo"/>
-                <Form onSubmit={handleSubmit}>
+                <Form onSubmit={handleSubmit} mobile={isMobile}>
                     <input type="text" placeholder="Digite o seu Nome..." value={name} onChange={e => setName(e.target.value)}/>
                     <input type="email" placeholder="Digite o seu e-mail..." value={email} onChange={e => setEmail(e.target.value)}/>
                     <input type="password" placeholder="Digite a sua Senha..." value={password} onChange={e => setPassword(e.target.value)}/>
@@ -97,7 +111,7 @@ export default function SingUp() {
                         dropdownMode="select"
                     />
 
-                    <SubmitButton type="submit">
+                    <SubmitButton type="submit" mobile={isMobile}>
                         Cadastrar
                     </SubmitButton>
                 </Form>

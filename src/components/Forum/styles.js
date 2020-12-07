@@ -1,59 +1,44 @@
 import styled from 'styled-components';
 
-export const SideBarContainer = styled.div`
-    display:flex;
-    position:fixed;
-    background-color: #16336b;
-    left: 0;
-    width: 70px;
-    height:100%;
-    padding: 1.5% 0% 2% 0%;
+export const ForumContainer = styled.div`
+	display:flex;
     flex-direction: column;
-    div.More
-    {
-        height:55px;
-    }
-    div.Help
-    {
-        margin-top: auto;
-        margin-bottom: 125%;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    background-color: #F1F1F1;
+`;
+
+export const ListContainer = styled.div`
+	display:flex;
+    flex-direction: column;
+    min-height: 100%;
+    width: 100%;
+    align-items:center;
+`;
+
+export const Title = styled.div`
+	font-weight: bold;
+    padding: 15px;
+    box-shadow: 0px 2px 5px #707070;
+    z-index: 2;
+    p{
+        color:#444444;
+        font-size: 28px;
+        margin-left: 35px;
+
     }
 `;
 
-export const IconBox = styled.div`
-    display:flex;
-    flex-direction:column;
-    align-content:center;
-    align-items:center;
+export const HeaderTextTitle = styled.div`
+    font-size: 22px;
+    color:#a6a6a6;
+    flex:1;
+`;
+
+export const Header = styled.div`
+    display: flex;
     width: 100%;
-    height:75px;
-    font-size:12px;
-    /*Precisa de media query na fonte */
-    overflow-wrap: break-word;
-    font-weight:500;
-    text-align: center;
-    color: #fafafa;
-    margin-bottom:40px;
-    div
-    {
-        width:100%;
-        height: 30%;
-    }
-    &{
-        background-color:${(props) => {return(props.isSelected? "#2351aa": "")}};
-        opacity:${(props) => {return(props.isSelected? "0.7": "")}};
-    }
-    img
-    {
-        margin: 2px;
-        max-width:75%;
-        max-height:75%;
-        :hover{
-        cursor: pointer;
-        }
-        :active
-        {
-            transform: scale(0.90);
-        }
-    }
+    padding:8px 27px;
+    border-bottom:1px solid #BCBCBC;
 `;

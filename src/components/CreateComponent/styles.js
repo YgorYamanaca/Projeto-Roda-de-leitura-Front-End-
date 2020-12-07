@@ -6,7 +6,8 @@ export const AddEventBox = styled.div`
     position:absolute;
     width: 55%;
     height: auto;
-    margin-top:25px;
+    min-height: 80%;
+    margin-top:1%;
     background-color:#ffff;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
     border:1px solid #DDD;
@@ -31,7 +32,7 @@ export const TopText = styled.div`
 
 export const BackImg = styled.img`
     width:8.5%;
-    height: 85%;
+    height: 10%;
     &:active
     {
         transform: scale(0.90);
@@ -80,13 +81,14 @@ export const AddContainer = styled.form`
         font-family: 'Catamaran', sans-serif;
         display:flex;
         width:90%;
-        height:250px;
+        height:50%;
         font-size:20px;
         border:1px solid #DDD;
         margin: 2% 0;
         box-sizing: border-box;
         padding: 0.5px 10px;
         background-color:#fafafa;
+        resize: none;
         ::placeholder{
             opacity:0.5;
         }  

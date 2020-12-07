@@ -6,8 +6,8 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-    margin-left:70px;
-    width: calc(100% - 70px);
-    height: calc(100% - 80px);
+    margin-left:${props => props.mobile? '50px' : '70px'};
+    width:${props => props.mobile? 'calc(100% - 50px)' : 'calc(100% - 70px)'} ;
+    height:${props => props.mobile? 'calc(100% - 65px)' : 'calc(100% - 80px)'} ;
     background-color: #fafafa;
 `;

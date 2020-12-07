@@ -7,6 +7,7 @@ export default function eventsData(state = initialState, action)
             return action.eventsInfo
         case 'ADD_EVENT_SUCCESS':
             return produce(state, draft => {
+                action.eventData.inscritos = [];
                 draft.push(action.eventData)
             })   
         case 'REMOVE_EVENT_SUCCESS':
@@ -15,16 +16,27 @@ export default function eventsData(state = initialState, action)
             })
         case 'EDIT_EVENT_SUCCESS':
             return produce(state, draft => {
-                draft[draft.findIndex(event => event.id_evento === action.eventData.id_evento)] = action.eventData;
+                draft[draft.findIndex(event => event.id_evento === action.eventData.id_evento)].id_evento = action.eventData.id_evento;
+                draft[draft.findIndex(event => event.id_evento === action.eventData.id_evento)].data_evento = action.eventData.data_evento;
+                draft[draft.findIndex(event => event.id_evento === action.eventData.id_evento)].descricao = action.eventData.descricao;
+                draft[draft.findIndex(event => event.id_evento === action.eventData.id_evento)].local = action.eventData.local;
+                draft[draft.findIndex(event => event.id_evento === action.eventData.id_evento)].nome_mediador = action.eventData.nome_mediador;
+                draft[draft.findIndex(event => event.id_evento === action.eventData.id_evento)].max_participantes = action.eventData.max_participantes;
+                draft[draft.findIndex(event => event.id_evento === action.eventData.id_evento)].titulo = action.eventData.titulo;
             })
         case 'SUBSCRIBE_EVENT_SUCCESS':
             return produce(state, draft => {
-                draft[draft.findIndex(event => event.id_evento === action.eventID)].inscritos.push(action.user);
+                draft[draft.findIndex(event => event.id_evento === action.eventID)].inscritos.push(({...action.user, Inscricao: action.response}));
             })
         case 'CANCEL_SUBSCRIBE_EVENT_SUCCESS':
-        return produce(state, draft => {
-            draft[draft.findIndex(event => event.id_evento === action.eventID)].inscritos = draft[draft.findIndex(event => event.id_evento === action.eventID)].inscritos.filter(subscribe => subscribe.id_usuario !== action.userID);
-        })
+            return produce(state, draft => {
+                let indeOfEvent = draft.findIndex(event => 
+                    event.inscritos.map(inscrito => 
+                        inscrito.Inscricao.id_inscricao === action.subscribeID? 
+                        true : false).includes(true));
+                let indexOfSub = draft[indeOfEvent].inscritos.findIndex(inscrito => inscrito.Inscricao.id_inscricao === action.subscribeID)
+                draft[indeOfEvent].inscritos.splice(indexOfSub, 1);
+            })
         default:
             return state;
     }

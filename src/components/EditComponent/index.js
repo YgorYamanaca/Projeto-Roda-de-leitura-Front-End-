@@ -5,8 +5,13 @@ import StandartButton from '../StandartButton';
 import { useDispatch } from 'react-redux';
 import { editEventRequest } from '../../store/modules/eventsData/actions';
 import DatePicker, { registerLocale } from "react-datepicker";
-import ptbr from "date-fns/locale/pt-br"; // the locale you want
-registerLocale("pt", ptbr); // register it with the name you want
+import { isMobile } from "react-device-detect";
+import ptbr from "date-fns/locale/pt-br";
+registerLocale("pt", ptbr);
+
+/** 
+ * @description Componente de edição de evento
+ */
 
 function EditComponent({isRender, editDate}) {
     const [title, setTitle] = useState(editDate.titulo);
@@ -20,23 +25,20 @@ function EditComponent({isRender, editDate}) {
     useOutsideAlerter(wrapperRef);
     function useOutsideAlerter(ref) {
       useEffect(() => {
-          /**
-           * Alert if clicked on outside of element
-           */
           function handleClickOutside(event) {
               if (ref.current && !ref.current.contains(event.target)) {
                 isRender()
               }
           }
-  
-          // Bind the event listener
           document.addEventListener("mousedown", handleClickOutside);
           return () => {
-              // Unbind the event listener on clean up
               document.removeEventListener("mousedown", handleClickOutside);
           };
       }, [ref]);
   }
+    /** 
+     * @description Função para validar os dados e enviar requisição para edição
+     */
     function handleSubmit(e){
             if(title && mediator && date && description && place && numberP)
             {     
@@ -47,6 +49,7 @@ function EditComponent({isRender, editDate}) {
                 'descricao' : description,
                 'data_evento' : date,
                 'max_participantes' : numberP,
+                'nome_mediador':mediator
                 }
                 isRender();
                 dispatch(editEventRequest(formData))
@@ -59,6 +62,11 @@ function EditComponent({isRender, editDate}) {
             }
         }
     
+    /** 
+     * @description Função para editar o formato de data
+     * @param {data} tiomezone Objeto data do Js.
+     * @return data formatada
+     */
     function handleDate(timezone)
     {
         let newDate=new Date(timezone);
@@ -66,6 +74,11 @@ function EditComponent({isRender, editDate}) {
         return newDate;
     }
 
+    /** 
+     * @description Função para editar o formato de tempo
+     * @param {data} tiomezone Objeto data do Js.
+     * @return tempo formatado
+     */
     function handleTime(timezone)
     {
         let newDate=new Date(timezone);
@@ -74,17 +87,17 @@ function EditComponent({isRender, editDate}) {
     }
 
   return (
-    <EditBox ref={wrapperRef}>
+    <EditBox ref={wrapperRef} mobile={isMobile}>
         <TopContainer>
-            <BackImg src={BackIcon} alt="LogoBIcon" onClick={isRender}/>
-            <TopText>Editar um evento</TopText>
+            <BackImg mobile={isMobile} src={BackIcon} alt="LogoBIcon" onClick={isRender}/>
+            <TopText mobile={isMobile}>Editar um evento</TopText>
         </TopContainer>
 
-        <EditContainer onSubmit={handleSubmit}>
-            <input type="text" placeholder="Digite um novo título para o evento..." value={title} onChange={e => setTitle(e.target.value)}/>
-            <input type="text" placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
-            <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min="5" max="50"/>
-            <input type="text" placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
+        <EditContainer onSubmit={handleSubmit} mobile={isMobile}>
+            <input type="text" maxLength={50} placeholder="Digite um novo título para o evento..." value={title} onChange={e => setTitle(e.target.value)}/>
+            <input type="text" maxLength={20} placeholder="Digite o mediador..." value={mediator} onChange={e => setMediator(e.target.value)}/>
+            <input type="number" placeholder="Digite o número máximo de participantes..." value={numberP} onChange={e => setNumber(e.target.value)} min={editDate.inscritos.length > 0? editDate.inscritos.length : "5"} max="50"/>
+            <input type="text" maxLength={35} placeholder="Digite o local do evento..." value={place} onChange={e => setPlace(e.target.value)}/>
             <DatePicker
             locale={"pt"}
             selected={new Date (date)}
@@ -99,9 +112,9 @@ function EditComponent({isRender, editDate}) {
             dropdownMode="select"
             placeholderText={`${handleDate(editDate.data_evento)} - ${handleTime(editDate.data_evento)}`}/>
 
-            <textarea className='description' type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
+            <textarea className='description' maxLength={100} type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
             
-            <StandartButton type={"submit"} text={"Salvar"} fontsize={"30px"} customStyle={{width:'80%', height:'55px'}}/>
+            <StandartButton type={"submit"} text={"Salvar"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'90%', height:'35px'} : {width:'80%', height:'55px'}}/>
         </EditContainer>
     </EditBox>
   );

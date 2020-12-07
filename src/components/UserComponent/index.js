@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Container, ImgContainer, TextContainer, UserInfContainer } from './styles';
+import { Container, ImgContainer, TextContainer, UserInfContainer, ExternalBox } from './styles';
 import Avatar from '../../assets/Icon/icon_avatar.png';
 import { getToken } from "../../services/auth";
 import api from '../../services/api';
 import { useSelector } from 'react-redux';
+import { isMobile } from "react-device-detect";
 
+/** 
+ * @description Componente do usuário
+ */
 export default function UserComponent() {
   const [userData, setUser] = useState({});
   const user = useSelector(state => state.user);
@@ -40,8 +44,8 @@ export default function UserComponent() {
       let newDate = new Date(userData.data_nasc);
       return(
         <TextContainer>
-          <label>Nome: <div>{userData.nome}</div></label>
-          
+          <label>Nome:</label>
+          <div>{userData.nome}</div>
           <label>E-Mail:</label>
           <div>{userData.email}</div>
           <label>Data de Nascimento:</label>
@@ -52,6 +56,8 @@ export default function UserComponent() {
           <div>{userData.faculdade}</div>
           <label>Centro:</label>
           <div>{userData.centro}</div>
+          <label>Periódo:</label>
+          <div>{userData.periodo}</div>
         </TextContainer>);
     }
     const teacherUser = (userData) => {
@@ -73,6 +79,9 @@ export default function UserComponent() {
         </TextContainer>);
     }
 
+  /** 
+   * @description Adiciona os dados de usuário no status
+   */
     function hadleUserData()
     {
         switch(userData.tipo_usuario)
@@ -111,11 +120,13 @@ export default function UserComponent() {
 
   return (
       <Container>
-        <ImgContainer src={Avatar} alt="UserImg"/>
-        
-        <UserInfContainer>
-          {hadleUserData()}
-        </UserInfContainer>
+
+        <ExternalBox mobile={isMobile}>
+          <ImgContainer mobile={isMobile} src={Avatar} alt="UserImg"/>
+          <UserInfContainer mobile={isMobile}>
+            {hadleUserData()}
+          </UserInfContainer>
+        </ExternalBox>
 
       </Container>
   );

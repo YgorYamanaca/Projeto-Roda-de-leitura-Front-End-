@@ -11,7 +11,7 @@ export const SingUpScreen =styled.div`
 
 export const SingUpBox = styled.div`
     background-color:#ffff;
-    max-width:400px;
+    width:${props => props.mobile? '300px' : '400px'};
     margin:5% auto;
     padding:0px 5px;
     box-shadow:0 0 20px rgb(0, 0, 0 , 0.2);
@@ -41,21 +41,22 @@ export const SingUpBox = styled.div`
 `;
 
 export const Form = styled.form`
-    margin-top:5%;
+    margin-top:1%;
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:0px 30px;
+    padding:${props => props.mobile? '0px 15px' : '0px 30px'};
     input
     {
         font-family: 'Catamaran', sans-serif;
-        width:350px;
-        font-size:18px;
+        width:${props => props.mobile? '250px' : '350px'};
+        font-size:${props => props.mobile? '14px' : '18px'};
         border:1px solid #DDD;
         background-color:#fafafa;
         margin: 2% 0;
         box-sizing: border-box;
         padding: 0.5px 10px;
+        text-overflow: ellipsis;
         ::placeholder{
             opacity:0.5;
         }
@@ -66,9 +67,9 @@ export const SubmitButton = styled.button.attrs({
     type:"submit"
 })`
     margin: 5% 0;
-    width:350px;
-    height:40px;
-    font-size:25px;
+    width:${props => props.mobile? '250px' : '350px'};
+    height:${props => props.mobile? '35px' : '40px'};
+    font-size:${props => props.mobile? '18px' : '25px'};
     color:#ffff;
     background-color:#024ea2;
     border:0;

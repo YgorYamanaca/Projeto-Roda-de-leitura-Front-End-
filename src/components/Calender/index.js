@@ -12,7 +12,13 @@ import 'moment/locale/pt-br'
 import FilteredEvent from '../FilteredEvent'
 import { useSelector, useDispatch } from 'react-redux';
 import { addEventsData } from '../../store/modules/eventsData/actions'
+import { isMobile } from "react-device-detect";
+import AllEvents from '../AllEvents';
 
+
+/** 
+* @description Componente de calendário
+*/
 function Calender() 
 {
   const messages = { 
@@ -35,23 +41,28 @@ function Calender()
   const [isEventsListRender, setEventsListRender] = useState(false);
   const events = useSelector(state => state.eventsData);
   const dispatch = useDispatch();
+  console.log(user);
   useEffect(() => {
         let token = getToken();
         api.get("/evento",{
           headers:{'x-access-token':token} //Validar se é adm para ver se pode retornar todos os dados
         })
         .then(response => {
-          dispatch(addEventsData(response.data))
+          dispatch(addEventsData(response.data.sort((dateA, dateB) => {return new Date(dateB.data_evento) - new Date(dateA.data_evento)})))
         })
         .catch(error => {
             alert("Não foi possível receber os eventos!");
         })
   },[dispatch])
-
+  /** 
+  * @description Função para renderizar o modal de adicionar evento
+  */
   function handleAddEvent(){
     setEventsRender(!isAddEventsRender);
   }
-
+  /** 
+  * @description Função de teste para validar a data
+  */
   function teste(value)
   {
     let aux1 = new Date(value.data_evento);
@@ -68,7 +79,9 @@ function Calender()
       }
     }
   }
-
+  /** 
+  * @description Função para renderizar a lista de eventos
+  */
   function handleEventsList(data){
     setFilter(data.start);
     setEventsListRender(!isEventsListRender);
@@ -76,44 +89,47 @@ function Calender()
   
   return (
     <Container>
-      {isAddEventsRender?
-      <WhiteContainer>
-        <AddEventContainer>
-          {isAddEventsRender? <CreateComponent isRender={handleAddEvent}/> : null}
-        </AddEventContainer>
-      </WhiteContainer>
-      : null}
-      {isEventsListRender && events.filter(teste).length > 0? 
+        {isAddEventsRender?
         <WhiteContainer>
-          <EventsContainer >
-            {isEventsListRender && events.filter(teste).length > 0? <FilteredEvent isRender={handleEventsList} filterDate={filter} eventList={events.filter(teste)} data={events} /> : null}
-          </EventsContainer>
+          <AddEventContainer>
+            {isAddEventsRender? <CreateComponent isRender={handleAddEvent}/> : null}
+          </AddEventContainer>
         </WhiteContainer>
-          : null}
+        : null}
+        {isEventsListRender && events.filter(teste).length > 0? 
+          <WhiteContainer>
+            <EventsContainer >
+              {isEventsListRender && events.filter(teste).length > 0? <FilteredEvent isRender={handleEventsList} filterDate={filter} eventList={events.filter(teste)} data={events} /> : null}
+            </EventsContainer>
+          </WhiteContainer>
+            : null}
 
-        <CalenderContainer>
-          <CalenderHeader>
-            {user.tipo_usuario === '4'? <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
-          </CalenderHeader> 
-          <CalenderBox>
-            <Calendar
-              selectable={'ignoreEvents'} 
-              localizer={localizer}
-              events={events && events.length > 0? events : [{}]}
-              views={{
-                month: true,
-              }}
-              messages={messages}
-              titleAccessor="titulo"
-              startAccessor="data_evento"
-              endAccessor="data_evento"
-              onSelectSlot={handleEventsList}
-            />
-          </CalenderBox>
-          
-        </CalenderContainer> 
+          <CalenderContainer>
+            <CalenderHeader>
+              {user.tipo_usuario === 4? isMobile? <StandartButton className="addButton" type={"button"} icon={Plus} customStyle={{width:'30px', height:'30px'}} onClick={handleAddEvent}/> : <StandartButton className="addButton" type={"button"} icon={Plus} text={"Adicionar Evento"} customStyle={{width:'200px', height:'45px'}} onClick={handleAddEvent}/> : null}
+            </CalenderHeader> 
+            {isMobile?
+            <AllEvents/>
+            :
+            <CalenderBox>
+              <Calendar
+                selectable={'ignoreEvents'} 
+                localizer={localizer}
+                events={events && events.length > 0? events : [{}]}
+                views={{
+                  month: true,
+                }}
+                messages={messages}
+                titleAccessor="titulo"
+                startAccessor="data_evento"
+                endAccessor="data_evento"
+                onSelectSlot={handleEventsList}
+              />
+            </CalenderBox>}
+            
+          </CalenderContainer> 
     </Container>
   );
 }
 
-export default Calender;
+export default React.memo(Calender);

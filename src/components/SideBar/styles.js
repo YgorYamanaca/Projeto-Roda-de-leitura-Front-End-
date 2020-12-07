@@ -5,10 +5,14 @@ export const SideBarContainer = styled.div`
     position:fixed;
     background-color: #16336b;
     left: 0;
-    width: 70px;
+    width: ${props => props.mobile? '50px' : '70px'};
     height:100%;
-    padding: 1.5% 0% 2% 0%;
+    padding: 2px;
     flex-direction: column;
+    & > div:first-of-type
+    {
+        margin-top:15px;
+    }
     div.More
     {
         height:55px;
@@ -16,7 +20,7 @@ export const SideBarContainer = styled.div`
     div.Help
     {
         margin-top: auto;
-        margin-bottom: 125%;
+        margin-bottom: 150%;
     }
 `;
 
@@ -26,18 +30,17 @@ export const IconBox = styled.div`
     align-content:center;
     align-items:center;
     width: 100%;
-    height:75px;
-    font-size:12px;
-    /*Precisa de media query na fonte */
+    height:${props => props.mobile? '50px' : '75px'};
+    font-size:14px;
     overflow-wrap: break-word;
     font-weight:500;
     text-align: center;
     color: #fafafa;
-    margin-bottom:40px;
+    margin-bottom:${props => props.mobile? '10px' : '30px'};
     div
     {
         width:100%;
-        height: 30%;
+        height:30%;
     }
     &{
         background-color:${(props) => {return(props.isSelected? "#2351aa": "")}};
@@ -46,8 +49,8 @@ export const IconBox = styled.div`
     img
     {
         margin: 2px;
-        max-width:75%;
-        max-height:75%;
+        width:${props => props.mobile? '45px' : '50px'};
+        height:${props => props.mobile? '45px' : '50px'};
         :hover{
         cursor: pointer;
         }
