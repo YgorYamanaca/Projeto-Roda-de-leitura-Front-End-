@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+/** 
+* @description Componente do fórum.
+*
+* @return o componente de fórum renderizado
+*/
 function Forum() {
   const classes = useStyles();
   const [books, setBooks] = useState([]);
@@ -40,6 +45,13 @@ function Forum() {
     },[token]);
     console.log(typeof (books))
 
+	/** 
+	* @description Função para receber uma data do banco de dados e transformar em uma string para mostrar na tela.
+	*
+	* @param data a data a ser mapeada
+	*
+	* @return a data mapeada para string
+	*/
     function convertDate(date){
       let finalDate = new Date(date)
       return `${finalDate.getDate()}/${finalDate.getMonth()+1}/${finalDate.getFullYear()} `
