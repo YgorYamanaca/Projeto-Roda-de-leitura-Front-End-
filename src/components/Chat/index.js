@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Chat() {
+	const history = useHistory();
 	const classes = useStyles();
     const [topicInfo, setTopicInfo] = useState([]);
     let token = getToken();
@@ -98,18 +99,22 @@ function Chat() {
 		setOpenExcluir(true);
 	};
 	function dialogExcluirComentario(){
-		setOpen(false);
 		deletarComentario()
-	};
+		setOpen(false);
+	};	
 	const handleExcluirClose = () => {
 		setOpenExcluir(false);
 	};
 
-	function deletarComentario(){
-		api.delete(`/comentario`, {id_comentario:parseInt(COMENTARIO.id_comentario)}, {
-			headers:{'x-access-token':token}
-		})	
-  }
+
+  function deletarComentario(){
+	id = parseInt(COMENTARIO.id_comentario)
+	api.delete(`/comentario`, {id_comentario:id}, {
+		headers:{
+			'x-access-token':token
+			}
+		})
+}
 	
 	  function inserirComentario(comment){
 		api.post(`/comentario`, {conteudo: comment, id_usuario:user.id_usuario, id_topico:parseInt(topicInfo.id_topico)}, {
@@ -190,60 +195,7 @@ function Chat() {
 				>
 					<MoreHorizIcon />
 				</IconButton>
-				<Menu
-					id="simple-menu"
-					anchorEl={anchorEl}
-					keepMounted
-					open={Boolean(anchorEl)}
-					onClose={handleClose}>
-					<MenuItem onClick={editarComentario}>Editar</MenuItem>
-					<MenuItem onClick={excluirComentario}>Excluir</MenuItem>
-				</Menu>
-				<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-			<DialogTitle id="form-dialog-title">Editar comentário</DialogTitle>
-			<DialogContent>
-			  <TextField
-				defaultValue={comment.conteudo}
-				autoFocus
-				margin="dense"
-				id="name"
-				fullWidth
-				variant="outlined"
-				multiline
-				rowsMax={10}
-				style = {{width:"400px"}}
-			  />
-			</DialogContent>
-			<DialogActions>
-			  <Button onClick={handleDialogClose} color="primary">
-				Cancelar
-			  </Button>
-			  <Button onClick={dialogEditarComentario} color="primary">
-				Editar
-			  </Button>
-			</DialogActions>
-		  </Dialog>
-		  <Dialog
-			open={openExcluir}
-			onClose={handleExcluirClose}
-			aria-labelledby="alert-dialog-title"
-			aria-describedby="alert-dialog-description"
-		  >
-			<DialogTitle id="alert-dialog-title">{"Excluir comentário"}</DialogTitle>
-			<DialogContent>
-			  <DialogContentText id="alert-dialog-description">
-				Deseja mesmo excluir o comentário?
-			  </DialogContentText>
-			</DialogContent>
-			<DialogActions>
-			  <Button onClick={handleExcluirClose} color="primary">
-				Cancelar
-			  </Button>
-			  <Button onClick={dialogExcluirComentario} color="primary" autoFocus >
-				Excluir
-			  </Button>
-			</DialogActions>
-		  </Dialog>
+				
 			</ListItem>
 		)
 	}	
@@ -256,7 +208,7 @@ function Chat() {
 					<div>
 						<p className="forum">
 							<IconButton aria-label="enviar">
-								<BackIcon />
+								<BackIcon onClick={() => {history.push('/forum')}}/>
 							</IconButton>
 							Fórum
 						</p>	
@@ -274,7 +226,7 @@ function Chat() {
 									<Date>Tópico criado em:</Date>
 									<DateCreated>{topicInfo.created_at&& convertDate(topicInfo.created_at)}</DateCreated> 
 									<LastComment>Último comentário em</LastComment>
-									<AboutBook>{topicInfo.updated_at&& convertDate(topicInfo.updated_at)}</AboutBook>
+									<AboutBook>{topicInfo.updated_at && convertDate(topicInfo.updated_at)}</AboutBook>
 								</div>
 							</div>
 						
@@ -298,7 +250,7 @@ function Chat() {
 					</List>
 					</div>
 					<div>
-					<ResponseText className={classes.root} noValidate autoComplete="off">
+					<ResponseText className={classes.root} noValidate autoComplete="off">	
 							<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
 							style={{minWidth:"90%"} }
 								InputProps={{
@@ -370,7 +322,5 @@ function Chat() {
 		</div>
 	);
 }
-
-
-
+	
 export default Chat;

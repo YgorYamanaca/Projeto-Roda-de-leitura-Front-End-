@@ -64,9 +64,9 @@ function Forum() {
                       <ListItemAvatar>
                         <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
                       </ListItemAvatar>
-                      <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios.length + " comentários"} />
+                      <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios?book.comentarios.length<2?book.comentarios.length + " Comentário":' Comentários':'Erro'} />
                       <ListItemText primary={convertDate(book.created_at)} style={{flex:1}}/>
-                      <ListItemText primary={convertDate(book.comentarios[book.comentarios.length-1].created_at)} style={{flex:1}}/>
+                      <ListItemText primary={book.comentarios[book.comentarios.length-1]?convertDate(book.comentarios[book.comentarios.length-1].created_at):'Nenhum comentário adicionado'} style={{flex:1}}/>
                     </ListItem>
                   )
                 }) : null}
