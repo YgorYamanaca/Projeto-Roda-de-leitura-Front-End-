@@ -107,15 +107,21 @@ function Chat() {
 	};
 
 
+
+
   function deletarComentario(){
-	id = parseInt(COMENTARIO.id_comentario)
-	api.delete(`/comentario`, {id_comentario:id}, {
+	api.delete(`/comentario`, {
+		data:{
+			'id_comentario':parseInt(COMENTARIO.id_comentario)
+		},
 		headers:{
 			'x-access-token':token
 			}
-		})
+		}).then(window.location.reload(false))
 }
 	
+
+
 	  function inserirComentario(comment){
 		api.post(`/comentario`, {conteudo: comment, id_usuario:user.id_usuario, id_topico:parseInt(topicInfo.id_topico)}, {
 			headers:{
@@ -132,7 +138,7 @@ function Chat() {
 	
 	function convertDate(data){
 		let finalDate = new window.Date(data)
-		return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
+		return `${finalDate.getDate()}/${finalDate.getMonth()+1}/${finalDate.getFullYear()} `
 	  }
 	  function ComentarioComum(comment, index) {
 	
