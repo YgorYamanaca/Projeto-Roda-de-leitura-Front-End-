@@ -55,7 +55,7 @@ function CreateComponent({isRender}) {
     function handleSubmit(e){
         if(title && mediator && date && description && place && numberP)
         {
-            if(state.checkedA==true){
+            if(state.checkedA===true){
                 let token = getToken();
                  api.post(`/topico`, {titulo: title, autor: mediator, sinopse: description}, {
                     headers:{
