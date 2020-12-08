@@ -119,7 +119,6 @@ function Chat() {
 	* @param comment o comentário editado
 	*/
 	const dialogEditarComentario = (event, comment) => {
-		console.log(comment)
 		alterarComentario(comment)
 		setOpen(false);
 	};

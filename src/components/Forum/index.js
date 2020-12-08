@@ -43,7 +43,6 @@ function Forum() {
       .catch(error => {
       })
     },[token]);
-    console.log(typeof (books))
 
 	/** 
 	* @description Função para receber uma data do banco de dados e transformar em uma string para mostrar na tela.
