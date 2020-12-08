@@ -147,7 +147,7 @@ function calculateAge(date) {
         labels:Object.keys(userType),
         datasets: [
             {
-                label: '# Curso',
+                label: '#Usuário',
                 data: Object.values(userType),
                 backgroundColor: getRandomColor(),
                 borderColor: getRandomColor(),
@@ -160,7 +160,7 @@ function calculateAge(date) {
         labels:Object.keys(dataBirth),
         datasets: [
             {
-                label: '# Curso',
+                label: '#Idade',
                 data: Object.values(dataBirth),
                 backgroundColor: getRandomColor(),
                 borderColor: getRandomColor(),
@@ -173,7 +173,7 @@ function calculateAge(date) {
         labels:Object.keys(dataFaculdade),
         datasets: [
             {
-                label: '# Curso',
+                label: '#Faculdade',
                 data: Object.values(dataFaculdade),
                 backgroundColor: getRandomColor(),
                 borderColor: getRandomColor(),
@@ -186,7 +186,7 @@ function calculateAge(date) {
         labels:Object.keys(dataCentro),
         datasets: [
             {
-                label: '# Curso',
+                label: '#Centro',
                 data: Object.values(dataCentro),
                 backgroundColor: getRandomColor(),
                 borderColor: getRandomColor(),
@@ -195,32 +195,32 @@ function calculateAge(date) {
         ],
     })
   }, [subscribes])
-
+    console.log(centerData);
     return (
         <EventAnalyticsBox ref={wrapperRef} mobile={isMobile}>
             <TopText mobile={isMobile}>Estátistica do evento</TopText>
             <AnalyticContent>
 
-                {userType?
+                {userType && userType.labels.length >= 1?
                     <GraphicContent>
                         Faculdade dos inscritos
                         <HorizontalBar data={userType} options={options}/>
                     </GraphicContent> : null}
 
-                {universityData?
+                {universityData && universityData.labels.length >= 1?
                 <GraphicContent>
                     Faculdade dos inscritos
                     <HorizontalBar data={universityData} options={options}/>
                 </GraphicContent> : null}
 
-                {centerData?
+                {centerData && centerData.labels.length >= 1?
                 <GraphicContent>
                     Centro dos inscritos
                     <HorizontalBar data={centerData} options={options}/>
                 </GraphicContent> : null}
             
 
-                {birthData?
+                {birthData && birthData.labels.length >= 1?
                     <GraphicContent>
                         Idade dos inscritos
                         <Pie data={birthData}/>

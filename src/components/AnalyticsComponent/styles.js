@@ -124,3 +124,21 @@ export const StySubData = styled.div`
         font-size:${props => props.isMobile? '14px':'clamp(13px, 2vw, 2.5vw)'};
     }
 `  
+
+export const GraphicContent = styled.div`
+    display:flex;
+    justify-content:flex-start;
+    flex-direction:column;
+    font-size:14px;
+    font-weight:500;
+    text-align:center; 
+    color:#024ea2;
+    box-shadow:0 0 10px rgb(0, 0, 0 , 0.2);
+    background-color:#ffff;
+    padding: 5px;
+    margin:5px;
+
+    height: auto;
+    width: 500px;
+`;
+

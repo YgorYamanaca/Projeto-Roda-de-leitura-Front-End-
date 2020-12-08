@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react'
-import { Container, ExternalBox, Title, Context, DateRequestSty, ResponseDataSty, DateContent, StySubData} from './styles';
+import { Container, ExternalBox, Title, Context, DateRequestSty, ResponseDataSty, DateContent, StySubData, GraphicContent} from './styles';
 import { HorizontalBar, Pie } from 'react-chartjs-2';
 import DatePicker, { registerLocale } from "react-datepicker";
 import ptbr from "date-fns/locale/pt-br";
@@ -51,9 +51,8 @@ export default function AnalyticsComponent() {
             alert('Não foi possível encontrar os dados.')
         )
     }
-    console.log(eventStaticData);
     useLayoutEffect(() => {
-        
+        console.log(eventStaticData);
     }, [eventStaticData])
 
     return (
@@ -104,6 +103,10 @@ export default function AnalyticsComponent() {
                         <div><span>Número de eventos:</span> {eventStaticData.eventos}</div>
                         <div><span>Número de inscritos:</span> {eventStaticData.inscritos}</div>
                     </StySubData>}
+
+                    <GraphicContent>
+
+                    </GraphicContent>
                 </ResponseDataSty>
                 </Context>
             </ExternalBox>

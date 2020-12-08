@@ -79,6 +79,21 @@ export default function UserComponent() {
         </TextContainer>);
     }
 
+    const employUser = (userData) => {
+      let newDate = new Date(userData.data_nasc);
+      return(
+        <TextContainer>
+          <label>Nome:</label>
+          <div>{userData.nome}</div>
+          <label>E-Mail:</label>
+          <div>{userData.email}</div>
+          <label>Data de Nascimento:</label>
+          <div>{`${newDate.getDate()} / ${newDate.getMonth() + 1} / ${newDate.getFullYear()}`}</div>
+          <label>RF:</label>
+          <div>{userData.rf}</div>
+        </TextContainer>);
+    }
+
   /** 
    * @description Adiciona os dados de usuário no status
    */
@@ -94,6 +109,8 @@ export default function UserComponent() {
           return teacherUser(userData);
           case "4":
             return admUser(userData);
+          case "5":
+            return employUser(userData);
           case undefined:
             return null;
           default:
