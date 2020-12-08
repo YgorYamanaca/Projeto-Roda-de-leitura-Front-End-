@@ -64,9 +64,10 @@ function EditComponent({isRender, editDate}) {
     
     /** 
      * @description Função para editar o formato de data
-     * @param {data} tiomezone Objeto data do Js.
+     * @param {data} timezone Objeto data do Js.
      * @return data formatada
      */
+
     function handleDate(timezone)
     {
         let newDate=new Date(timezone);
