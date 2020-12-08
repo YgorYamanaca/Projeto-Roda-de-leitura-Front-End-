@@ -42,7 +42,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-
+/** 
+* @description Componente de chat.
+*
+* @return o componente de chat renderizado
+*/
 function Chat() {
 	const history = useHistory();
 	const classes = useStyles();
@@ -64,78 +68,134 @@ function Chat() {
 	},[token]);
 	const user = useSelector(state => state.user);
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [open, setOpen] = React.useState(false);
+	const [openExcluir, setOpenExcluir] = React.useState(false);
+	/** 
+	* @description Função para renderizar o menu de editar/excluir comentário após o usuario clicar nos 3 botões, e atribuir ao [COMENTARIO] o valor do comentário que foi clicado.
+	*
+	* @param event o evento de clique
+	* @param comment o comentário que foi clicado
+	*/
 	const handleClick = (event, comment) => {
 		setCOMENTARIO(comment)  
 		setAnchorEl(event.currentTarget);
 	};
+	/** 
+	* @description Função para desrenderizar o menu de editar/excluir comentário.
+	*/
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+	/** 
+	* @description Função para chamar a renderização do modal de editar comentário após o clique e desrenderizar o menu.
+	*/
 	const editarComentario = () => {
 		handleClose()
 		handleDialogOpen()
 	}
+	/** 
+	* @description Função para chamar a renderização do modal de excluir comentário após o clique e desrenderizar o menu.
+	*/
 	const excluirComentario = () => {
 		handleClose()
 		handleExcluirOpen()
 	}
-	const [open, setOpen] = React.useState(false);
-
+	/** 
+	* @description Função para renderizar o modal de editar comentário.
+	*/
 	const handleDialogOpen = () => {
 		setOpen(true);
 	};
-
+	/** 
+	* @description Função para desrenderizar o modal de editar comentário.
+	*/
 	const handleDialogClose = () => {
 		setOpen(false);
 	};
+	/** 
+	* @description Função para chamar a API para editar o comentário e fechar o modal.
+	*
+	* @param event o evento de clique
+	* @param comment o comentário editado
+	*/
 	const dialogEditarComentario = (event, comment) => {
-		console.log(comment)
 		alterarComentario(comment)
 		setOpen(false);
 	};
-	const [openExcluir, setOpenExcluir] = React.useState(false);
-
+	/** 
+	* @description Função para desrenderizar o modal de excluir comentário.
+	*/
 	const handleExcluirOpen = () => {
 		setOpenExcluir(true);
 	};
+	/** 
+	* @description Função para chamar a API para excluir o comentário e fechar o modal.
+	*/
 	function dialogExcluirComentario(){
 		deletarComentario()
 		setOpen(false);
-	};	
+	};
+	/** 
+	* @description Função para desrenderizar o modal de excluir comentário.
+	*/
 	const handleExcluirClose = () => {
 		setOpenExcluir(false);
 	};
-
-
-  function deletarComentario(){
-	id = parseInt(COMENTARIO.id_comentario)
-	api.delete(`/comentario`, {id_comentario:id}, {
-		headers:{
-			'x-access-token':token
-			}
-		})
-}
-	
-	  function inserirComentario(comment){
+	/** 
+	* @description Função para deletar o comentário e atualizar a página.
+	*/
+	function deletarComentario(){
+		api.delete(`/comentario`, {
+			data:{
+				'id_comentario':parseInt(COMENTARIO.id_comentario)
+			},
+			headers:{
+				'x-access-token':token
+				}
+			}).then(window.location.reload(false))
+	}
+	/** 
+	* @description Função para inserir o comentário e atualizar a página.
+	*
+	* @param comment comentário que foi digitado
+	*/
+	function inserirComentario(comment){
 		api.post(`/comentario`, {conteudo: comment, id_usuario:user.id_usuario, id_topico:parseInt(topicInfo.id_topico)}, {
 			headers:{
 				'x-access-token':token
 				}
 			}).then(window.location.reload(false))
 	}
-
+	/** 
+	* @description Função para alterar o comentário e atualizar a página.
+	*
+	* @param comment comentário que foi alterado
+	*/
 	function alterarComentario(comment){
 		api.patch(`/comentario`, {id_comentario:COMENTARIO.id_comentario, conteudo: comment}, {
 			headers:{'x-access-token':token}
 		}).then(window.location.reload(false))
-  }
-	
+	}
+	/** 
+	* @description Função para receber uma data do banco de dados e transformar em uma string para mostrar na tela.
+	*
+	* @param data a data a ser mapeada
+	*
+	* @return a data mapeada para string
+	*/
 	function convertDate(data){
 		let finalDate = new window.Date(data)
-		return `${finalDate.getDate()}/${finalDate.getMonth()}/${finalDate.getFullYear()} `
-	  }
-	  function ComentarioComum(comment, index) {
-	
+		return `${finalDate.getDate()}/${finalDate.getMonth()+1}/${finalDate.getFullYear()} `
+	}
+	/** 
+	* @description Função para renderizar um comentário comum.
+	*
+	* @param comment informações do comentário que será renderizado
+	* @param index o index que torna o comentário um componente único
+	*
+	* @return o componente de comentário renderizado
+	*/
+	function ComentarioComum(comment, index) {
 		return (
 	
 			<ListItem alignItems="flex-start" key={"comentarioComum" + index}>
@@ -162,8 +222,14 @@ function Chat() {
 			</ListItem>
 		)
 	}
-
-
+	/** 
+	* @description Função para renderizar um comentário próprio com o menu de editar/excluir comentário.
+	*
+	* @param comment informações do comentário que será renderizado
+	* @param index o index que torna o comentário um componente único
+	*
+	* @return o componente de comentário renderizado
+	*/
 	function ComentarioProprio(comment, index) {
 		return (
 			<ListItem alignItems="flex-start" key={"ComentarioProprio" + index}>
@@ -199,8 +265,6 @@ function Chat() {
 			</ListItem>
 		)
 	}	
-
-
 	return (
 		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row" }}>
 			<Drawer>
@@ -217,12 +281,13 @@ function Chat() {
 							<div>
 								<BookContainer>
 									<div className="BookName">{topicInfo.titulo}</div>
-									<div className="AuthorName">por {topicInfo.autor}</div>
 								</BookContainer>
 								<hr/>
 								<div>
 									<Abstract>Resumo:</Abstract>
 									<AbstractContent>{topicInfo.sinopse}</AbstractContent>
+									<Abstract>Mediador:</Abstract>
+									<AbstractContent>{topicInfo.autor}</AbstractContent>
 									<Date>Tópico criado em:</Date>
 									<DateCreated>{topicInfo.created_at&& convertDate(topicInfo.created_at)}</DateCreated> 
 									<LastComment>Último comentário em</LastComment>

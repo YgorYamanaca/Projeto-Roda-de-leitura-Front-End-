@@ -21,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+/** 
+* @description Componente do fórum.
+*
+* @return o componente de fórum renderizado
+*/
 function Forum() {
   const classes = useStyles();
   const [books, setBooks] = useState([]);
@@ -38,8 +43,14 @@ function Forum() {
       .catch(error => {
       })
     },[token]);
-    console.log(typeof (books))
 
+	/** 
+	* @description Função para receber uma data do banco de dados e transformar em uma string para mostrar na tela.
+	*
+	* @param data a data a ser mapeada
+	*
+	* @return a data mapeada para string
+	*/
     function convertDate(date){
       let finalDate = new Date(date)
       return `${finalDate.getDate()}/${finalDate.getMonth()+1}/${finalDate.getFullYear()} `
@@ -58,13 +69,13 @@ function Forum() {
             </Header>
 
                 {books?
-                books.map(book=>{
+                books.sort((dateA, dateB) => {return new Date(dateB.created_at) - new Date(dateA.created_at)}).map(book=>{
                   return(
                     <ListItem button onClick={() => history.push(`/chat/${book.id_topico}`, history.push('/go-here'))}>
                       <ListItemAvatar>
                         <ImageIcon style={{ color: "#7D7D7D", fontSize: 40}}/>
                       </ListItemAvatar>
-                      <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios?book.comentarios.length<2?book.comentarios.length + " Comentário":' Comentários':'Erro'} />
+                      <ListItemText primary={book.titulo} style={{flex:1}} secondary={book.comentarios?book.comentarios.length<2?book.comentarios.length + " Comentário":book.comentarios.length + ' Comentários':'Erro'} />
                       <ListItemText primary={convertDate(book.created_at)} style={{flex:1}}/>
                       <ListItemText primary={book.comentarios[book.comentarios.length-1]?convertDate(book.comentarios[book.comentarios.length-1].created_at):'Nenhum comentário adicionado'} style={{flex:1}}/>
                     </ListItem>

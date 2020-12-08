@@ -7,12 +7,18 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import ptbr from "date-fns/locale/pt-br";
 import {addEventRequest} from '../../store/modules/eventsData/actions'
 import { useDispatch } from 'react-redux';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import api from '../../services/api';
+import { getToken } from "../../services/auth";
+
 registerLocale("pt", ptbr);
 
 
   /** 
   * @description Componente de criação de evento
   */
+
 
 function CreateComponent({isRender}) {
     const [title, setTitle] = useState('');
@@ -21,9 +27,11 @@ function CreateComponent({isRender}) {
     const [description, setDescription] = useState('');
     const [date, setDate] = useState('');
     const [numberP, setNumber] = useState('');
+    const [state, setState] = React.useState({checkedA: true});
     const dispatch = useDispatch();
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
+    const handleChange = (event) => {setState({ ...state, [event.target.name]: event.target.checked })};
     function useOutsideAlerter(ref) {
       useEffect(() => {
           function handleClickOutside(event) {
@@ -35,8 +43,11 @@ function CreateComponent({isRender}) {
           return () => {
               document.removeEventListener("mousedown", handleClickOutside);
           };
+
       }, [ref]);
+      
   }
+  
 
 /** 
   * @description Função para validar os dados de edição e realizar a requisição
@@ -44,6 +55,14 @@ function CreateComponent({isRender}) {
     function handleSubmit(e){
         if(title && mediator && date && description && place && numberP)
         {
+            if(state.checkedA===true){
+                let token = getToken();
+                 api.post(`/topico`, {titulo: title, autor: mediator, sinopse: description}, {
+                    headers:{
+                        'x-access-token':token
+                        }
+                    })
+            }
             const formData = {
                 'titulo' : title,
                 'descricao' : description,
@@ -62,6 +81,7 @@ function CreateComponent({isRender}) {
             alert("Falta preeencher os dados!");
             e.preventDefault();
         }
+        
     }
 
     return (
@@ -93,9 +113,22 @@ function CreateComponent({isRender}) {
         />
 
         <textarea className='description' maxLength={100} type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
-        
+        <FormControlLabel
+            control={
+                 <Checkbox
+                    checked={state.checkedA}
+                    onChange={handleChange}
+                    name="checkedA"
+                    color="primary"
+                />
+            }
+            label="Desejo criar um fórum para o evento"
+            />
         <StandartButton type={"submit"} text={"Cadastrar"} fontsize={"30px"} customStyle={{width:'80%', height:'55px'}}/>
+       
+
     </AddContainer>
+    
     </AddEventBox>);
 }
 
