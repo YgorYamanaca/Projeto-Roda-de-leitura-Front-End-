@@ -195,7 +195,7 @@ function calculateAge(date) {
         ],
     })
   }, [subscribes])
-    console.log(centerData);
+  
     return (
         <EventAnalyticsBox ref={wrapperRef} mobile={isMobile}>
             <TopText mobile={isMobile}>Estátistica do evento</TopText>
