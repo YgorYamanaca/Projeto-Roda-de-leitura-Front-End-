@@ -282,12 +282,13 @@ function Chat() {
 							<div>
 								<BookContainer>
 									<div className="BookName">{topicInfo.titulo}</div>
-									<div className="AuthorName">por {topicInfo.autor}</div>
 								</BookContainer>
 								<hr/>
 								<div>
 									<Abstract>Resumo:</Abstract>
 									<AbstractContent>{topicInfo.sinopse}</AbstractContent>
+									<Abstract>Mediador:</Abstract>
+									<AbstractContent>{topicInfo.autor}</AbstractContent>
 									<Date>Tópico criado em:</Date>
 									<DateCreated>{topicInfo.created_at&& convertDate(topicInfo.created_at)}</DateCreated> 
 									<LastComment>Último comentário em</LastComment>
