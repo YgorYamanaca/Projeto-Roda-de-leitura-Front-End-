@@ -110,9 +110,10 @@ function CreateComponent({isRender}) {
             showYearDropdown
             dropdownMode="select"
             placeholderText="Selecione uma data para o evento..."
+            minDate={new Date()}
         />
 
-        <textarea className='description' maxLength={100} type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
+        <textarea className='description' maxLength={1000} type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
         <FormControlLabel
             control={
                  <Checkbox

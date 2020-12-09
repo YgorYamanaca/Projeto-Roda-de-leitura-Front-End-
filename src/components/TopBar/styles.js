@@ -40,7 +40,8 @@ export const UserContainer = styled.div`
 `;
 
 export const Option = styled.ul`
-    width:${props => props.mobile? '195px' : '200px'};
+    max-width:${props => props.mobile? '235px' : '350px'};
+    width:auto;
     background-color:#fafafa;
     padding:10px;
     box-shadow: 0px 15px 30px 0px rgba(0,0,0,0.3);
@@ -48,7 +49,6 @@ export const Option = styled.ul`
     list-style:none;
     z-index:99;
     position: absolute;
-
     div
     {
         display:flex;
@@ -68,7 +68,7 @@ export const Option = styled.ul`
         font-size:15px;
         margin:5px;
         font-weight:700;
-        overflow-wrap: break-word;
+        overflow-wrap: anywhere;
     }
     li{
         font-weight:500;

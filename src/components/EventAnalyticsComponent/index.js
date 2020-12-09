@@ -98,18 +98,6 @@ function calculateAge(date) {
         {
             newArray[`${subscribe.faculdade}`] = (newArray[`${subscribe.faculdade}`] || 0 ) + 1
         }
-        else if(subscribe.tipo_usuario === "1")
-        {
-            newArray[`Aluno Externo`] = (newArray[`Aluno Externo`] || 0 ) + 1
-        }
-        else if(subscribe.tipo_usuario === "3")
-        {
-            newArray[`Professor`] = (newArray[`Professor`] || 0 ) + 1
-        }
-        else
-        {
-            newArray[`Funcionário`] = (newArray[`Funcionário`] || 0 ) + 1
-        }
         return newArray
     }, [])
 
@@ -118,26 +106,13 @@ function calculateAge(date) {
         {
             newArray[`${subscribe.centro}`] = (newArray[`${subscribe.centro}`] || 0 ) + 1
         }
-        else if(!subscribe.faculdade &&subscribe.tipo_usuario === "1")
-        {
-            newArray[`Aluno Externo`] = (newArray[`Aluno Externo`] || 0 ) + 1
-        }
-        else if(!subscribe.faculdade && subscribe.tipo_usuario === "3")
-        {
-            newArray[`Professor`] = (newArray[`Professor`] || 0 ) + 1
-        }
-        else if(!subscribe.faculdade && subscribe.tipo_usuario === "4")
-        {
-            newArray[`Funcionário`] = (newArray[`Funcionário`] || 0 ) + 1
-        }
         return newArray
     }, [])
 
     let dataBirth = auxData.reduce((newArray, subscribe) => {
         if(subscribe.data_nasc)
         {
-            subscribe.age = calculateAge(subscribe.data_nasc)
-            newArray[`${subscribe.age}`] = (newArray[`${subscribe.age}`] || 0 ) + 1
+            newArray[`${calculateAge(subscribe.data_nasc)}`] = (newArray[`${calculateAge(subscribe.data_nasc)}`] || 0 ) + 1
         }
         return newArray
     }, [])
@@ -203,7 +178,7 @@ function calculateAge(date) {
 
                 {userType && userType.labels.length >= 1?
                     <GraphicContent>
-                        Faculdade dos inscritos
+                        Tipo dos inscritos
                         <HorizontalBar data={userType} options={options}/>
                     </GraphicContent> : null}
 

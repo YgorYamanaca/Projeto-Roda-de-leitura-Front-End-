@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react'
 import { Container, ExternalBox, Title, Context, DateRequestSty, ResponseDataSty, DateContent, StySubData, AnalyticContent, GraphicContent} from './styles';
-import { HorizontalBar, Pie } from 'react-chartjs-2';
+import { HorizontalBar } from 'react-chartjs-2';
 import DatePicker, { registerLocale } from "react-datepicker";
 import ptbr from "date-fns/locale/pt-br";
 import { isMobile } from "react-device-detect";
@@ -199,7 +199,7 @@ export default function AnalyticsComponent() {
                         </DateContent>
 
                         <StandartButton 
-                            className="requestButton" type={"button"} text={"Buscar dados"} fontsize={isMobile ? '15px' : '20px'} customStyle={isMobile ? {width:'100px', height:'50%'} : {width:'150px', height:'50%'}} onClick={doRequest} disabled={fisrtDate && endDate? false : true}
+                            className="requestButton" type={"button"} text={"Buscar dados"} fontsize={isMobile ? '15px' : '20px'} customStyle={isMobile ? {width:'100px', height:'25%'} : {width:'150px', height:'50%'}} onClick={doRequest} disabled={fisrtDate && endDate? false : true}
                         />
                     </DateRequestSty>
                 <ResponseDataSty>

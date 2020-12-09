@@ -1,5 +1,5 @@
-import React, { memo, useState, useEffect } from 'react';
-import { ChatList, ResponseText, Drawer, BookContainer,Abstract,AbstractContent,DateCreated, Date, LastComment, AboutBook, ChatContainer} from './styles'
+import React, { useState, useEffect } from 'react';
+import { ChatList, ResponseText, Drawer, BookContainer,Abstract,AbstractContent,DateCreated, Date, LastComment, AboutBook } from './styles'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,7 +17,6 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import EdiText from 'react-editext'
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -27,10 +26,8 @@ import "./app.css";
 import api from '../../services/api';
 import { getToken } from "../../services/auth";
 import { useHistory, useParams } from 'react-router-dom';
-import { SignalCellularNull } from '@material-ui/icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { index } from 'd3-array';
-
+import { useSelector} from 'react-redux';
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -198,7 +195,7 @@ function Chat() {
 	function ComentarioComum(comment, index) {
 		return (
 	
-			<ListItem alignItems="flex-start" key={"comentarioComum" + index}>
+			<ListItem alignItems="flex-start" key={"comentarioComum" + index} style={{wordBreak:'break-all'}}>
 				<ListItemAvatar>
 					<Avatar>
 						<ImageIcon />
@@ -232,7 +229,7 @@ function Chat() {
 	*/
 	function ComentarioProprio(comment, index) {
 		return (
-			<ListItem alignItems="flex-start" key={"ComentarioProprio" + index}>
+			<ListItem alignItems="flex-start" key={"ComentarioProprio" + index} style={{wordBreak:'break-all'}}>
 				<ListItemAvatar>
 					<Avatar>
 						<ImageIcon />
@@ -266,8 +263,8 @@ function Chat() {
 		)
 	}	
 	return (
-		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row" }}>
-			<Drawer>
+		<div style={{ width: "100%", height: "100%", backgroundColor: "#F3F3F3", display: "flex", flexDirection: "row", overflow:'auto'}}>
+			{isMobile? null : <Drawer style={{height:'100%'}}>
 				<div>
 					<div>
 						<p className="forum">
@@ -297,10 +294,10 @@ function Chat() {
 						
 					
 			</div>
-			</Drawer>
+			</Drawer>}
 			<div style={{ width: "100%", height: "100%", alignItems: "center", justifyContent: "center", display:"flex"}}>
-				<ChatList style={{ backgroundColor: "#FFFFFF", borderRadius: 20}} >
-					<div style={{ overflowY:"scroll", width: "100%", height: "95%" }} className="scrollbar mt-5 mx-auto" >
+				<ChatList isMobile={isMobile} style={{ backgroundColor: "#FFFFFF", borderRadius: 20}} >
+					<div style={{ overflowY:"scroll", width: "100%", height: "92.5%" }} className="scrollbar mt-5 mx-auto" >
 					<List className={classes.root}>
 						{topicInfo.comentarios?
 						 topicInfo.comentarios.map((comment, index) => {
@@ -310,23 +307,23 @@ function Chat() {
 							else {
 								return ComentarioComum(comment, index)
 							}
-						}): null}
-
+						}): null}	
 					</List>
 					</div>
 					<div>
-					<ResponseText className={classes.root} noValidate autoComplete="off">	
-							<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small" onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
-							style={{minWidth:"90%"} }
-								InputProps={{
-									endAdornment: (
-										<InputAdornment ><IconButton aria-label="enviar" onClick={() =>inserirComentario(document.getElementById("outlined-basic").value) }>
-											<SendIcon />
-										</IconButton>
-										</InputAdornment>
-									)
-								}} />
-					</ResponseText>
+						<ResponseText className={classes.root} noValidate autoComplete="off">	
+						<TextField id="outlined-basic" label="Digite sua mensagem" variant="outlined" size="small"  onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault();}} style={{minWidth:"90%"} }
+						InputProps={{
+							endAdornment: (
+								<InputAdornment ><IconButton aria-label="enviar" onClick={() =>inserirComentario(document.getElementById("outlined-basic").value) }>
+									<SendIcon />
+								</IconButton>
+								</InputAdornment>
+							)
+						}} 
+						inputProps={{maxlength: 4000}}
+						/>
+						</ResponseText>
 					</div>
 				</ChatList>
 			</div>

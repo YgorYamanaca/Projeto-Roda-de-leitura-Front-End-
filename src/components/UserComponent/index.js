@@ -23,9 +23,10 @@ export default function UserComponent() {
           <div>{userData.email}</div>
           <label>Data de Nascimento:</label>
           <div>{`${newDate.getDate()} / ${newDate.getMonth() + 1} / ${newDate.getFullYear()}`}</div>
-          <label>RF:</label>
-          <div>{userData.rf}</div>
-          
+          {userData.rf && <label>RF:</label>}
+          {userData.rf && <div>{userData.rf}</div>}
+          {userData.rp && <label>RP:</label>}
+          {userData.rp && <div>{userData.rp}</div>}
         </TextContainer>);
     }
     const extUser = (userData) => {
@@ -56,8 +57,11 @@ export default function UserComponent() {
           <div>{userData.faculdade}</div>
           <label>Centro:</label>
           <div>{userData.centro}</div>
-          <label>Periódo:</label>
-          <div>{userData.periodo}</div>
+          {userData.periodo && 
+          <>
+            <label>Periódo:</label>
+            <div>{userData.periodo}</div>
+          </>}
         </TextContainer>);
     }
     const teacherUser = (userData) => {
@@ -72,8 +76,10 @@ export default function UserComponent() {
           <div>{`${newDate.getDate()} / ${newDate.getMonth() + 1} / ${newDate.getFullYear()}`}</div>
           <label>RP:</label>
           <div>{userData.rp}</div>
-          <label>Faculdade:</label>
-          <div>{userData.faculdade}</div>
+          {userData.faculdade && <>
+            <label>Faculdade:</label>
+            <div>{userData.faculdade}</div>
+            </>}
           <label>Centro:</label>
           <div>{userData.centro}</div>
         </TextContainer>);

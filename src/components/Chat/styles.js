@@ -1,26 +1,27 @@
 import styled from 'styled-components';
 
 export const ChatList = styled.div`
-    width: 80%;
-	height: 94%;
+    width:${props => props.isMobile? '95%' : '80%'};
+	height: 95%;
 `;
 
 export const Drawer = styled.div`
-   width: 15%;
+   width: 25%;
    height: 100%;
    background-color: #FFFFFF;
+   overflow-x:auto;
    .forum{
        color:#7D7D7D;
-       font-size:27pt;
+       font-size:26px;
        margin-left:2px;
    }
    .BookName{
         color:#434343;
-        font-size:30pt;
+        font-size:24px;
    }
    .AuthorName{
        color:#7D7D7D;
-       font-size:17pt;
+       font-size:24px;
    }
    hr{
         display: block; 

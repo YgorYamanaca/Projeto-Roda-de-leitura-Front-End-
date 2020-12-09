@@ -111,9 +111,11 @@ function EditComponent({isRender, editDate}) {
             showMonthDropdown
             showYearDropdown
             dropdownMode="select"
-            placeholderText={`${handleDate(editDate.data_evento)} - ${handleTime(editDate.data_evento)}`}/>
+            placeholderText={`${handleDate(editDate.data_evento)} - ${handleTime(editDate.data_evento)}`}
+            minDate={new Date()}
+            />
 
-            <textarea className='description' maxLength={100} type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
+            <textarea className='description' maxLength={1000} type="text" placeholder="Digite a descrição..." value={description} onChange={e => setDescription(e.target.value)}/>
             
             <StandartButton type={"submit"} text={"Salvar"} fontsize={isMobile? "20px" : "30px"} customStyle={isMobile? {width:'90%', height:'35px'} : {width:'80%', height:'55px'}}/>
         </EditContainer>

@@ -87,7 +87,7 @@ export const CalenderContainer = styled.div`
     width: 100%;
     justify-content:center;
     padding:2.5px;
-    overflow-y:scroll;
+    overflow-y:auto;
     &::-webkit-scrollbar-track
     {
         
